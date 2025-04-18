@@ -111,14 +111,18 @@
   <div class="content-box">
     <section id="about" class="about">
       <h2>About Us</h2>
-      <p>We serve the altar of God with joy and reverence.</p>
+      <p>The <strong>San Gregorio Magno Altar Servers</strong> are a dedicated group of young individuals who serve in the sacred ministry of assisting the priest during Mass and other liturgical ceremonies at our parish.</p>
+      <p>Our mission is to provide a sacred, dignified, and prayerful presence at the altar of God. We believe that through our service, we are not only helping the Church but also growing in faith, discipline, and commitment.</p>
+      <p>The altar servers at San Gregorio Magno represent the youth of our parish who are eager to serve and embody the values of respect, reverence, and humility.</p>
+      <p>Our ministry is open to all youth who are willing to take on the responsibility of assisting in the liturgical celebrations. We welcome both new and experienced servers.</p>
+      <p>If you feel called to serve, we encourage you to join our altar servers' ministry and help us bring the light of Christ to our parish through service and devotion.</p>
     </section>
   </div>
 
+  <!-- SCHEDULE WITHOUT INCENSO & INCENSE BOAT -->
   <div class="content-box">
     <section id="schedule" class="schedule">
       <h2>Serving Schedule (Sunday)</h2>
-
       <table id="sundaySchedule">
         <thead>
           <tr>
@@ -127,55 +131,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Cross</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Candle 1</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Candle 2</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Bell</td>
-            <td>________</td>
-          </tr>
-          <tr id="insertion-point"></tr>
-          <tr>
-            <td>Big Bell 1</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Big Bell 2</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Server 1</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Server 2</td>
-            <td>________</td>
-          </tr>
+          <tr><td>Cross</td><td>________</td></tr>
+          <tr><td>Candle 1</td><td>________</td></tr>
+          <tr><td>Candle 2</td><td>________</td></tr>
+          <tr><td>Bell</td><td>________</td></tr>
+          <tr><td>Big Bell 1</td><td>________</td></tr>
+          <tr><td>Big Bell 2</td><td>________</td></tr>
+          <tr><td>Server 1</td><td>________</td></tr>
+          <tr><td>Server 2</td><td>________</td></tr>
         </tbody>
       </table>
 
       <h2>Serving Schedule (Monday to Saturday)</h2>
       <table>
-        <tr>
-          <th>Day</th>
-          <th>Server 1</th>
-          <th>Server 2</th>
-        </tr>
-        <tr>
-          <td>Monday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <!-- Add the rest of the days -->
+        <tr><th>Day</th><th>Server 1</th><th>Server 2</th></tr>
+        <tr><td>Monday</td><td>________</td><td>________</td></tr>
+        <tr><td>Tuesday</td><td>________</td><td>________</td></tr>
+        <tr><td>Wednesday</td><td>________</td><td>________</td></tr>
+        <tr><td>Thursday</td><td>________</td><td>________</td></tr>
+        <tr><td>Friday</td><td>________</td><td>________</td></tr>
+        <tr><td>Saturday</td><td>________</td><td>________</td></tr>
       </table>
     </section>
   </div>
@@ -183,36 +158,14 @@
   <div class="content-box">
     <section id="contact" class="contact">
       <h2>Contact Us</h2>
+      <p>If you have questions or want to join the ministry, reach out to our coordinator:</p>
       <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
     </section>
   </div>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
-
-  <script>
-    const showIncensoAndIncenseBoat = true; // Set to true or false
-
-    if (showIncensoAndIncenseBoat) {
-      const insertionPoint = document.getElementById("insertion-point");
-
-      const incensoRow = document.createElement("tr");
-      incensoRow.innerHTML = `
-        <td>Incenso</td>
-        <td>________</td>
-      `;
-
-      const incenseBoatRow = document.createElement("tr");
-      incenseBoatRow.innerHTML = `
-        <td>Incense Boat</td>
-        <td>________</td>
-      `;
-
-      insertionPoint.before(incensoRow);
-      insertionPoint.before(incenseBoatRow);
-    }
-  </script>
 
 </body>
 </html>
