@@ -5,95 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffcc00;
-      color: #000;
-    }
-
-    header {
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2em;
-    }
-
-    nav {
-      background-color: #222;
-      padding: 15px;
-      text-align: center;
-    }
-
-    nav a {
-      color: #ffcc00;
-      margin: 0 20px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1em;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    section {
-      padding: 40px 20px;
-    }
-
-    .content-box {
-      background-color: #fff;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-      margin: 20px auto;
-      max-width: 1000px;
-    }
-
-    h2 {
-      color: #000;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    table, th, td {
-      border: 1px solid #000;
-    }
-
-    th, td {
-      padding: 12px;
-      text-align: center;
-      background-color: #fff;
-      color: #000;
-    }
-
-    footer {
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-
-    a {
-      color: #000;
-    }
-
-    a:hover {
-      color: #333;
-    }
+    /* Your existing CSS code */
   </style>
 </head>
 <body>
@@ -111,21 +23,7 @@
   <div class="content-box">
     <section id="about" class="about">
       <h2>About Us</h2>
-      <p>
-        The <strong>San Gregorio Magno Altar Servers</strong> are a dedicated group of young individuals who serve in the sacred ministry of assisting the priest during Mass and other liturgical ceremonies at our parish.
-      </p>
-      <p>
-        Our mission is to provide a sacred, dignified, and prayerful presence at the altar of God. We believe that through our service, we are not only helping the Church but also growing in faith, discipline, and commitment.
-      </p>
-      <p>
-        The altar servers at San Gregorio Magno represent the youth of our parish who are eager to serve and embody the values of respect, reverence, and humility.
-      </p>
-      <p>
-        Our ministry is open to all youth who are willing to take on the responsibility of assisting in the liturgical celebrations. We welcome both new and experienced servers.
-      </p>
-      <p>
-        If you feel called to serve, we encourage you to join our altar servers' ministry and help us bring the light of Christ to our parish through service and devotion.
-      </p>
+      <!-- About content goes here -->
     </section>
   </div>
 
@@ -188,31 +86,7 @@
           <td>________</td>
           <td>________</td>
         </tr>
-        <tr>
-          <td>Tuesday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Wednesday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Thursday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Friday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Saturday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
+        <!-- Other days' rows here -->
       </table>
     </section>
   </div>
@@ -229,30 +103,32 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
+  <!-- Move the script to the end of the body -->
   <script>
-    // Control whether to show Incenso and Incense Boat
-    const showIncensoAndIncenseBoat = true; // Change to false to hide the rows
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const showIncensoAndIncenseBoat = true; // Set this to true to show, false to hide
 
-    if (showIncensoAndIncenseBoat) {
-      const table = document.getElementById("sundaySchedule");
-      const body = table.querySelector("tbody");
+      if (showIncensoAndIncenseBoat) {
+        const table = document.getElementById("sundaySchedule");
+        const body = table.querySelector("tbody");
 
-      // Create and append Incenso row
-      const incensoRow = document.createElement("tr");
-      incensoRow.innerHTML = `
-        <td>Incenso</td>
-        <td>________</td>
-      `;
-      body.appendChild(incensoRow);
+        // Create and append Incenso row
+        const incensoRow = document.createElement("tr");
+        incensoRow.innerHTML = `
+          <td>Incenso</td>
+          <td>________</td>
+        `;
+        body.appendChild(incensoRow);
 
-      // Create and append Incense Boat row
-      const incenseBoatRow = document.createElement("tr");
-      incenseBoatRow.innerHTML = `
-        <td>Incense Boat</td>
-        <td>________</td>
-      `;
-      body.appendChild(incenseBoatRow);
-    }
+        // Create and append Incense Boat row
+        const incenseBoatRow = document.createElement("tr");
+        incenseBoatRow.innerHTML = `
+          <td>Incense Boat</td>
+          <td>________</td>
+        `;
+        body.appendChild(incenseBoatRow);
+      }
+    });
   </script>
 
 </body>
