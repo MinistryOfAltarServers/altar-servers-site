@@ -140,6 +140,7 @@
 
     days.forEach((day, rowIndex) => {
       const row = tableBody.children[rowIndex];
+
       for (let i = 1; i <= serverCount; i++) {
         const key = `${day}_server${i}`;
         const saved = localStorage.getItem(key);
@@ -152,11 +153,12 @@
           input.readOnly = true;
         } else {
           input.addEventListener("blur", () => {
-            if (input.value.trim() !== "") {
-              const confirmed = confirm("Are you sure? You cannot change this later.");
+            const value = input.value.trim();
+            if (value !== "") {
+              const confirmed = confirm("Are you sure you want to save this? You CANNOT change it later.");
               if (confirmed) {
-                localStorage.setItem(key, input.value.trim());
                 input.readOnly = true;
+                localStorage.setItem(key, value);
               } else {
                 input.value = "";
               }
@@ -170,8 +172,11 @@
       }
     });
 
-    // Developer Reset Option (uncomment to clear all saved names)
-     localStorage.clear();
+    // 🔧 DEV RESET TOOL (Uncomment when needed)
+    // localStorage.clear();
+
+    // 🔧 To clear one input only:
+    // localStorage.removeItem("Tuesday_server4");
   </script>
 
 </body>
