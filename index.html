@@ -5,7 +5,95 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
-    /* Your existing CSS code */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffcc00;
+      color: #000;
+    }
+
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    nav {
+      background-color: #222;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #ffcc00;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      padding: 40px 20px;
+    }
+
+    .content-box {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      max-width: 1000px;
+    }
+
+    h2 {
+      color: #000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    table, th, td {
+      border: 1px solid #000;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+      background-color: #fff;
+      color: #000;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    a {
+      color: #000;
+    }
+
+    a:hover {
+      color: #333;
+    }
   </style>
 </head>
 <body>
@@ -86,7 +174,7 @@
           <td>________</td>
           <td>________</td>
         </tr>
-        <!-- Other days' rows here -->
+        <!-- More days here... -->
       </table>
     </section>
   </div>
@@ -103,30 +191,27 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Move the script to the end of the body -->
   <script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-      const showIncensoAndIncenseBoat = false; // Set this to true to show, false to hide
+    window.addEventListener('DOMContentLoaded', () => {
+      const showIncensoAndIncenseBoat = true; // Toggle this to false to hide the rows
 
       if (showIncensoAndIncenseBoat) {
         const table = document.getElementById("sundaySchedule");
-        const body = table.querySelector("tbody");
+        const tbody = table.querySelector("tbody");
 
-        // Create and append Incenso row
         const incensoRow = document.createElement("tr");
         incensoRow.innerHTML = `
           <td>Incenso</td>
           <td>________</td>
         `;
-        body.appendChild(incensoRow);
+        tbody.appendChild(incensoRow);
 
-        // Create and append Incense Boat row
         const incenseBoatRow = document.createElement("tr");
         incenseBoatRow.innerHTML = `
           <td>Incense Boat</td>
           <td>________</td>
         `;
-        body.appendChild(incenseBoatRow);
+        tbody.appendChild(incenseBoatRow);
       }
     });
   </script>
