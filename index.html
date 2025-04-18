@@ -9,22 +9,15 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #ffcc00; /* Yellow background */
-      color: #000; /* Default black text */
+      background-color: #ffcc00;
+      color: #000;
     }
 
     header {
       background-color: #000;
-      color: #fff; /* White text in header */
+      color: #fff;
       padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2em;
+      text-align: center;
     }
 
     nav {
@@ -45,16 +38,11 @@
       text-decoration: underline;
     }
 
-    section {
-      padding: 40px 20px;
-    }
-
-    /* Styling for the rounded box container */
     .content-box {
-      background-color: #fff; /* White background for the box */
-      border-radius: 15px; /* Rounded corners */
+      background-color: #fff;
+      border-radius: 15px;
       padding: 20px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for a lifted effect */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
       margin: 20px auto;
       max-width: 1000px;
     }
@@ -63,7 +51,6 @@
       color: #000;
     }
 
-    /* Styling for the schedule table */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -75,28 +62,24 @@
     }
 
     th, td {
-      padding: 12px;
+      padding: 10px;
       text-align: center;
-      background-color: #fff;
-      color: #000;
+    }
+
+    input[type="text"] {
+      width: 90%;
+      padding: 6px;
+      box-sizing: border-box;
+      text-align: center;
     }
 
     footer {
       background-color: #000;
-      color: #fff; /* White text in footer */
+      color: #fff;
       text-align: center;
       padding: 20px;
       margin-top: 40px;
     }
-
-    a {
-      color: #000;
-    }
-
-    a:hover {
-      color: #333;
-    }
-
   </style>
 </head>
 <body>
@@ -115,18 +98,16 @@
     <section id="about" class="about">
       <h2>About Us</h2>
       <p>
-        The <strong>San Gregorio Magno Altar Servers</strong> are a dedicated group of young individuals who serve in the sacred ministry of assisting the priest during Mass and other liturgical ceremonies at our parish. This ministry is vital to the smooth running of our worship services, and our altar servers play an integral role in making each Mass a reverent and prayerful experience.
+        The <strong>San Gregorio Magno Altar Servers</strong> are a dedicated group of young individuals who serve during Mass and other liturgical celebrations.
       </p>
     </section>
   </div>
 
   <div class="content-box">
-    <!-- Serving Schedule Section for Sunday -->
     <section id="schedule" class="schedule">
       <h2>Serving Schedule (Sunday)</h2>
 
-      <!-- Sunday Schedule Table -->
-      <table id="sundaySchedule">
+      <table>
         <thead>
           <tr>
             <th>Role</th>
@@ -134,87 +115,40 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Cross</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Candle 1</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Candle 2</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Bell</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Big Bell 1</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Big Bell 2</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Server 1</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Server 2</td>
-            <td>________</td>
-          </tr>
-          <tr>
-            <td>Incenso</td>
-            <td><input type="text" id="incensoName" value=""></td> <!-- Editable -->
-          </tr>
-          <tr>
-            <td>Incense Boat</td>
-            <td><input type="text" id="incenseBoatName" value=""></td> <!-- Editable -->
-          </tr>
+          <tr><td>Cross</td><td>________</td></tr>
+          <tr><td>Candle 1</td><td>________</td></tr>
+          <tr><td>Candle 2</td><td>________</td></tr>
+          <tr><td>Bell</td><td>________</td></tr>
+          <tr><td>Big Bell 1</td><td>________</td></tr>
+          <tr><td>Big Bell 2</td><td>________</td></tr>
+          <tr><td>Server 1</td><td>________</td></tr>
+          <tr><td>Server 2</td><td>________</td></tr>
+          <tr><td>Incenso</td><td>________</td></tr>
+          <tr><td>Incense Boat</td><td>________</td></tr>
         </tbody>
       </table>
 
       <h2>Serving Schedule (Monday to Saturday)</h2>
-      <!-- Monday to Saturday Schedule Table -->
-      <table>
-        <tr>
-          <th>Day</th>
-          <th>Server 1</th>
-          <th>Server 2</th>
-        </tr>
-        <tr>
-          <td>Monday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Tuesday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Wednesday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Thursday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Friday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
-        <tr>
-          <td>Saturday</td>
-          <td>________</td>
-          <td>________</td>
-        </tr>
+
+      <table id="weekdaySchedule">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday</td></tr>
+          <tr><td>Tuesday</td></tr>
+          <tr><td>Wednesday</td></tr>
+          <tr><td>Thursday</td></tr>
+          <tr><td>Friday</td></tr>
+          <tr><td>Saturday</td></tr>
+        </tbody>
       </table>
     </section>
   </div>
@@ -222,34 +156,47 @@
   <div class="content-box">
     <section id="contact" class="contact">
       <h2>Contact Us</h2>
-      <p>If you have questions or want to join the ministry, reach out to our coordinator:</p>
       <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
     </section>
   </div>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers |  San Gregorio Magno</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
   <script>
-    // Load the saved data for Incenso and Incense Boat from localStorage
-    window.addEventListener('DOMContentLoaded', (event) => {
-      const incensoName = localStorage.getItem('incensoName') || ''; // Default to empty if no data
-      const incenseBoatName = localStorage.getItem('incenseBoatName') || ''; // Default to empty if no data
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const serverCount = 5;
+    const tableBody = document.querySelector("#weekdaySchedule tbody");
 
-      // Set the values of the input fields
-      document.getElementById('incensoName').value = incensoName;
-      document.getElementById('incenseBoatName').value = incenseBoatName;
+    // Helper to load saved names
+    function loadSavedData(day, col) {
+      return localStorage.getItem(`${day}_server${col}`) || "";
+    }
+
+    // Create weekday rows with 5 editable inputs
+    days.forEach((day, rowIndex) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `<td>${day}</td>`;
+
+      for (let i = 1; i <= serverCount; i++) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = loadSavedData(day, i);
+        input.addEventListener("input", () => {
+          localStorage.setItem(`${day}_server${i}`, input.value);
+        });
+
+        const cell = document.createElement("td");
+        cell.appendChild(input);
+        row.appendChild(cell);
+      }
+
+      tableBody.replaceChild(row, tableBody.children[rowIndex]);
     });
 
-    // Save the updated names to localStorage whenever they change
-    document.getElementById('incensoName').addEventListener('input', (event) => {
-      localStorage.setItem('incensoName', event.target.value); // Save the value
-    });
-
-    document.getElementById('incenseBoatName').addEventListener('input', (event) => {
-      localStorage.setItem('incenseBoatName', event.target.value); // Save the value
-    });
+    // To clear all data manually, uncomment this line:
+    // localStorage.clear();
   </script>
 
 </body>
