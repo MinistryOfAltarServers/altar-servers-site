@@ -57,12 +57,34 @@
       text-align: center;
     }
 
+    input[type="text"] {
+      width: 90%;
+      padding: 5px;
+      font-size: 1em;
+    }
+
+    input[readonly] {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
+
     footer {
       background-color: #000;
       color: #fff;
       text-align: center;
       padding: 15px;
       margin-top: 40px;
+    }
+
+    @media only screen and (max-width: 600px) {
+      table, th, td {
+        font-size: 12px;
+        padding: 8px;
+      }
+      th, td {
+        display: block;
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -80,25 +102,25 @@
 
   <div class="content-box">
     <section id="schedule">
-      <h2>Sunday Schedule (No Input Fields)</h2>
-      <table>
+      <h2>Serving Schedule (Monday to Saturday)</h2>
+      <table id="weekdaySchedule">
         <thead>
           <tr>
-            <th>Role</th>
-            <th>Server Names</th>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Cross</td><td>________</td></tr>
-          <tr><td>Candle 1</td><td>________</td></tr>
-          <tr><td>Candle 2</td><td>________</td></tr>
-          <tr><td>Bell</td><td>________</td></tr>
-          <tr><td>Big Bell 1</td><td>________</td></tr>
-          <tr><td>Big Bell 2</td><td>________</td></tr>
-          <tr><td>Server 1</td><td>________</td></tr>
-          <tr><td>Server 2</td><td>________</td></tr>
-          <tr><td>Incenso</td><td>________</td></tr>
-          <tr><td>Incense Boat</td><td>________</td></tr>
+          <tr><td>Monday</td></tr>
+          <tr><td>Tuesday</td></tr>
+          <tr><td>Wednesday</td></tr>
+          <tr><td>Thursday</td></tr>
+          <tr><td>Friday</td></tr>
+          <tr><td>Saturday</td></tr>
         </tbody>
       </table>
     </section>
@@ -107,6 +129,55 @@
   <footer>
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
+      authDomain: "altar-servers-e3e2a.firebaseapp.com",
+      projectId: "altar-servers-e3e2a",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
+      messagingSenderId: "184021840775",
+      appId: "1:184021840775:web:1ac06fe4838046010a9922"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const serverCount = 5;
+    const tableBody = document.querySelector("#weekdaySchedule tbody");
+
+    // Function to load schedule data from Firebase
+    function loadData() {
+      days.forEach((day, index) => {
+        const row = tableBody.children[index];
+        for (let i = 1; i <= serverCount; i++) {
+          const key = `${day}_server${i}`;
+          const td = row.children[i];
+
+          const input = td.querySelector("input");
+
+          // Fetch the data from Firebase
+          get(child(ref(db), `schedule/${key}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+              const serverName = snapshot.val();
+              input.value = serverName;
+              input.readOnly = true;
+            }
+          }).catch((error) => {
+            console.error("Error loading data: ", error);
+          });
+        }
+      });
+    }
+
+    // Load the data when the page loads
+    loadData();
+  </script>
 
 </body>
 </html>
