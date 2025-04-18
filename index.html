@@ -209,7 +209,7 @@
           }
         });
 
-        // Save to Firestore on blur
+        // Save to Firestore on blur (when user clicks out of the input)
         input.addEventListener("blur", () => {
           if (input.value.trim() !== "") {
             const confirmed = confirm("Are you sure? You cannot change this later.");
@@ -217,9 +217,9 @@
               const update = {};
               update[fieldKey] = input.value.trim();
               db.collection("weekdaySchedule").doc(day).set(update, { merge: true });
-              input.readOnly = true;
+              input.readOnly = true; // Make it readonly after submission
             } else {
-              input.value = "";
+              input.value = ""; // Clear the field if not confirmed
             }
           }
         });
