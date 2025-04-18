@@ -115,12 +115,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Monday</td></tr>
-          <tr><td>Tuesday</td></tr>
-          <tr><td>Wednesday</td></tr>
-          <tr><td>Thursday</td></tr>
-          <tr><td>Friday</td></tr>
-          <tr><td>Saturday</td></tr>
+          <tr><td>Monday</td><td><input type="text" id="monday_server1"></td><td><input type="text" id="monday_server2"></td><td><input type="text" id="monday_server3"></td><td><input type="text" id="monday_server4"></td><td><input type="text" id="monday_server5"></td></tr>
+          <tr><td>Tuesday</td><td><input type="text" id="tuesday_server1"></td><td><input type="text" id="tuesday_server2"></td><td><input type="text" id="tuesday_server3"></td><td><input type="text" id="tuesday_server4"></td><td><input type="text" id="tuesday_server5"></td></tr>
+          <tr><td>Wednesday</td><td><input type="text" id="wednesday_server1"></td><td><input type="text" id="wednesday_server2"></td><td><input type="text" id="wednesday_server3"></td><td><input type="text" id="wednesday_server4"></td><td><input type="text" id="wednesday_server5"></td></tr>
+          <tr><td>Thursday</td><td><input type="text" id="thursday_server1"></td><td><input type="text" id="thursday_server2"></td><td><input type="text" id="thursday_server3"></td><td><input type="text" id="thursday_server4"></td><td><input type="text" id="thursday_server5"></td></tr>
+          <tr><td>Friday</td><td><input type="text" id="friday_server1"></td><td><input type="text" id="friday_server2"></td><td><input type="text" id="friday_server3"></td><td><input type="text" id="friday_server4"></td><td><input type="text" id="friday_server5"></td></tr>
+          <tr><td>Saturday</td><td><input type="text" id="saturday_server1"></td><td><input type="text" id="saturday_server2"></td><td><input type="text" id="saturday_server3"></td><td><input type="text" id="saturday_server4"></td><td><input type="text" id="saturday_server5"></td></tr>
         </tbody>
       </table>
     </section>
@@ -149,24 +149,20 @@
     const db = getDatabase(app);
     const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const serverCount = 5;
-    const tableBody = document.querySelector("#weekdaySchedule tbody");
 
     // Function to load schedule data from Firebase
     function loadData() {
-      days.forEach((day, index) => {
-        const row = tableBody.children[index];
+      days.forEach((day) => {
         for (let i = 1; i <= serverCount; i++) {
-          const key = `${day}_server${i}`;
-          const td = row.children[i];
+          const key = `${day.toLowerCase()}_server${i}`;
+          const inputElement = document.getElementById(`${day.toLowerCase()}_server${i}`);
 
-          const input = td.querySelector("input");
-
-          // Fetch the data from Firebase
+          // Fetch data from Firebase
           get(child(ref(db), `schedule/${key}`)).then((snapshot) => {
             if (snapshot.exists()) {
               const serverName = snapshot.val();
-              input.value = serverName;
-              input.readOnly = true;
+              inputElement.value = serverName;
+              inputElement.readOnly = true;
             }
           }).catch((error) => {
             console.error("Error loading data: ", error);
