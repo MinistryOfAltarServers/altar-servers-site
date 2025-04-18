@@ -98,6 +98,62 @@
 
   <div class="content-box">
     <section id="schedule">
+      <h2>Serving Schedule (Sunday)</h2>
+      <table id="sundaySchedule">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Server Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cross</td>
+            <td><input type="text" id="sundayCross" /></td>
+          </tr>
+          <tr>
+            <td>Candle 1</td>
+            <td><input type="text" id="sundayCandle1" /></td>
+          </tr>
+          <tr>
+            <td>Candle 2</td>
+            <td><input type="text" id="sundayCandle2" /></td>
+          </tr>
+          <tr>
+            <td>Bell</td>
+            <td><input type="text" id="sundayBell" /></td>
+          </tr>
+          <tr>
+            <td>Big Bell 1</td>
+            <td><input type="text" id="sundayBigBell1" /></td>
+          </tr>
+          <tr>
+            <td>Big Bell 2</td>
+            <td><input type="text" id="sundayBigBell2" /></td>
+          </tr>
+          <tr>
+            <td>Server 1</td>
+            <td><input type="text" id="sundayServer1" /></td>
+          </tr>
+          <tr>
+            <td>Server 2</td>
+            <td><input type="text" id="sundayServer2" /></td>
+          </tr>
+          <tr>
+            <td>Server 3</td>
+            <td><input type="text" id="sundayServer3" /></td>
+          </tr>
+          <tr>
+            <td>Server 4</td>
+            <td><input type="text" id="sundayServer4" /></td>
+          </tr>
+          <tr>
+            <td>Server 5</td>
+            <td><input type="text" id="sundayServer5" /></td>
+          </tr>
+        </tbody>
+      </table>
+
       <h2>Serving Schedule (Monday to Saturday)</h2>
       <table id="weekdaySchedule">
         <thead>
@@ -138,9 +194,33 @@
     const serverCount = 5;
     const tableBody = document.querySelector("#weekdaySchedule tbody");
 
+    // Sunday schedule logic
+    const sundayRoles = ["Cross", "Candle 1", "Candle 2", "Bell", "Big Bell 1", "Big Bell 2", "Server 1", "Server 2", "Server 3", "Server 4", "Server 5"];
+    sundayRoles.forEach((role, index) => {
+      const inputId = `sunday${role.replace(/\s+/g, '')}`;
+      const saved = localStorage.getItem(inputId);
+      const input = document.querySelector(`#${inputId}`);
+      if (saved) {
+        input.value = saved;
+        input.readOnly = true;
+      }
+      input.addEventListener("blur", () => {
+        const value = input.value.trim();
+        if (value !== "") {
+          const confirmed = confirm(`Are you sure you want to save "${role}"? You cannot change this later.`);
+          if (confirmed) {
+            input.readOnly = true;
+            localStorage.setItem(inputId, value);
+          } else {
+            input.value = "";
+          }
+        }
+      });
+    });
+
+    // Weekday schedule logic
     days.forEach((day, rowIndex) => {
       const row = tableBody.children[rowIndex];
-
       for (let i = 1; i <= serverCount; i++) {
         const key = `${day}_server${i}`;
         const saved = localStorage.getItem(key);
@@ -155,10 +235,10 @@
           input.addEventListener("blur", () => {
             const value = input.value.trim();
             if (value !== "") {
-              const confirmed = confirm("Are you sure you want to save this? You CANNOT change it later.");
+              const confirmed = confirm("Are you sure? You cannot change this later.");
               if (confirmed) {
+                localStorage.setItem(key, value.trim());
                 input.readOnly = true;
-                localStorage.setItem(key, value);
               } else {
                 input.value = "";
               }
@@ -174,9 +254,6 @@
 
     // 🔧 DEV RESET TOOL (Uncomment when needed)
     // localStorage.clear();
-
-    // 🔧 To clear one input only:
-    // localStorage.removeItem("Tuesday_server4");
   </script>
 
 </body>
