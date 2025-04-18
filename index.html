@@ -73,6 +73,11 @@
       text-align: center;
     }
 
+    input[readonly] {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
+
     footer {
       background-color: #000;
       color: #fff;
@@ -95,7 +100,7 @@
   </nav>
 
   <div class="content-box">
-    <section id="about" class="about">
+    <section id="about">
       <h2>About Us</h2>
       <p>
         The <strong>San Gregorio Magno Altar Servers</strong> are a dedicated group of young individuals who serve during Mass and other liturgical celebrations.
@@ -104,7 +109,7 @@
   </div>
 
   <div class="content-box">
-    <section id="schedule" class="schedule">
+    <section id="schedule">
       <h2>Serving Schedule (Sunday)</h2>
 
       <table>
@@ -154,7 +159,7 @@
   </div>
 
   <div class="content-box">
-    <section id="contact" class="contact">
+    <section id="contact">
       <h2>Contact Us</h2>
       <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
     </section>
@@ -169,33 +174,41 @@
     const serverCount = 5;
     const tableBody = document.querySelector("#weekdaySchedule tbody");
 
-    // Helper to load saved names
-    function loadSavedData(day, col) {
-      return localStorage.getItem(`${day}_server${col}`) || "";
+    function loadSaved(day, num) {
+      return localStorage.getItem(`${day}_server${num}`) || "";
     }
 
-    // Create weekday rows with 5 editable inputs
-    days.forEach((day, rowIndex) => {
+    days.forEach((day, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `<td>${day}</td>`;
 
       for (let i = 1; i <= serverCount; i++) {
+        const savedValue = loadSaved(day, i);
         const input = document.createElement("input");
         input.type = "text";
-        input.value = loadSavedData(day, i);
-        input.addEventListener("input", () => {
-          localStorage.setItem(`${day}_server${i}`, input.value);
+        input.value = savedValue;
+
+        // If a name is saved, make input readonly
+        if (savedValue !== "") {
+          input.readOnly = true;
+        }
+
+        input.addEventListener("change", () => {
+          if (input.value.trim() !== "") {
+            localStorage.setItem(`${day}_server${i}`, input.value.trim());
+            input.readOnly = true;
+          }
         });
 
-        const cell = document.createElement("td");
-        cell.appendChild(input);
-        row.appendChild(cell);
+        const td = document.createElement("td");
+        td.appendChild(input);
+        row.appendChild(td);
       }
 
-      tableBody.replaceChild(row, tableBody.children[rowIndex]);
+      tableBody.replaceChild(row, tableBody.children[index]);
     });
 
-    // To clear all data manually, uncomment this line:
+    // To clear saved names, uncomment the line below and refresh once:
     // localStorage.clear();
   </script>
 
