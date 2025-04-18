@@ -111,7 +111,7 @@
   <div class="content-box">
     <section id="about" class="about">
       <h2>About Us</h2>
-      <!-- About content -->
+      <p>We serve the altar of God with joy and reverence.</p>
     </section>
   </div>
 
@@ -143,7 +143,7 @@
             <td>Bell</td>
             <td>________</td>
           </tr>
-          <!-- Incenso and Incense Boat will be inserted here -->
+          <tr id="insertion-point"></tr>
           <tr>
             <td>Big Bell 1</td>
             <td>________</td>
@@ -175,7 +175,7 @@
           <td>________</td>
           <td>________</td>
         </tr>
-        <!-- Add other weekdays as needed -->
+        <!-- Add the rest of the days -->
       </table>
     </section>
   </div>
@@ -183,40 +183,35 @@
   <div class="content-box">
     <section id="contact" class="contact">
       <h2>Contact Us</h2>
-      <p>If you have questions or want to join the ministry, reach out to our coordinator:</p>
       <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
     </section>
   </div>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers</p>
   </footer>
 
   <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const showIncensoAndIncenseBoat = false;
+    const showIncensoAndIncenseBoat = true; // Set to true or false
 
-      if (showIncensoAndIncenseBoat) {
-        const table = document.getElementById("sundaySchedule");
-        const rows = table.querySelectorAll("tbody tr");
+    if (showIncensoAndIncenseBoat) {
+      const insertionPoint = document.getElementById("insertion-point");
 
-        const incensoRow = document.createElement("tr");
-        incensoRow.innerHTML = `
-          <td>Incenso</td>
-          <td>________</td>
-        `;
+      const incensoRow = document.createElement("tr");
+      incensoRow.innerHTML = `
+        <td>Incenso</td>
+        <td>________</td>
+      `;
 
-        const incenseBoatRow = document.createElement("tr");
-        incenseBoatRow.innerHTML = `
-          <td>Incense Boat</td>
-          <td>________</td>
-        `;
+      const incenseBoatRow = document.createElement("tr");
+      incenseBoatRow.innerHTML = `
+        <td>Incense Boat</td>
+        <td>________</td>
+      `;
 
-        // Insert after Bell (index 3)
-        rows[3].after(incenseBoatRow);
-        rows[3].after(incensoRow);
-      }
-    });
+      insertionPoint.before(incensoRow);
+      insertionPoint.before(incenseBoatRow);
+    }
   </script>
 
 </body>
