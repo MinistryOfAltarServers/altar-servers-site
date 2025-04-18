@@ -133,24 +133,20 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Add Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
   <script>
-    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
-      databaseURL: "https://altar-servers-e3e2a-default-rtdb.firebaseio.com",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.appspot.com",
+      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
       messagingSenderId: "184021840775",
       appId: "1:184021840775:web:1ac06fe4838046010a9922",
       measurementId: "G-MQVV9NJ0SS"
     };
 
-    // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database(app);
 
@@ -158,54 +154,55 @@
     const serverCount = 5;
     const tableBody = document.querySelector("#weekdaySchedule tbody");
 
-    // Loop through the days and create input fields
-    days.forEach((day, rowIndex) => {
-      const row = tableBody.children[rowIndex];
-      for (let i = 1; i <= serverCount; i++) {
-        const key = `${day}_server${i}`;
-
-        // Fetch saved data from Firebase
-        const input = document.createElement("input");
-        input.type = "text";
-        firebase.database().ref(key).once('value', (snapshot) => {
-          const savedName = snapshot.val();
-          if (savedName) {
-            input.value = savedName;
-            input.readOnly = true;
-          } else {
-            input.addEventListener("blur", () => {
-              if (input.value.trim() !== "") {
-                const confirmed = confirm("Are you sure? You cannot change this later.");
-                if (confirmed) {
-                  // Save data to Firebase
-                  firebase.database().ref(key).set(input.value.trim());
-                  input.readOnly = true;
-                } else {
-                  input.value = "";
-                }
-              }
-            });
-          }
-        });
-
-        const td = document.createElement("td");
-        td.appendChild(input);
-        row.appendChild(td);
-      }
-    });
-
-    // Function to reset all data in Firebase (e.g., clearing all input fields)
-    function resetData() {
-      days.forEach((day) => {
+    function loadData() {
+      days.forEach((day, rowIndex) => {
+        const row = tableBody.children[rowIndex];
         for (let i = 1; i <= serverCount; i++) {
           const key = `${day}_server${i}`;
-          firebase.database().ref(key).remove();
+          const serverInput = row.children[i];
+
+          // Set value from Firebase
+          firebase.database().ref(`schedule/${key}`).once('value').then(snapshot => {
+            const saved = snapshot.val();
+            const input = serverInput.querySelector("input");
+            input.value = saved || "";
+
+            if (saved) {
+              input.readOnly = true;
+            } else {
+              input.addEventListener("blur", () => {
+                if (input.value.trim() !== "") {
+                  const confirmed = confirm("Are you sure? You cannot change this later.");
+                  if (confirmed) {
+                    firebase.database().ref(`schedule/${key}`).set(input.value.trim());
+                    input.readOnly = true;
+                  } else {
+                    input.value = "";
+                  }
+                }
+              });
+            }
+          });
         }
       });
     }
 
-    // Developer reset button (uncomment below to use)
-    // resetData();
+    function initializeSchedule() {
+      days.forEach((day, rowIndex) => {
+        const row = tableBody.children[rowIndex];
+        for (let i = 1; i <= serverCount; i++) {
+          const td = document.createElement("td");
+          const input = document.createElement("input");
+          input.type = "text";
+          td.appendChild(input);
+          row.appendChild(td);
+        }
+      });
+      loadData();
+    }
+
+    // Initialize the schedule on load
+    window.onload = initializeSchedule;
   </script>
 
 </body>
