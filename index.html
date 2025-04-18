@@ -90,9 +90,38 @@
   </nav>
 
   <div class="content-box">
+    <section id="about">
+      <h2>About Us</h2>
+      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+    </section>
+  </div>
+
+  <div class="content-box">
     <section id="schedule">
-      <h2>Serving Schedule (Sunday to Saturday)</h2>
-      <table id="serverSchedule">
+      <!-- Sunday Schedule with Cross, Candle, Bell, Big Bell servers -->
+      <h2>Serving Schedule (Sunday)</h2>
+      <table id="sundaySchedule">
+        <thead>
+          <tr>
+            <th>Cross Server</th>
+            <th>Candle Server</th>
+            <th>Bell Server</th>
+            <th>Big Bell Server</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="sundayCross" placeholder="Enter name"></td>
+            <td><input type="text" id="sundayCandle" placeholder="Enter name"></td>
+            <td><input type="text" id="sundayBell" placeholder="Enter name"></td>
+            <td><input type="text" id="sundayBigBell" placeholder="Enter name"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Weekdays (Monday-Saturday) Schedule -->
+      <h2>Serving Schedule (Monday to Saturday)</h2>
+      <table id="weekdaySchedule">
         <thead>
           <tr>
             <th>Day</th>
@@ -104,15 +133,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Sunday</td><td><input type="text" id="sunday_server1"></td><td><input type="text" id="sunday_server2"></td><td><input type="text" id="sunday_server3"></td><td><input type="text" id="sunday_server4"></td><td><input type="text" id="sunday_server5"></td></tr>
-          <tr><td>Monday</td><td><input type="text" id="monday_server1"></td><td><input type="text" id="monday_server2"></td><td><input type="text" id="monday_server3"></td><td><input type="text" id="monday_server4"></td><td><input type="text" id="monday_server5"></td></tr>
-          <tr><td>Tuesday</td><td><input type="text" id="tuesday_server1"></td><td><input type="text" id="tuesday_server2"></td><td><input type="text" id="tuesday_server3"></td><td><input type="text" id="tuesday_server4"></td><td><input type="text" id="tuesday_server5"></td></tr>
-          <tr><td>Wednesday</td><td><input type="text" id="wednesday_server1"></td><td><input type="text" id="wednesday_server2"></td><td><input type="text" id="wednesday_server3"></td><td><input type="text" id="wednesday_server4"></td><td><input type="text" id="wednesday_server5"></td></tr>
-          <tr><td>Thursday</td><td><input type="text" id="thursday_server1"></td><td><input type="text" id="thursday_server2"></td><td><input type="text" id="thursday_server3"></td><td><input type="text" id="thursday_server4"></td><td><input type="text" id="thursday_server5"></td></tr>
-          <tr><td>Friday</td><td><input type="text" id="friday_server1"></td><td><input type="text" id="friday_server2"></td><td><input type="text" id="friday_server3"></td><td><input type="text" id="friday_server4"></td><td><input type="text" id="friday_server5"></td></tr>
-          <tr><td>Saturday</td><td><input type="text" id="saturday_server1"></td><td><input type="text" id="saturday_server2"></td><td><input type="text" id="saturday_server3"></td><td><input type="text" id="saturday_server4"></td><td><input type="text" id="saturday_server5"></td></tr>
+          <tr><td>Monday</td></tr>
+          <tr><td>Tuesday</td></tr>
+          <tr><td>Wednesday</td></tr>
+          <tr><td>Thursday</td></tr>
+          <tr><td>Friday</td></tr>
+          <tr><td>Saturday</td></tr>
         </tbody>
       </table>
+    </section>
+  </div>
+
+  <div class="content-box">
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
     </section>
   </div>
 
@@ -120,54 +155,68 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js"></script>
-
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
-      authDomain: "altar-servers-e3e2a.firebaseapp.com",
-      projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
-      messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922",
-      measurementId: "G-MQVV9NJ0SS"
-    };
+    // Local storage saving for Sunday
+    const sundayServerFields = ['sundayCross', 'sundayCandle', 'sundayBell', 'sundayBigBell'];
 
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database(app);
-
-    // Fetch and display saved data from Firebase for each day
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    days.forEach(day => {
-      for (let i = 1; i <= 5; i++) {
-        const serverId = `${day.toLowerCase()}_server${i}`;
-        const input = document.getElementById(serverId);
-
-        // Retrieve stored value from Firebase
-        const serverRef = database.ref(`servers/${day}/${i}`);
-        serverRef.once('value').then(snapshot => {
-          const serverName = snapshot.val();
-          if (serverName) {
-            input.value = serverName;
-            input.readOnly = true;  // Lock the input if the data is already saved
-          }
-
-          input.addEventListener('blur', () => {
-            if (input.value.trim() !== "") {
-              const confirmed = confirm("Are you sure? You cannot change this later.");
-              if (confirmed) {
-                serverRef.set(input.value.trim());  // Save to Firebase
-                input.readOnly = true;
-              } else {
-                input.value = "";  // Reset if the user cancels
-              }
+    sundayServerFields.forEach((id) => {
+      const inputField = document.getElementById(id);
+      const savedValue = localStorage.getItem(id);
+      
+      if (savedValue) {
+        inputField.value = savedValue;
+        inputField.readOnly = true;
+      } else {
+        inputField.addEventListener('blur', () => {
+          if (inputField.value.trim() !== "") {
+            const confirmed = confirm("Are you sure? You cannot change this later.");
+            if (confirmed) {
+              localStorage.setItem(id, inputField.value.trim());
+              inputField.readOnly = true;
+            } else {
+              inputField.value = "";
             }
-          });
+          }
         });
       }
     });
+
+    // Local storage saving for Weekdays (Monday to Saturday)
+    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const serverCount = 5;
+
+    weekdays.forEach((day, rowIndex) => {
+      const row = document.querySelector(`#weekdaySchedule tbody`).children[rowIndex];
+      for (let i = 1; i <= serverCount; i++) {
+        const key = `${day}_server${i}`;
+        const saved = localStorage.getItem(key);
+        
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = saved || "";
+        
+        if (saved) {
+          input.readOnly = true;
+        } else {
+          input.addEventListener("blur", () => {
+            if (input.value.trim() !== "") {
+              const confirmed = confirm("Are you sure? You cannot change this later.");
+              if (confirmed) {
+                localStorage.setItem(key, input.value.trim());
+                input.readOnly = true;
+              } else {
+                input.value = "";
+              }
+            }
+          });
+        }
+
+        const td = document.createElement("td");
+        td.appendChild(input);
+        row.appendChild(td);
+      }
+    });
   </script>
+
 </body>
 </html>
