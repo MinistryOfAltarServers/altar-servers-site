@@ -102,8 +102,8 @@
 
   <div class="content-box">
     <section id="schedule">
-      <h2>Serving Schedule (Sunday)</h2>
-      <table id="sundaySchedule">
+      <h2>Serving Schedule (Sunday to Saturday)</h2>
+      <table id="serverSchedule">
         <thead>
           <tr>
             <th>Day</th>
@@ -116,24 +116,6 @@
         </thead>
         <tbody>
           <tr><td>Sunday</td><td><input type="text" id="sunday_server1"></td><td><input type="text" id="sunday_server2"></td><td><input type="text" id="sunday_server3"></td><td><input type="text" id="sunday_server4"></td><td><input type="text" id="sunday_server5"></td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="weekdaySchedule">
-      <h2>Serving Schedule (Monday to Saturday)</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Server 1</th>
-            <th>Server 2</th>
-            <th>Server 3</th>
-            <th>Server 4</th>
-            <th>Server 5</th>
-          </tr>
-        </thead>
-        <tbody>
           <tr><td>Monday</td><td><input type="text" id="monday_server1"></td><td><input type="text" id="monday_server2"></td><td><input type="text" id="monday_server3"></td><td><input type="text" id="monday_server4"></td><td><input type="text" id="monday_server5"></td></tr>
           <tr><td>Tuesday</td><td><input type="text" id="tuesday_server1"></td><td><input type="text" id="tuesday_server2"></td><td><input type="text" id="tuesday_server3"></td><td><input type="text" id="tuesday_server4"></td><td><input type="text" id="tuesday_server5"></td></tr>
           <tr><td>Wednesday</td><td><input type="text" id="wednesday_server1"></td><td><input type="text" id="wednesday_server2"></td><td><input type="text" id="wednesday_server3"></td><td><input type="text" id="wednesday_server4"></td><td><input type="text" id="wednesday_server5"></td></tr>
@@ -153,7 +135,6 @@
   <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js"></script>
 
   <script>
-    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
