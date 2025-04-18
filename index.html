@@ -102,7 +102,7 @@
 
   <div class="content-box">
     <section id="schedule">
-      <h2>Serving Schedule (Monday to Saturday)</h2>
+      <h2>Serving Schedule (Sunday to Saturday)</h2>
       <table id="weekdaySchedule">
         <thead>
           <tr>
@@ -115,6 +115,7 @@
           </tr>
         </thead>
         <tbody>
+          <tr><td>Sunday</td><td><input type="text" id="sunday_server1"></td><td><input type="text" id="sunday_server2"></td><td><input type="text" id="sunday_server3"></td><td><input type="text" id="sunday_server4"></td><td><input type="text" id="sunday_server5"></td></tr>
           <tr><td>Monday</td><td><input type="text" id="monday_server1"></td><td><input type="text" id="monday_server2"></td><td><input type="text" id="monday_server3"></td><td><input type="text" id="monday_server4"></td><td><input type="text" id="monday_server5"></td></tr>
           <tr><td>Tuesday</td><td><input type="text" id="tuesday_server1"></td><td><input type="text" id="tuesday_server2"></td><td><input type="text" id="tuesday_server3"></td><td><input type="text" id="tuesday_server4"></td><td><input type="text" id="tuesday_server5"></td></tr>
           <tr><td>Wednesday</td><td><input type="text" id="wednesday_server1"></td><td><input type="text" id="wednesday_server2"></td><td><input type="text" id="wednesday_server3"></td><td><input type="text" id="wednesday_server4"></td><td><input type="text" id="wednesday_server5"></td></tr>
@@ -147,7 +148,7 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const serverCount = 5;
 
     // Function to load schedule data from Firebase
