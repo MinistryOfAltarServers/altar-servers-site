@@ -98,7 +98,29 @@
 
   <div class="content-box">
     <section id="schedule">
-      <h2>Serving Schedule (Monday to Sunday)</h2>
+      <h2>Serving Schedule (Sunday)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Server Names</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Cross</td><td>________</td></tr>
+          <tr><td>Candle 1</td><td>________</td></tr>
+          <tr><td>Candle 2</td><td>________</td></tr>
+          <tr><td>Bell</td><td>________</td></tr>
+          <tr><td>Big Bell 1</td><td>________</td></tr>
+          <tr><td>Big Bell 2</td><td>________</td></tr>
+          <tr><td>Server 1</td><td>________</td></tr>
+          <tr><td>Server 2</td><td>________</td></tr>
+          <tr><td>Incenso</td><td>________</td></tr>
+          <tr><td>Incense Boat</td><td>________</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Serving Schedule (Monday to Saturday)</h2>
       <table id="weekdaySchedule">
         <thead>
           <tr>
@@ -111,7 +133,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Sunday</td><td colspan="5">No entries for Sunday</td></tr>
           <tr><td>Monday</td></tr>
           <tr><td>Tuesday</td></tr>
           <tr><td>Wednesday</td></tr>
@@ -134,75 +155,59 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
       messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922",
-      measurementId: "G-MQVV9NJ0SS"
+      appId: "1:184021840775:web:1ac06fe4838046010a9922"
     };
 
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database(app);
-
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const serverCount = 5;
     const tableBody = document.querySelector("#weekdaySchedule tbody");
 
     function loadData() {
-      days.forEach((day, rowIndex) => {
-        const row = tableBody.children[rowIndex + 1]; // Skip Sunday row
-        if (day === "Sunday") return; // Skip input for Sunday
-
+      days.forEach((day, index) => {
+        const row = tableBody.children[index];
         for (let i = 1; i <= serverCount; i++) {
           const key = `${day}_server${i}`;
-          const serverInput = row.children[i];
+          const td = row.children[i];
 
-          // Set value from Firebase
-          firebase.database().ref(`schedule/${key}`).once('value').then(snapshot => {
-            const saved = snapshot.val();
-            const input = serverInput.querySelector("input");
-            input.value = saved || "";
+          const input = td.querySelector("input");
 
-            if (saved) {
+          get(child(ref(db), `schedule/${key}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+              input.value = snapshot.val();
               input.readOnly = true;
-            } else {
-              input.addEventListener("blur", () => {
-                if (input.value.trim() !== "") {
-                  const confirmed = confirm("Are you sure? You cannot change this later.");
-                  if (confirmed) {
-                    firebase.database().ref(`schedule/${key}`).set(input.value.trim());
-                    input.readOnly = true;
-                  } else {
-                    input.value = "";
-                  }
-                }
-              });
+            }
+          });
+
+          input.addEventListener("blur", () => {
+            if (input.value.trim() !== "" && !input.readOnly) {
+              if (confirm("Are you sure? You cannot change this later.")) {
+                set(ref(db, `schedule/${key}`), input.value.trim());
+                input.readOnly = true;
+              } else {
+                input.value = "";
+              }
             }
           });
         }
       });
     }
 
-    function initializeSchedule() {
-      days.forEach((day, rowIndex) => {
-        const row = tableBody.children[rowIndex + 1]; // Skip Sunday row
-
-        // Skip Sunday as we don't need input fields for Sunday
-        if (day === "Sunday") {
-          const td = document.createElement("td");
-          td.colSpan = 5;
-          td.textContent = "No entries for Sunday";
-          row.appendChild(td);
-          return;
-        }
-
+    function initInputs() {
+      days.forEach((day, index) => {
+        const row = tableBody.children[index];
         for (let i = 1; i <= serverCount; i++) {
           const td = document.createElement("td");
           const input = document.createElement("input");
@@ -214,8 +219,7 @@
       loadData();
     }
 
-    // Initialize the schedule on load
-    window.onload = initializeSchedule;
+    window.addEventListener("DOMContentLoaded", initInputs);
   </script>
 
 </body>
