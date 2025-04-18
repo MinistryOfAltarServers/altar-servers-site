@@ -69,7 +69,6 @@
     input[type="text"] {
       width: 90%;
       padding: 6px;
-      box-sizing: border-box;
       text-align: center;
     }
 
@@ -111,7 +110,6 @@
   <div class="content-box">
     <section id="schedule">
       <h2>Serving Schedule (Sunday)</h2>
-
       <table>
         <thead>
           <tr>
@@ -134,7 +132,6 @@
       </table>
 
       <h2>Serving Schedule (Monday to Saturday)</h2>
-
       <table id="weekdaySchedule">
         <thead>
           <tr>
@@ -178,27 +175,37 @@
       return localStorage.getItem(`${day}_server${num}`) || "";
     }
 
+    function saveAndLock(input, key) {
+      const confirmed = confirm("Are you sure? You cannot change this later.");
+      if (confirmed) {
+        localStorage.setItem(key, input.value.trim());
+        input.readOnly = true;
+      } else {
+        input.value = "";
+      }
+    }
+
     days.forEach((day, index) => {
       const row = document.createElement("tr");
       row.innerHTML = `<td>${day}</td>`;
 
       for (let i = 1; i <= serverCount; i++) {
+        const key = `${day}_server${i}`;
         const savedValue = loadSaved(day, i);
+
         const input = document.createElement("input");
         input.type = "text";
         input.value = savedValue;
 
-        // If a name is saved, make input readonly
         if (savedValue !== "") {
           input.readOnly = true;
+        } else {
+          input.addEventListener("blur", () => {
+            if (input.value.trim() !== "") {
+              saveAndLock(input, key);
+            }
+          });
         }
-
-        input.addEventListener("change", () => {
-          if (input.value.trim() !== "") {
-            localStorage.setItem(`${day}_server${i}`, input.value.trim());
-            input.readOnly = true;
-          }
-        });
 
         const td = document.createElement("td");
         td.appendChild(input);
@@ -208,7 +215,7 @@
       tableBody.replaceChild(row, tableBody.children[index]);
     });
 
-    // To clear saved names, uncomment the line below and refresh once:
+    // Developer-only: Uncomment this to reset all names
     // localStorage.clear();
   </script>
 
