@@ -117,22 +117,6 @@
       <p>
         The <strong>San Gregorio Magno Altar Servers</strong> are a dedicated group of young individuals who serve in the sacred ministry of assisting the priest during Mass and other liturgical ceremonies at our parish. This ministry is vital to the smooth running of our worship services, and our altar servers play an integral role in making each Mass a reverent and prayerful experience.
       </p>
-      
-      <p>
-        Our mission is to provide a sacred, dignified, and prayerful presence at the altar of God. We believe that through our service, we are not only helping the Church but also growing in faith, discipline, and commitment. Serving as an altar server is a way to deepen our relationship with Christ and become part of something larger than ourselves.
-      </p>
-      
-      <p>
-        The altar servers at San Gregorio Magno represent the youth of our parish who are eager to serve and embody the values of respect, reverence, and humility. Whether it’s assisting with the cross, candles, incense, or other sacred duties, every role is significant and valued. As altar servers, we are trained not only in the practical aspects of the role but also in the spiritual importance of our service to God.
-      </p>
-      
-      <p>
-        Our ministry is open to all youth who are willing to take on the responsibility of assisting in the liturgical celebrations. We welcome both new and experienced servers, and our training sessions ensure that everyone feels confident and prepared in their role. 
-      </p>
-
-      <p>
-        If you feel called to serve, we encourage you to join our altar servers' ministry and help us bring the light of Christ to our parish through service and devotion. Let us work together in prayerful unity to glorify God and serve His Church.
-      </p>
     </section>
   </div>
 
@@ -152,49 +136,49 @@
         <tbody>
           <tr>
             <td>Cross</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Candle 1</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Candle 2</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Bell</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Big Bell 1</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Big Bell 2</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Server 1</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Server 2</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td>________</td>
           </tr>
           <tr>
             <td>Incenso</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td><input type="text" id="incensoName" value=""></td> <!-- Editable -->
           </tr>
           <tr>
             <td>Incense Boat</td>
-            <td>________</td> <!-- Leave blank for names -->
+            <td><input type="text" id="incenseBoatName" value=""></td> <!-- Editable -->
           </tr>
         </tbody>
       </table>
 
       <h2>Serving Schedule (Monday to Saturday)</h2>
-      <!-- Monday to Saturday Schedule Table (No Roles, Just Names) -->
+      <!-- Monday to Saturday Schedule Table -->
       <table>
         <tr>
           <th>Day</th>
@@ -203,33 +187,33 @@
         </tr>
         <tr>
           <td>Monday</td>
-          <td>________</td> <!-- Leave blank for names -->
-          <td>________</td> <!-- Leave blank for names -->
+          <td>________</td>
+          <td>________</td>
         </tr>
         <tr>
           <td>Tuesday</td>
-          <td>________</td> <!-- Leave blank for names -->
-          <td>________</td> <!-- Leave blank for names -->
+          <td>________</td>
+          <td>________</td>
         </tr>
         <tr>
           <td>Wednesday</td>
-          <td>________</td> <!-- Leave blank for names -->
-          <td>________</td> <!-- Leave blank for names -->
+          <td>________</td>
+          <td>________</td>
         </tr>
         <tr>
           <td>Thursday</td>
-          <td>________</td> <!-- Leave blank for names -->
-          <td>________</td> <!-- Leave blank for names -->
+          <td>________</td>
+          <td>________</td>
         </tr>
         <tr>
           <td>Friday</td>
-          <td>________</td> <!-- Leave blank for names -->
-          <td>________</td> <!-- Leave blank for names -->
+          <td>________</td>
+          <td>________</td>
         </tr>
         <tr>
           <td>Saturday</td>
-          <td>________</td> <!-- Leave blank for names -->
-          <td>________</td> <!-- Leave blank for names -->
+          <td>________</td>
+          <td>________</td>
         </tr>
       </table>
     </section>
@@ -248,40 +232,24 @@
   </footer>
 
   <script>
-    // Set this variable to true or false to control the display of Incenso and Incense Boat rows
-    const showIncensoAndIncenseBoat = true;  // Change this to false to hide the rows
+    // Load the saved data for Incenso and Incense Boat from localStorage
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const incensoName = localStorage.getItem('incensoName') || ''; // Default to empty if no data
+      const incenseBoatName = localStorage.getItem('incenseBoatName') || ''; // Default to empty if no data
 
-    // Add or remove rows based on the setting above
-    if (showIncensoAndIncenseBoat) {
-      const table = document.getElementById("sundaySchedule");
-      const body = table.querySelector("tbody");
+      // Set the values of the input fields
+      document.getElementById('incensoName').value = incensoName;
+      document.getElementById('incenseBoatName').value = incenseBoatName;
+    });
 
-      // Create new rows for Incenso and Incense Boat if they don't exist
-      const incensoRow = document.createElement("tr");
-      const incenseBoatRow = document.createElement("tr");
+    // Save the updated names to localStorage whenever they change
+    document.getElementById('incensoName').addEventListener('input', (event) => {
+      localStorage.setItem('incensoName', event.target.value); // Save the value
+    });
 
-      // Create the first row (Incenso)
-      const incensoRoleCell = document.createElement("td");
-      incensoRoleCell.textContent = "Incenso";
-      const incensoNameCell = document.createElement("td");
-      incensoNameCell.textContent = "________";  // Leave blank for names
-
-      incensoRow.appendChild(incensoRoleCell);
-      incensoRow.appendChild(incensoNameCell);
-
-      // Create the second row (Incense Boat)
-      const incenseBoatRoleCell = document.createElement("td");
-      incenseBoatRoleCell.textContent = "Incense Boat";
-      const incenseBoatNameCell = document.createElement("td");
-      incenseBoatNameCell.textContent = "________";  // Leave blank for names
-
-      incenseBoatRow.appendChild(incenseBoatRoleCell);
-      incenseBoatRow.appendChild(incenseBoatNameCell);
-
-      // Append the new rows to the table
-      body.appendChild(incensoRow);
-      body.appendChild(incenseBoatRow);
-    }
+    document.getElementById('incenseBoatName').addEventListener('input', (event) => {
+      localStorage.setItem('incenseBoatName', event.target.value); // Save the value
+    });
   </script>
 
 </body>
