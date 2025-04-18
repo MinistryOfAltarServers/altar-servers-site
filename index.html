@@ -7,9 +7,9 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #ffcc00;
       margin: 0;
       padding: 0;
-      background-color: #ffcc00;
       color: #000;
     }
 
@@ -22,33 +22,24 @@
 
     nav {
       background-color: #222;
-      padding: 15px;
       text-align: center;
+      padding: 15px;
     }
 
     nav a {
       color: #ffcc00;
-      margin: 0 20px;
+      margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1em;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
     }
 
     .content-box {
-      background-color: #fff;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      background: #fff;
       margin: 20px auto;
+      padding: 20px;
       max-width: 1000px;
-    }
-
-    h2 {
-      color: #000;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     table {
@@ -68,8 +59,8 @@
 
     input[type="text"] {
       width: 90%;
-      padding: 6px;
-      text-align: center;
+      padding: 5px;
+      font-size: 1em;
     }
 
     input[readonly] {
@@ -81,7 +72,7 @@
       background-color: #000;
       color: #fff;
       text-align: center;
-      padding: 20px;
+      padding: 15px;
       margin-top: 40px;
     }
   </style>
@@ -101,36 +92,12 @@
   <div class="content-box">
     <section id="about">
       <h2>About Us</h2>
-      <p>
-        The <strong>San Gregorio Magno Altar Servers</strong> are a dedicated group of young individuals who serve during Mass and other liturgical celebrations.
-      </p>
+      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
     </section>
   </div>
 
   <div class="content-box">
     <section id="schedule">
-      <h2>Serving Schedule (Sunday)</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Role</th>
-            <th>Server Names</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Cross</td><td>________</td></tr>
-          <tr><td>Candle 1</td><td>________</td></tr>
-          <tr><td>Candle 2</td><td>________</td></tr>
-          <tr><td>Bell</td><td>________</td></tr>
-          <tr><td>Big Bell 1</td><td>________</td></tr>
-          <tr><td>Big Bell 2</td><td>________</td></tr>
-          <tr><td>Server 1</td><td>________</td></tr>
-          <tr><td>Server 2</td><td>________</td></tr>
-          <tr><td>Incenso</td><td>________</td></tr>
-          <tr><td>Incense Boat</td><td>________</td></tr>
-        </tbody>
-      </table>
-
       <h2>Serving Schedule (Monday to Saturday)</h2>
       <table id="weekdaySchedule">
         <thead>
@@ -171,38 +138,28 @@
     const serverCount = 5;
     const tableBody = document.querySelector("#weekdaySchedule tbody");
 
-    function loadSaved(day, num) {
-      return localStorage.getItem(`${day}_server${num}`) || "";
-    }
-
-    function saveAndLock(input, key) {
-      const confirmed = confirm("Are you sure? You cannot change this later.");
-      if (confirmed) {
-        localStorage.setItem(key, input.value.trim());
-        input.readOnly = true;
-      } else {
-        input.value = "";
-      }
-    }
-
-    days.forEach((day, index) => {
-      const row = document.createElement("tr");
-      row.innerHTML = `<td>${day}</td>`;
-
+    days.forEach((day, rowIndex) => {
+      const row = tableBody.children[rowIndex];
       for (let i = 1; i <= serverCount; i++) {
         const key = `${day}_server${i}`;
-        const savedValue = loadSaved(day, i);
+        const saved = localStorage.getItem(key);
 
         const input = document.createElement("input");
         input.type = "text";
-        input.value = savedValue;
+        input.value = saved || "";
 
-        if (savedValue !== "") {
+        if (saved) {
           input.readOnly = true;
         } else {
           input.addEventListener("blur", () => {
             if (input.value.trim() !== "") {
-              saveAndLock(input, key);
+              const confirmed = confirm("Are you sure? You cannot change this later.");
+              if (confirmed) {
+                localStorage.setItem(key, input.value.trim());
+                input.readOnly = true;
+              } else {
+                input.value = "";
+              }
             }
           });
         }
@@ -211,11 +168,9 @@
         td.appendChild(input);
         row.appendChild(td);
       }
-
-      tableBody.replaceChild(row, tableBody.children[index]);
     });
 
-    // Developer-only: Uncomment this to reset all names
+    // Developer Reset Option (uncomment to clear all saved names)
     // localStorage.clear();
   </script>
 
