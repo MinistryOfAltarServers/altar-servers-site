@@ -98,7 +98,7 @@
 
   <div class="content-box">
     <section id="schedule">
-      <h2>Serving Schedule (Monday to Saturday)</h2>
+      <h2>Serving Schedule (Monday to Sunday)</h2>
       <table id="weekdaySchedule">
         <thead>
           <tr>
@@ -111,6 +111,7 @@
           </tr>
         </thead>
         <tbody>
+          <tr><td>Sunday</td><td colspan="5">No entries for Sunday</td></tr>
           <tr><td>Monday</td></tr>
           <tr><td>Tuesday</td></tr>
           <tr><td>Wednesday</td></tr>
@@ -150,13 +151,15 @@
     const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database(app);
 
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const serverCount = 5;
     const tableBody = document.querySelector("#weekdaySchedule tbody");
 
     function loadData() {
       days.forEach((day, rowIndex) => {
-        const row = tableBody.children[rowIndex];
+        const row = tableBody.children[rowIndex + 1]; // Skip Sunday row
+        if (day === "Sunday") return; // Skip input for Sunday
+
         for (let i = 1; i <= serverCount; i++) {
           const key = `${day}_server${i}`;
           const serverInput = row.children[i];
@@ -189,7 +192,17 @@
 
     function initializeSchedule() {
       days.forEach((day, rowIndex) => {
-        const row = tableBody.children[rowIndex];
+        const row = tableBody.children[rowIndex + 1]; // Skip Sunday row
+
+        // Skip Sunday as we don't need input fields for Sunday
+        if (day === "Sunday") {
+          const td = document.createElement("td");
+          td.colSpan = 5;
+          td.textContent = "No entries for Sunday";
+          row.appendChild(td);
+          return;
+        }
+
         for (let i = 1; i <= serverCount; i++) {
           const td = document.createElement("td");
           const input = document.createElement("input");
