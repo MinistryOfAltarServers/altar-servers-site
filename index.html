@@ -115,12 +115,25 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Sunday Row -->
           <tr><td>Sunday</td><td><input type="text" id="sunday_server1"></td><td><input type="text" id="sunday_server2"></td><td><input type="text" id="sunday_server3"></td><td><input type="text" id="sunday_server4"></td><td><input type="text" id="sunday_server5"></td></tr>
+          
+          <!-- Monday Row -->
           <tr><td>Monday</td><td><input type="text" id="monday_server1"></td><td><input type="text" id="monday_server2"></td><td><input type="text" id="monday_server3"></td><td><input type="text" id="monday_server4"></td><td><input type="text" id="monday_server5"></td></tr>
+          
+          <!-- Tuesday Row -->
           <tr><td>Tuesday</td><td><input type="text" id="tuesday_server1"></td><td><input type="text" id="tuesday_server2"></td><td><input type="text" id="tuesday_server3"></td><td><input type="text" id="tuesday_server4"></td><td><input type="text" id="tuesday_server5"></td></tr>
+          
+          <!-- Wednesday Row -->
           <tr><td>Wednesday</td><td><input type="text" id="wednesday_server1"></td><td><input type="text" id="wednesday_server2"></td><td><input type="text" id="wednesday_server3"></td><td><input type="text" id="wednesday_server4"></td><td><input type="text" id="wednesday_server5"></td></tr>
+          
+          <!-- Thursday Row -->
           <tr><td>Thursday</td><td><input type="text" id="thursday_server1"></td><td><input type="text" id="thursday_server2"></td><td><input type="text" id="thursday_server3"></td><td><input type="text" id="thursday_server4"></td><td><input type="text" id="thursday_server5"></td></tr>
+          
+          <!-- Friday Row -->
           <tr><td>Friday</td><td><input type="text" id="friday_server1"></td><td><input type="text" id="friday_server2"></td><td><input type="text" id="friday_server3"></td><td><input type="text" id="friday_server4"></td><td><input type="text" id="friday_server5"></td></tr>
+          
+          <!-- Saturday Row -->
           <tr><td>Saturday</td><td><input type="text" id="saturday_server1"></td><td><input type="text" id="saturday_server2"></td><td><input type="text" id="saturday_server3"></td><td><input type="text" id="saturday_server4"></td><td><input type="text" id="saturday_server5"></td></tr>
         </tbody>
       </table>
@@ -131,50 +144,54 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.18.0/firebase-database.js"></script>
 
+  <script>
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.appspot.com",
+      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
       messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922"
+      appId: "1:184021840775:web:1ac06fe4838046010a9922",
+      measurementId: "G-MQVV9NJ0SS"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database(app);
+
+    // Fetch and display saved data from Firebase for each day
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const serverCount = 5;
+    days.forEach(day => {
+      for (let i = 1; i <= 5; i++) {
+        const serverId = `${day.toLowerCase()}_server${i}`;
+        const input = document.getElementById(serverId);
+        
+        // Retrieve stored value from Firebase
+        const serverRef = database.ref(`servers/${day}/${i}`);
+        serverRef.once('value').then(snapshot => {
+          const serverName = snapshot.val();
+          if (serverName) {
+            input.value = serverName;
+            input.readOnly = true;  // Lock the input if the data is already saved
+          }
 
-    // Function to load schedule data from Firebase
-    function loadData() {
-      days.forEach((day) => {
-        for (let i = 1; i <= serverCount; i++) {
-          const key = `${day.toLowerCase()}_server${i}`;
-          const inputElement = document.getElementById(`${day.toLowerCase()}_server${i}`);
-
-          // Fetch data from Firebase
-          get(child(ref(db), `schedule/${key}`)).then((snapshot) => {
-            if (snapshot.exists()) {
-              const serverName = snapshot.val();
-              inputElement.value = serverName;
-              inputElement.readOnly = true;
+          input.addEventListener('blur', () => {
+            if (input.value.trim() !== "") {
+              const confirmed = confirm("Are you sure? You cannot change this later.");
+              if (confirmed) {
+                serverRef.set(input.value.trim());  // Save to Firebase
+                input.readOnly = true;
+              } else {
+                input.value = "";  // Reset if the user cancels
+              }
             }
-          }).catch((error) => {
-            console.error("Error loading data: ", error);
           });
-        }
-      });
-    }
-
-    // Load the data when the page loads
-    loadData();
+        });
+      }
+    });
   </script>
-
 </body>
 </html>
