@@ -57,17 +57,6 @@
       text-align: center;
     }
 
-    input[type="text"] {
-      width: 90%;
-      padding: 5px;
-      font-size: 1em;
-    }
-
-    input[readonly] {
-      background-color: #eee;
-      cursor: not-allowed;
-    }
-
     footer {
       background-color: #000;
       color: #fff;
@@ -105,16 +94,20 @@
           <tr>
             <th>Cross Server</th>
             <th>Candle Server</th>
+            <th>Candle Server</th>
             <th>Bell Server</th>
+            <th>Big Bell Server</th>
             <th>Big Bell Server</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><input type="text" id="sundayCross" placeholder="Enter name"></td>
-            <td><input type="text" id="sundayCandle" placeholder="Enter name"></td>
-            <td><input type="text" id="sundayBell" placeholder="Enter name"></td>
-            <td><input type="text" id="sundayBigBell" placeholder="Enter name"></td>
+            <td></td> <!-- Blank cell for Cross Server -->
+            <td></td> <!-- Blank cell for Candle Server 1 -->
+            <td></td> <!-- Blank cell for Candle Server 2 -->
+            <td></td> <!-- Blank cell for Bell Server -->
+            <td></td> <!-- Blank cell for Big Bell Server 1 -->
+            <td></td> <!-- Blank cell for Big Bell Server 2 -->
           </tr>
         </tbody>
       </table>
@@ -154,69 +147,6 @@
   <footer>
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
-
-  <script>
-    // Local storage saving for Sunday
-    const sundayServerFields = ['sundayCross', 'sundayCandle', 'sundayBell', 'sundayBigBell'];
-
-    sundayServerFields.forEach((id) => {
-      const inputField = document.getElementById(id);
-      const savedValue = localStorage.getItem(id);
-      
-      if (savedValue) {
-        inputField.value = savedValue;
-        inputField.readOnly = true;
-      } else {
-        inputField.addEventListener('blur', () => {
-          if (inputField.value.trim() !== "") {
-            const confirmed = confirm("Are you sure? You cannot change this later.");
-            if (confirmed) {
-              localStorage.setItem(id, inputField.value.trim());
-              inputField.readOnly = true;
-            } else {
-              inputField.value = "";
-            }
-          }
-        });
-      }
-    });
-
-    // Local storage saving for Weekdays (Monday to Saturday)
-    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const serverCount = 5;
-
-    weekdays.forEach((day, rowIndex) => {
-      const row = document.querySelector(`#weekdaySchedule tbody`).children[rowIndex];
-      for (let i = 1; i <= serverCount; i++) {
-        const key = `${day}_server${i}`;
-        const saved = localStorage.getItem(key);
-        
-        const input = document.createElement("input");
-        input.type = "text";
-        input.value = saved || "";
-        
-        if (saved) {
-          input.readOnly = true;
-        } else {
-          input.addEventListener("blur", () => {
-            if (input.value.trim() !== "") {
-              const confirmed = confirm("Are you sure? You cannot change this later.");
-              if (confirmed) {
-                localStorage.setItem(key, input.value.trim());
-                input.readOnly = true;
-              } else {
-                input.value = "";
-              }
-            }
-          });
-        }
-
-        const td = document.createElement("td");
-        td.appendChild(input);
-        row.appendChild(td);
-      }
-    });
-  </script>
 
 </body>
 </html>
