@@ -4,31 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altar Servers Ministry</title>
+    <title>Altar Servers</title>
     <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
     <style>
         /* Global styles */
         body {
             font-family: Arial, sans-serif;
+            background-color: #121212;
             margin: 0;
             padding: 0;
-            background-color: #121212;
             color: #fff;
         }
 
         header {
-            background-color: #333;
+            background-color: #000;
             color: yellow;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        nav {
+            background-color: #333;
             padding: 10px;
             text-align: center;
         }
 
         nav a {
             color: yellow;
-            margin: 0 10px;
             text-decoration: none;
-            font-size: 1.1em;
+            margin: 0 15px;
+            font-size: 1.2em;
         }
 
         nav a:hover {
@@ -42,8 +53,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #333;
+            margin: 20px 0;
         }
 
         th,
@@ -62,16 +72,16 @@
             background-color: #222;
         }
 
-        input {
+        input[type="text"] {
             width: 80%;
             padding: 5px;
-            margin-top: 5px;
-            border: none;
+            margin: 5px;
             background-color: #444;
+            border: none;
             color: yellow;
         }
 
-        input:disabled {
+        input[type="text"]:disabled {
             background-color: #333;
             color: #666;
         }
@@ -94,35 +104,26 @@
             color: yellow;
             text-align: center;
             padding: 10px;
-            margin-top: 20px;
-        }
-
-        /* Responsive layout */
-        @media (max-width: 768px) {
-            table {
-                font-size: 12px;
-            }
-
-            th, td {
-                padding: 8px;
-            }
+            position: relative;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Header with navigation -->
+    <!-- Header with navigation links -->
     <header>
         <h1>Altar Servers Ministry</h1>
-        <nav>
-            <a href="login.html">Login</a>
-            <a href="signup.html">Sign Up</a>
-        </nav>
     </header>
 
-    <div class="container">
+    <nav>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Sign Up</a>
+    </nav>
 
+    <div class="container">
         <!-- Sunday Schedule Section (6x3 table) -->
         <section id="sundaySchedule">
             <h2>Sunday Serving Schedule</h2>
@@ -138,7 +139,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- 6 rows for Sunday -->
                     <tr>
                         <td><input type="text" id="sunday1" placeholder="Enter Name"></td>
                         <td><input type="text" id="sunday2" placeholder="Enter Name"></td>
@@ -155,7 +155,6 @@
                         <td><input type="text" id="sunday5-2" placeholder="Enter Name"></td>
                         <td><input type="text" id="sunday6-2" placeholder="Enter Name"></td>
                     </tr>
-                    <!-- Add more rows as required -->
                 </tbody>
             </table>
         </section>
@@ -195,7 +194,6 @@
                 </tbody>
             </table>
         </section>
-
     </div>
 
     <!-- Footer -->
@@ -204,7 +202,7 @@
     </footer>
 
     <script>
-        // Firebase configuration
+        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
             authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -216,6 +214,7 @@
             measurementId: "G-MQVV9NJ0SS"
         };
 
+        // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
