@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
     body {
@@ -42,30 +42,6 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    footer {
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-      padding: 15px;
-      margin-top: 40px;
-    }
-
-    .auth-links {
-      text-align: right;
-      margin-top: -30px;
-      margin-right: 20px;
-    }
-
-    .auth-links a {
-      color: #ffcc00;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .auth-links a:hover {
-      color: #fff;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
@@ -91,6 +67,14 @@
       background-color: #eee;
       cursor: not-allowed;
     }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
@@ -105,83 +89,162 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- Authentication Links -->
-  <div class="auth-links">
-    <a href="login.html">Sign In</a> | 
-    <a href="signup.html">Sign Up</a>
+  <div class="content-box">
+    <section id="about">
+      <h2>About Us</h2>
+      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+    </section>
   </div>
 
-  <div class="content-box" id="about">
-    <h2>About Us</h2>
-    <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+  <div class="content-box">
+    <section id="schedule">
+      <h2>Serving Schedule (Sunday)</h2>
+      <table id="sundaySchedule">
+        <thead>
+          <tr>
+            <th>Cross Server</th>
+            <th>Candle Server</th>
+            <th>Candle Server</th>
+            <th>Bell Server</th>
+            <th>Big Bell Server</th>
+            <th>Big Bell Server</th>
+            <th>Server</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="sunday-cross" readonly></td>
+            <td><input type="text" id="sunday-candle-1" readonly></td>
+            <td><input type="text" id="sunday-candle-2" readonly></td>
+            <td><input type="text" id="sunday-bell" readonly></td>
+            <td><input type="text" id="sunday-bigbell-1" readonly></td>
+            <td><input type="text" id="sunday-bigbell-2" readonly></td>
+            <td><input type="text" id="sunday-server" readonly></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Serving Schedule (Monday to Saturday)</h2>
+      <table id="weekdaySchedule">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday</td><td><input type="text" class="weekday" id="monday-server-1" readonly></td><td><input type="text" class="weekday" id="monday-server-2" readonly></td><td><input type="text" class="weekday" id="monday-server-3" readonly></td><td><input type="text" class="weekday" id="monday-server-4" readonly></td><td><input type="text" class="weekday" id="monday-server-5" readonly></td></tr>
+          <tr><td>Tuesday</td><td><input type="text" class="weekday" id="tuesday-server-1" readonly></td><td><input type="text" class="weekday" id="tuesday-server-2" readonly></td><td><input type="text" class="weekday" id="tuesday-server-3" readonly></td><td><input type="text" class="weekday" id="tuesday-server-4" readonly></td><td><input type="text" class="weekday" id="tuesday-server-5" readonly></td></tr>
+          <tr><td>Wednesday</td><td><input type="text" class="weekday" id="wednesday-server-1" readonly></td><td><input type="text" class="weekday" id="wednesday-server-2" readonly></td><td><input type="text" class="weekday" id="wednesday-server-3" readonly></td><td><input type="text" class="weekday" id="wednesday-server-4" readonly></td><td><input type="text" class="weekday" id="wednesday-server-5" readonly></td></tr>
+          <tr><td>Thursday</td><td><input type="text" class="weekday" id="thursday-server-1" readonly></td><td><input type="text" class="weekday" id="thursday-server-2" readonly></td><td><input type="text" class="weekday" id="thursday-server-3" readonly></td><td><input type="text" class="weekday" id="thursday-server-4" readonly></td><td><input type="text" class="weekday" id="thursday-server-5" readonly></td></tr>
+          <tr><td>Friday</td><td><input type="text" class="weekday" id="friday-server-1" readonly></td><td><input type="text" class="weekday" id="friday-server-2" readonly></td><td><input type="text" class="weekday" id="friday-server-3" readonly></td><td><input type="text" class="weekday" id="friday-server-4" readonly></td><td><input type="text" class="weekday" id="friday-server-5" readonly></td></tr>
+          <tr><td>Saturday</td><td><input type="text" class="weekday" id="saturday-server-1" readonly></td><td><input type="text" class="weekday" id="saturday-server-2" readonly></td><td><input type="text" class="weekday" id="saturday-server-3" readonly></td><td><input type="text" class="weekday" id="saturday-server-4" readonly></td><td><input type="text" class="weekday" id="saturday-server-5" readonly></td></tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 
-  <div class="content-box" id="schedule">
-    <h2>Serving Schedule (Sunday)</h2>
-    <table id="sundaySchedule">
-      <thead>
-        <tr>
-          <th>Cross Server</th>
-          <th>Candle Server</th>
-          <th>Candle Server</th>
-          <th>Bell Server</th>
-          <th>Big Bell Server</th>
-          <th>Big Bell Server</th>
-          <th>Server</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 6x2 Table rows for Sunday (admin only can edit) -->
-        <tr>
-          <td><input type="text" id="crossServerSunday" readonly /></td>
-          <td><input type="text" id="candleServer1Sunday" readonly /></td>
-          <td><input type="text" id="candleServer2Sunday" readonly /></td>
-          <td><input type="text" id="bellServerSunday" readonly /></td>
-          <td><input type="text" id="bigBellServer1Sunday" readonly /></td>
-          <td><input type="text" id="bigBellServer2Sunday" readonly /></td>
-          <td><input type="text" id="serverSunday" readonly /></td>
-        </tr>
-        <!-- Add more rows as needed -->
-      </tbody>
-    </table>
-
-    <h2>Serving Schedule (Monday to Saturday)</h2>
-    <table id="weekdaySchedule">
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Server 1</th>
-          <th>Server 2</th>
-          <th>Server 3</th>
-          <th>Server 4</th>
-          <th>Server 5</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Monday</td><td><input type="text" id="server1Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Monday" onblur="checkInput(this)"/></td></tr>
-        <tr><td>Tuesday</td><td><input type="text" id="server1Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Tuesday" onblur="checkInput(this)"/></td></tr>
-        <tr><td>Wednesday</td><td><input type="text" id="server1Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Wednesday" onblur="checkInput(this)"/></td></tr>
-        <tr><td>Thursday</td><td><input type="text" id="server1Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Thursday" onblur="checkInput(this)"/></td></tr>
-        <tr><td>Friday</td><td><input type="text" id="server1Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Friday" onblur="checkInput(this)"/></td></tr>
-        <tr><td>Saturday</td><td><input type="text" id="server1Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Saturday" onblur="checkInput(this)"/></td></tr>
-      </tbody>
-    </table>
+  <div class="content-box">
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
+    </section>
   </div>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers. All Rights Reserved.</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+
   <script>
-    // Function that triggers when an input field loses focus (blur event)
-    function checkInput(inputField) {
-      var userInput = inputField.value;
-      if (userInput && confirm('Are you sure you want to submit this name? This cannot be changed later.')) {
-        inputField.readOnly = true;
+    // Firebase config and initialization
+    const firebaseConfig = {
+      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
+      authDomain: "altar-servers-e3e2a.firebaseapp.com",
+      projectId: "altar-servers-e3e2a",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
+      messagingSenderId: "184021840775",
+      appId: "1:184021840775:web:1ac06fe4838046010a9922",
+      measurementId: "G-MQVV9NJ0SS"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        // If signed in, check if user is admin
+        db.collection("users").doc(user.uid).get().then(doc => {
+          if (doc.exists && doc.data().role === 'admin') {
+            makeFieldsEditable();
+          } else {
+            makeWeekdaysEditable();
+          }
+        });
       } else {
-        // If user cancels, revert the input field to allow editing again
-        inputField.focus();
+        makeAllFieldsReadOnly();
       }
+    });
+
+    function makeWeekdaysEditable() {
+      const weekdays = document.querySelectorAll('.weekday');
+      weekdays.forEach(input => {
+        input.removeAttribute("readonly");
+        input.addEventListener("blur", () => {
+          if (input.value.trim() !== "") {
+            const confirmed = confirm("Are you sure? This cannot be changed later.");
+            if (confirmed) {
+              input.setAttribute("readonly", "true");
+            } else {
+              input.value = ""; // Clear the value if not confirmed
+            }
+          }
+        });
+      });
+    }
+
+    function makeFieldsEditable() {
+      const allInputs = document.querySelectorAll('input[type="text"]');
+      allInputs.forEach(input => {
+        input.removeAttribute("readonly");
+
+        input.addEventListener("dblclick", function() {
+          const user = auth.currentUser;
+          if (user && user.uid) {
+            db.collection("users").doc(user.uid).get().then(doc => {
+              if (doc.exists && doc.data().role === 'admin') {
+                input.value = ""; // Allow admin to clear the field
+              }
+            });
+          }
+        });
+
+        input.addEventListener("blur", () => {
+          if (input.value.trim() !== "") {
+            const confirmed = confirm("Are you sure? This cannot be changed later.");
+            if (confirmed) {
+              input.setAttribute("readonly", "true");
+            } else {
+              input.value = ""; // Clear the value if not confirmed
+            }
+          }
+        });
+      });
+    }
+
+    function makeAllFieldsReadOnly() {
+      const allInputs = document.querySelectorAll('input[type="text"]');
+      allInputs.forEach(input => input.setAttribute("readonly", "true"));
     }
   </script>
 
