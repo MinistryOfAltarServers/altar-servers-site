@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>San Gregorio Magno Altar Servers</title>
   <style>
     body {
@@ -18,17 +18,6 @@
       color: #fff;
       padding: 20px;
       text-align: center;
-      position: relative;
-    }
-
-    header a {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #ffcc00;
-      text-decoration: none;
-      font-weight: bold;
     }
 
     nav {
@@ -53,32 +42,6 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    table, th, td {
-      border: 1px solid #000;
-    }
-
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
-
-    input[type="text"] {
-      width: 90%;
-      padding: 5px;
-      font-size: 1em;
-    }
-
-    input[readonly] {
-      background-color: #eee;
-      cursor: not-allowed;
-    }
-
     footer {
       background-color: #000;
       color: #fff;
@@ -86,13 +49,28 @@
       padding: 15px;
       margin-top: 40px;
     }
+
+    .auth-links {
+      text-align: right;
+      margin-top: -30px;
+      margin-right: 20px;
+    }
+
+    .auth-links a {
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .auth-links a:hover {
+      color: #fff;
+    }
   </style>
 </head>
 <body>
 
   <header>
     <h1>San Gregorio Magno Altar Servers</h1>
-    <a href="auth.html">Sign In | Sign Up</a>
   </header>
 
   <nav>
@@ -101,111 +79,84 @@
     <a href="#contact">Contact</a>
   </nav>
 
-  <div class="content-box">
-    <section id="about">
-      <h2>About Us</h2>
-      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
-    </section>
+  <!-- Authentication Links -->
+  <div class="auth-links">
+    <a href="login.html">Sign In</a> | 
+    <a href="signup.html">Sign Up</a>
   </div>
 
-  <div class="content-box">
-    <section id="schedule">
-      <h2>Serving Schedule (Sunday)</h2>
-      <table id="sundaySchedule">
-        <thead>
-          <tr>
-            <th>Cross Server</th>
-            <th>Candle Server</th>
-            <th>Candle Server</th>
-            <th>Bell Server</th>
-            <th>Big Bell Server</th>
-            <th>Big Bell Server</th>
-            <th>Server</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr></tr>
-          <tr></tr>
-        </tbody>
-      </table>
-
-      <h2>Serving Schedule (Monday to Saturday)</h2>
-      <table id="weekdaySchedule">
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Server 1</th>
-            <th>Server 2</th>
-            <th>Server 3</th>
-            <th>Server 4</th>
-            <th>Server 5</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Monday</td></tr>
-          <tr><td>Tuesday</td></tr>
-          <tr><td>Wednesday</td></tr>
-          <tr><td>Thursday</td></tr>
-          <tr><td>Friday</td></tr>
-          <tr><td>Saturday</td></tr>
-        </tbody>
-      </table>
-    </section>
+  <div class="content-box" id="about">
+    <h2>About Us</h2>
+    <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
   </div>
 
-  <div class="content-box">
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
-    </section>
+  <div class="content-box" id="schedule">
+    <h2>Serving Schedule (Sunday)</h2>
+    <table id="sundaySchedule">
+      <thead>
+        <tr>
+          <th>Cross Server</th>
+          <th>Candle Server</th>
+          <th>Candle Server</th>
+          <th>Bell Server</th>
+          <th>Big Bell Server</th>
+          <th>Big Bell Server</th>
+          <th>Server</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Serving Schedule (Monday to Saturday)</h2>
+    <table id="weekdaySchedule">
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Server 1</th>
+          <th>Server 2</th>
+          <th>Server 3</th>
+          <th>Server 4</th>
+          <th>Server 5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Monday</td></tr>
+        <tr><td>Tuesday</td></tr>
+        <tr><td>Wednesday</td></tr>
+        <tr><td>Thursday</td></tr>
+        <tr><td>Friday</td></tr>
+        <tr><td>Saturday</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="content-box" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
   </div>
 
   <footer>
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
-      authDomain: "altar-servers-e3e2a.firebaseapp.com",
-      projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.appspot.com",
-      messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922",
-      measurementId: "G-MQVV9NJ0SS"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const serverCount = 5;
-
-    weekdays.forEach((day, rowIndex) => {
-      const row = document.querySelector(`#weekdaySchedule tbody`).children[rowIndex];
-      for (let i = 1; i <= serverCount; i++) {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.placeholder = `Server ${i}`;
-        const fieldKey = `server${i}`;
-
-        db.collection("weekdaySchedule").doc(day).get().then(doc => {
-          if (doc.exists && doc.data()[fieldKey]) {
-            input.value = doc.data()[fieldKey];
-            input.readOnly = true;
-          }
-        });
-
-        const td = document.createElement("td");
-        td.appendChild(input);
-        row.appendChild(td);
-      }
-    });
-  </script>
 </body>
 </html>
