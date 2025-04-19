@@ -3,62 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up</title>
-  <style>
-    /* Styles for Signup Page */
-  </style>
+  <title>Sign Up - Altar Servers</title>
 </head>
 <body>
+  <h2>Sign Up</h2>
+  <form id="signupForm">
+    <input type="email" id="signupEmail" placeholder="Email" required><br>
+    <input type="password" id="signupPassword" placeholder="Password" required><br>
+    <button type="submit">Sign Up</button>
+  </form>
+  <p>Already have an account? <a href="login.html">Login</a></p>
 
-  <header>
-    <h1>Sign Up</h1>
-  </header>
-
-  <div class="auth-container">
-    <form id="signupForm">
-      <input type="email" id="signupEmail" placeholder="Email" required />
-      <input type="password" id="signupPassword" placeholder="Password" required />
-      <button type="submit">Sign Up</button>
-    </form>
-  </div>
-
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
 
   <script>
-    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
-      databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
-      messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922",
-      measurementId: "G-MQVV9NJ0SS"
+      appId: "1:184021840775:web:1ac06fe4838046010a9922"
     };
-
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // Sign up functionality
-    document.getElementById('signupForm').addEventListener('submit', (e) => {
+    document.getElementById("signupForm").addEventListener("submit", e => {
       e.preventDefault();
-      const email = document.getElementById('signupEmail').value;
-      const password = document.getElementById('signupPassword').value;
-
+      const email = signupEmail.value;
+      const password = signupPassword.value;
       auth.createUserWithEmailAndPassword(email, password)
-        .then(userCredential => {
-          alert('Sign Up successful');
-          window.location.href = "login.html"; // Redirect to the login page after sign-up
+        .then(() => {
+          alert("Account created successfully");
+          window.location.href = "index.html";
         })
-        .catch(error => {
-          alert('Error: ' + error.message);
-        });
+        .catch(error => alert(error.message));
     });
   </script>
-
 </body>
 </html>
