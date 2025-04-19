@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Altar Servers</title>
+  <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -75,6 +77,7 @@
 </head>
 <body>
 
+  <!-- Header with navigation -->
   <header>
     <h1>Altar Servers Ministry</h1>
     <nav>
@@ -84,7 +87,7 @@
   </header>
 
   <div class="container">
-    <!-- Sunday Schedule Section (Blank) -->
+    <!-- Sunday Schedule Section (6x3 table) -->
     <section id="sundaySchedule">
       <h2>Sunday Serving Schedule</h2>
       <table>
@@ -96,25 +99,63 @@
             <th>Bell Server</th>
             <th>Big Bell Server</th>
             <th>Big Bell Server</th>
-            <th>Server</th>
           </tr>
         </thead>
         <tbody>
+          <!-- 6 rows for Sunday -->
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><input type="text" id="sunday1" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday2" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday3" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday4" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday5" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday6" placeholder="Enter Name"></td>
           </tr>
-          <!-- Add more rows for future Sundays -->
+          <tr>
+            <td><input type="text" id="sunday1-2" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday2-2" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday3-2" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday4-2" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday5-2" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday6-2" placeholder="Enter Name"></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="sunday1-3" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday2-3" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday3-3" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday4-3" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday5-3" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday6-3" placeholder="Enter Name"></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="sunday1-4" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday2-4" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday3-4" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday4-4" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday5-4" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday6-4" placeholder="Enter Name"></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="sunday1-5" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday2-5" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday3-5" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday4-5" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday5-5" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday6-5" placeholder="Enter Name"></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="sunday1-6" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday2-6" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday3-6" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday4-6" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday5-6" placeholder="Enter Name"></td>
+            <td><input type="text" id="sunday6-6" placeholder="Enter Name"></td>
+          </tr>
         </tbody>
       </table>
     </section>
 
-    <!-- Weekday Schedule Section (Blank for 5 servers) -->
+    <!-- Weekday Schedule Section (5 servers) -->
     <section id="weekdaySchedule">
       <h2>Weekdays Serving Schedule</h2>
       <table>
@@ -131,60 +172,69 @@
         <tbody>
           <tr>
             <td>Monday</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td><input type="text" id="monday1"></td>
+            <td><input type="text" id="monday2"></td>
+            <td><input type="text" id="monday3"></td>
+            <td><input type="text" id="monday4"></td>
+            <td><input type="text" id="monday5"></td>
           </tr>
-          <tr>
-            <td>Tuesday</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Wednesday</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Thursday</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Friday</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Saturday</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          <!-- Add more days and servers here -->
         </tbody>
       </table>
     </section>
   </div>
 
+  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Altar Servers Ministry</p>
   </footer>
+
+  <script>
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
+      authDomain: "altar-servers-e3e2a.firebaseapp.com",
+      databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "altar-servers-e3e2a",
+      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
+      messagingSenderId: "184021840775",
+      appId: "1:184021840775:web:1ac06fe4838046010a9922",
+      measurementId: "G-MQVV9NJ0SS"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Function to save server data to Firebase for Sunday
+    function saveSundayData() {
+      const sundayData = {
+        sunday1: document.getElementById("sunday1").value,
+        sunday2: document.getElementById("sunday2").value,
+        sunday3: document.getElementById("sunday3").value,
+        sunday4: document.getElementById("sunday4").value,
+        sunday5: document.getElementById("sunday5").value,
+        sunday6: document.getElementById("sunday6").value
+      };
+
+      firebase.database().ref("sunday_schedule").set(sundayData);
+    }
+
+    // Function to save weekday data to Firebase (similar for all days)
+    function saveWeekdayData() {
+      const weekdayData = {
+        monday1: document.getElementById("monday1").value,
+        monday2: document.getElementById("monday2").value,
+        monday3: document.getElementById("monday3").value,
+        monday4: document.getElementById("monday4").value,
+        monday5: document.getElementById("monday5").value
+      };
+
+      firebase.database().ref("weekday_schedule").set(weekdayData);
+    }
+
+    // Attach event listeners for save buttons or automatically save
+    document.getElementById("saveSundayBtn").addEventListener("click", saveSundayData);
+    document.getElementById("saveWeekdayBtn").addEventListener("click", saveWeekdayData);
+  </script>
 
 </body>
 </html>
