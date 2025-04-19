@@ -81,6 +81,16 @@
       text-align: center;
     }
 
+    input[type="text"] {
+      width: 90%;
+      padding: 5px;
+      font-size: 1em;
+    }
+
+    input[readonly] {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
@@ -121,61 +131,17 @@
         </tr>
       </thead>
       <tbody>
-        <!-- 6x2 Table rows for Sunday -->
+        <!-- 6x2 Table rows for Sunday (admin only can edit) -->
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td><input type="text" id="crossServerSunday" readonly /></td>
+          <td><input type="text" id="candleServer1Sunday" readonly /></td>
+          <td><input type="text" id="candleServer2Sunday" readonly /></td>
+          <td><input type="text" id="bellServerSunday" readonly /></td>
+          <td><input type="text" id="bigBellServer1Sunday" readonly /></td>
+          <td><input type="text" id="bigBellServer2Sunday" readonly /></td>
+          <td><input type="text" id="serverSunday" readonly /></td>
         </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        <!-- Add more rows as needed -->
       </tbody>
     </table>
 
@@ -192,25 +158,32 @@
         </tr>
       </thead>
       <tbody>
-        <!-- 1x5 Table rows for weekdays -->
-        <tr><td>Monday</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Tuesday</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Wednesday</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Thursday</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Friday</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td>Saturday</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>Monday</td><td><input type="text" id="server1Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Monday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Monday" onblur="checkInput(this)"/></td></tr>
+        <tr><td>Tuesday</td><td><input type="text" id="server1Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Tuesday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Tuesday" onblur="checkInput(this)"/></td></tr>
+        <tr><td>Wednesday</td><td><input type="text" id="server1Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Wednesday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Wednesday" onblur="checkInput(this)"/></td></tr>
+        <tr><td>Thursday</td><td><input type="text" id="server1Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Thursday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Thursday" onblur="checkInput(this)"/></td></tr>
+        <tr><td>Friday</td><td><input type="text" id="server1Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Friday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Friday" onblur="checkInput(this)"/></td></tr>
+        <tr><td>Saturday</td><td><input type="text" id="server1Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server2Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server3Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server4Saturday" onblur="checkInput(this)"/></td><td><input type="text" id="server5Saturday" onblur="checkInput(this)"/></td></tr>
       </tbody>
     </table>
   </div>
 
-  <div class="content-box" id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
-  </div>
-
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    // Function that triggers when an input field loses focus (blur event)
+    function checkInput(inputField) {
+      var userInput = inputField.value;
+      if (userInput && confirm('Are you sure you want to submit this name? This cannot be changed later.')) {
+        inputField.readOnly = true;
+      } else {
+        // If user cancels, revert the input field to allow editing again
+        inputField.focus();
+      }
+    }
+  </script>
 
 </body>
 </html>
