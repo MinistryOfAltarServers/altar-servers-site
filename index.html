@@ -90,13 +90,6 @@
   </nav>
 
   <div class="content-box">
-    <section id="about">
-      <h2>About Us</h2>
-      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
-    </section>
-  </div>
-
-  <div class="content-box">
     <section id="schedule">
       <h2>Serving Schedule (Sunday)</h2>
       <table id="sundaySchedule">
@@ -131,18 +124,15 @@
             <th>Day</th>
             <th>Server 1</th>
             <th>Server 2</th>
-            <th>Server 3</th>
-            <th>Server 4</th>
-            <th>Server 5</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Monday</td><td><input type="text" class="weekday" id="monday-server-1" readonly></td><td><input type="text" class="weekday" id="monday-server-2" readonly></td><td><input type="text" class="weekday" id="monday-server-3" readonly></td><td><input type="text" class="weekday" id="monday-server-4" readonly></td><td><input type="text" class="weekday" id="monday-server-5" readonly></td></tr>
-          <tr><td>Tuesday</td><td><input type="text" class="weekday" id="tuesday-server-1" readonly></td><td><input type="text" class="weekday" id="tuesday-server-2" readonly></td><td><input type="text" class="weekday" id="tuesday-server-3" readonly></td><td><input type="text" class="weekday" id="tuesday-server-4" readonly></td><td><input type="text" class="weekday" id="tuesday-server-5" readonly></td></tr>
-          <tr><td>Wednesday</td><td><input type="text" class="weekday" id="wednesday-server-1" readonly></td><td><input type="text" class="weekday" id="wednesday-server-2" readonly></td><td><input type="text" class="weekday" id="wednesday-server-3" readonly></td><td><input type="text" class="weekday" id="wednesday-server-4" readonly></td><td><input type="text" class="weekday" id="wednesday-server-5" readonly></td></tr>
-          <tr><td>Thursday</td><td><input type="text" class="weekday" id="thursday-server-1" readonly></td><td><input type="text" class="weekday" id="thursday-server-2" readonly></td><td><input type="text" class="weekday" id="thursday-server-3" readonly></td><td><input type="text" class="weekday" id="thursday-server-4" readonly></td><td><input type="text" class="weekday" id="thursday-server-5" readonly></td></tr>
-          <tr><td>Friday</td><td><input type="text" class="weekday" id="friday-server-1" readonly></td><td><input type="text" class="weekday" id="friday-server-2" readonly></td><td><input type="text" class="weekday" id="friday-server-3" readonly></td><td><input type="text" class="weekday" id="friday-server-4" readonly></td><td><input type="text" class="weekday" id="friday-server-5" readonly></td></tr>
-          <tr><td>Saturday</td><td><input type="text" class="weekday" id="saturday-server-1" readonly></td><td><input type="text" class="weekday" id="saturday-server-2" readonly></td><td><input type="text" class="weekday" id="saturday-server-3" readonly></td><td><input type="text" class="weekday" id="saturday-server-4" readonly></td><td><input type="text" class="weekday" id="saturday-server-5" readonly></td></tr>
+          <tr><td>Monday</td><td><input type="text" class="weekday" id="monday-server-1" readonly></td><td><input type="text" class="weekday" id="monday-server-2" readonly></td></tr>
+          <tr><td>Tuesday</td><td><input type="text" class="weekday" id="tuesday-server-1" readonly></td><td><input type="text" class="weekday" id="tuesday-server-2" readonly></td></tr>
+          <tr><td>Wednesday</td><td><input type="text" class="weekday" id="wednesday-server-1" readonly></td><td><input type="text" class="weekday" id="wednesday-server-2" readonly></td></tr>
+          <tr><td>Thursday</td><td><input type="text" class="weekday" id="thursday-server-1" readonly></td><td><input type="text" class="weekday" id="thursday-server-2" readonly></td></tr>
+          <tr><td>Friday</td><td><input type="text" class="weekday" id="friday-server-1" readonly></td><td><input type="text" class="weekday" id="friday-server-2" readonly></td></tr>
+          <tr><td>Saturday</td><td><input type="text" class="weekday" id="saturday-server-1" readonly></td><td><input type="text" class="weekday" id="saturday-server-2" readonly></td></tr>
         </tbody>
       </table>
     </section>
@@ -185,67 +175,31 @@
       if (user) {
         // If signed in, check if user is admin
         db.collection("users").doc(user.uid).get().then(doc => {
-          if (doc.exists && doc.data().role === 'admin') {
-            makeFieldsEditable();
-          } else {
-            makeWeekdaysEditable();
-          }
+          const isAdmin = doc.exists && doc.data().role === 'admin';
+          document.querySelectorAll('.weekday').forEach(input => {
+            if (isAdmin) {
+              input.removeAttribute('readonly');
+            } else {
+              // Non-admin can input, but will become readonly after confirming
+              input.addEventListener('blur', () => {
+                if (input.value.trim() !== "") {
+                  const confirmed = confirm("Are you sure? This cannot be changed later.");
+                  if (confirmed) {
+                    db.collection("weekdaySchedule").doc(input.id).set({ [input.id]: input.value }, { merge: true });
+                    input.setAttribute('readonly', true);  // Set it to readonly after confirming
+                  } else {
+                    input.value = "";  // Clear the input if not confirmed
+                  }
+                }
+              });
+            }
+          });
         });
       } else {
-        makeAllFieldsReadOnly();
+        // Not logged in, disable all fields
+        document.querySelectorAll('.weekday').forEach(input => input.setAttribute('readonly', true));
       }
     });
-
-    function makeWeekdaysEditable() {
-      const weekdays = document.querySelectorAll('.weekday');
-      weekdays.forEach(input => {
-        input.removeAttribute("readonly");
-        input.addEventListener("blur", () => {
-          if (input.value.trim() !== "") {
-            const confirmed = confirm("Are you sure? This cannot be changed later.");
-            if (confirmed) {
-              input.setAttribute("readonly", "true");
-            } else {
-              input.value = ""; // Clear the value if not confirmed
-            }
-          }
-        });
-      });
-    }
-
-    function makeFieldsEditable() {
-      const allInputs = document.querySelectorAll('input[type="text"]');
-      allInputs.forEach(input => {
-        input.removeAttribute("readonly");
-
-        input.addEventListener("dblclick", function() {
-          const user = auth.currentUser;
-          if (user && user.uid) {
-            db.collection("users").doc(user.uid).get().then(doc => {
-              if (doc.exists && doc.data().role === 'admin') {
-                input.value = ""; // Allow admin to clear the field
-              }
-            });
-          }
-        });
-
-        input.addEventListener("blur", () => {
-          if (input.value.trim() !== "") {
-            const confirmed = confirm("Are you sure? This cannot be changed later.");
-            if (confirmed) {
-              input.setAttribute("readonly", "true");
-            } else {
-              input.value = ""; // Clear the value if not confirmed
-            }
-          }
-        });
-      });
-    }
-
-    function makeAllFieldsReadOnly() {
-      const allInputs = document.querySelectorAll('input[type="text"]');
-      allInputs.forEach(input => input.setAttribute("readonly", "true"));
-    }
   </script>
 
 </body>
