@@ -67,15 +67,10 @@
       text-align: center;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="email"], input[type="password"] {
       width: 90%;
       padding: 5px;
       font-size: 1em;
-    }
-
-    input[readonly] {
-      background-color: #eee;
-      cursor: not-allowed;
     }
 
     footer {
@@ -98,6 +93,8 @@
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
     <a href="#contact">Contact</a>
+    <a href="#login">Login</a> <!-- Link to the Login form -->
+    <a href="#signup">Sign Up</a> <!-- Link to the Sign-Up form -->
   </nav>
 
   <!-- About Us Section -->
@@ -108,65 +105,33 @@
     </section>
   </div>
 
-  <!-- Serving Schedule Section -->
-  <div class="content-box" id="schedule">
+  <!-- Login Form Section -->
+  <div class="content-box" id="login">
     <section>
-      <h2>Serving Schedule (Sunday)</h2>
-      <table id="sundaySchedule">
-        <thead>
-          <tr>
-            <th>Cross Server</th>
-            <th>Candle Server</th>
-            <th>Candle Server</th>
-            <th>Bell Server</th>
-            <th>Big Bell Server</th>
-            <th>Big Bell Server</th>
-            <th>Server</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="loginEmail">Email:</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required><br><br>
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required><br><br>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+  </div>
 
-      <h2>Serving Schedule (Monday to Saturday)</h2>
-      <table id="weekdaySchedule">
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Server 1</th>
-            <th>Server 2</th>
-            <th>Server 3</th>
-            <th>Server 4</th>
-            <th>Server 5</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Monday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
-          <tr><td>Tuesday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
-          <tr><td>Wednesday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
-          <tr><td>Thursday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
-          <tr><td>Friday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
-          <tr><td>Saturday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
-        </tbody>
-      </table>
+  <!-- Sign Up Form Section -->
+  <div class="content-box" id="signup">
+    <section>
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <label for="signupEmail">Email:</label>
+        <input type="email" id="signupEmail" placeholder="Enter your email" required><br><br>
+        <label for="signupPassword">Password:</label>
+        <input type="password" id="signupPassword" placeholder="Enter your password" required><br><br>
+        <label for="signupConfirmPassword">Confirm Password:</label>
+        <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required><br><br>
+        <button type="submit">Sign Up</button>
+      </form>
     </section>
   </div>
 
@@ -184,6 +149,7 @@
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
   <script>
@@ -200,56 +166,47 @@
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Dynamic input generation for weekdays (Monday - Saturday)
-    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const serverCount = 5; // Only 5 servers per day
+    // Sign Up Function
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('signupConfirmPassword').value;
 
-    weekdays.forEach((day, rowIndex) => {
-      const row = document.querySelector(`#weekdaySchedule tbody`).children[rowIndex];
-      
-      // Clear existing input fields
-      while (row.children.length > 1) {
-        row.deleteCell(1);
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
       }
 
-      // Create 5 input fields for each day
-      for (let i = 1; i <= serverCount; i++) {
-        const input = document.createElement("input");
-        input.type = "text";
-        input.placeholder = `Server ${i}`;
-        
-        const fieldKey = `server${i}`;
-
-        // Load data from Firestore if it exists
-        db.collection("weekdaySchedule").doc(day).get().then(doc => {
-          if (doc.exists && doc.data()[fieldKey]) {
-            input.value = doc.data()[fieldKey];
-            input.readOnly = true; // Make it readonly if data exists in Firestore
-          }
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("Sign Up Successful!");
+          // Redirect or update UI as needed
+        })
+        .catch((error) => {
+          console.error(error.message);
+          alert(error.message);
         });
+    });
 
-        // Save data to Firestore when the input field loses focus
-        input.addEventListener("blur", () => {
-          if (input.value.trim() !== "") {
-            const confirmed = confirm("Are you sure? You cannot change this later.");
-            if (confirmed) {
-              const update = {};
-              update[fieldKey] = input.value.trim();
-              db.collection("weekdaySchedule").doc(day).set(update, { merge: true });
-              input.readOnly = true; // Make it readonly after submission
-            } else {
-              input.value = ""; // Clear the field if not confirmed
-            }
-          }
+    // Login Function
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert("Login Successful!");
+          // Redirect or update UI as needed
+        })
+        .catch((error) => {
+          console.error(error.message);
+          alert(error.message);
         });
-
-        // Add the input to the table cell
-        const td = document.createElement("td");
-        td.appendChild(input);
-        row.appendChild(td); // Append input field in the corresponding cell
-      }
     });
   </script>
 
