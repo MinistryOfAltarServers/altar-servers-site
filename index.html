@@ -5,103 +5,107 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
-    /* Style for table and inputs */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffcc00;
-      margin: 0;
-      padding: 0;
-      color: #000;
-    }
-    header {
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    nav {
-      background-color: #222;
-      text-align: center;
-      padding: 15px;
-    }
-    nav a {
-      color: #ffcc00;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .content-box {
-      background: #fff;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 1000px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    table, th, td {
-      border: 1px solid #000;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
-    input[type="text"] {
-      width: 90%;
-      padding: 5px;
-      font-size: 1em;
-    }
-    input[readonly] {
-      background-color: #eee;
-      cursor: not-allowed;
-    }
+    body { font-family: Arial, sans-serif; background-color: #ffcc00; color: #000; margin: 0; padding: 0; }
+    header { background-color: #000; color: #fff; padding: 20px; text-align: center; }
+    nav { background-color: #222; text-align: center; padding: 15px; }
+    nav a { color: #ffcc00; margin: 0 15px; text-decoration: none; font-weight: bold; }
+    .content-box { background: #fff; margin: 20px auto; padding: 20px; max-width: 1000px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    table, th, td { border: 1px solid #000; }
+    th, td { padding: 10px; text-align: center; }
+    input[type="text"] { width: 90%; padding: 5px; font-size: 1em; }
+    input[readonly] { background-color: #eee; cursor: not-allowed; }
+    footer { background-color: #000; color: #fff; text-align: center; padding: 15px; margin-top: 40px; }
   </style>
 </head>
 <body>
 
+  <!-- Header Section -->
   <header>
     <h1>San Gregorio Magno Altar Servers</h1>
   </header>
 
+  <!-- Navigation Bar -->
   <nav>
-    <a href="login.html">Login</a> | <a href="signup.html">Sign Up</a>
+    <a href="#about">About</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#contact">Contact</a>
+    <a href="login.html" id="loginLink">Login</a>
   </nav>
 
+  <!-- About Section -->
+  <div class="content-box">
+    <section id="about">
+      <h2>About Us</h2>
+      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+    </section>
+  </div>
+
+  <!-- Sunday Schedule (6x2 table) -->
   <div class="content-box">
     <section id="schedule">
       <h2>Serving Schedule (Sunday)</h2>
       <table id="sundaySchedule">
-        <tbody>
+        <thead>
           <tr>
-            <td><input type="text" id="sunday-1" class="sunday-input" readonly /></td>
-            <td><input type="text" id="sunday-2" class="sunday-input" readonly /></td>
-            <td><input type="text" id="sunday-3" class="sunday-input" readonly /></td>
-            <td><input type="text" id="sunday-4" class="sunday-input" readonly /></td>
-            <td><input type="text" id="sunday-5" class="sunday-input" readonly /></td>
-            <td><input type="text" id="sunday-6" class="sunday-input" readonly /></td>
+            <th>Cross Server</th>
+            <th>Candle Server</th>
+            <th>Candle Server</th>
+            <th>Bell Server</th>
+            <th>Big Bell Server</th>
+            <th>Big Bell Server</th>
+            <th>Server</th>
           </tr>
-        </tbody>
-      </table>
-
-      <h2>Serving Schedule (Weekdays)</h2>
-      <table id="weekdaySchedule">
+        </thead>
         <tbody>
-          <tr><td>Monday</td><td><input type="text" id="monday-1" class="weekday-input" /></td><td><input type="text" id="monday-2" class="weekday-input" /></td><td><input type="text" id="monday-3" class="weekday-input" /></td><td><input type="text" id="monday-4" class="weekday-input" /></td><td><input type="text" id="monday-5" class="weekday-input" /></td></tr>
-          <tr><td>Tuesday</td><td><input type="text" id="tuesday-1" class="weekday-input" /></td><td><input type="text" id="tuesday-2" class="weekday-input" /></td><td><input type="text" id="tuesday-3" class="weekday-input" /></td><td><input type="text" id="tuesday-4" class="weekday-input" /></td><td><input type="text" id="tuesday-5" class="weekday-input" /></td></tr>
-          <!-- Repeat for other weekdays -->
+          <!-- Sunday schedule rows will go here -->
         </tbody>
       </table>
     </section>
   </div>
 
+  <!-- Weekday Schedule (6x5 table) -->
+  <div class="content-box">
+    <section id="schedule">
+      <h2>Serving Schedule (Monday to Saturday)</h2>
+      <table id="weekdaySchedule">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Monday to Saturday rows will go here -->
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="content-box">
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
+    </section>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
+  </footer>
+
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
   <script>
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -112,68 +116,89 @@
       measurementId: "G-MQVV9NJ0SS"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const auth = firebase.auth();
 
-    // Listen to auth state change
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        const isAdmin = user.email === "admin@example.com"; // Example of checking admin status based on email
-        updateScheduleTable(isAdmin, user);
-      } else {
-        window.location.href = 'login.html'; // Redirect to login if not authenticated
-      }
-    });
-
-    // Function to update the table and enable/disable Sunday inputs
-    function updateScheduleTable(isAdmin, user) {
-      const sundayInputs = document.querySelectorAll(".sunday-input");
-
-      // If the user is an admin, allow editing of Sunday fields
-      if (isAdmin) {
-        sundayInputs.forEach(input => input.removeAttribute("readonly"));
-      } else {
-        sundayInputs.forEach(input => input.setAttribute("readonly", "true"));
-      }
-
-      const weekdayInputs = document.querySelectorAll(".weekday-input");
-      weekdayInputs.forEach(input => {
-        if (input.value.trim() === "") {
-          input.addEventListener("blur", () => {
-            if (input.value.trim() !== "") {
-              const confirmed = confirm("Are you sure? You cannot change this later.");
-              if (confirmed) {
-                const userName = input.value.trim();
-                const day = input.closest('tr').children[0].textContent;
-                const serverId = input.id.split('-')[1];
-                const fieldKey = `server${serverId}`;
-                db.collection("weekdaySchedule").doc(day).set({ [fieldKey]: userName }, { merge: true });
-                input.setAttribute("readonly", "true");
-              } else {
-                input.value = "";
-              }
-            }
-          });
+    // Helper function to check if the user is logged in and set UI accordingly
+    function checkLoginStatus() {
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          document.getElementById('loginLink').innerText = 'Logout';
+          document.getElementById('loginLink').href = '#';
+        } else {
+          document.getElementById('loginLink').innerText = 'Login';
+          document.getElementById('loginLink').href = 'login.html';
         }
       });
-
-      // Display user name in fields
-      displayUserNameForSunday();
     }
 
-    function displayUserNameForSunday() {
-      const sundayInputs = document.querySelectorAll(".sunday-input");
+    checkLoginStatus();
 
-      sundayInputs.forEach(input => {
-        const dayIndex = input.id.split('-')[1]; // Get the day index like 1, 2, 3, etc.
-        const sundayRef = db.collection("sundaySchedule").doc(dayIndex);
-        sundayRef.get().then(doc => {
-          if (doc.exists) {
-            input.value = doc.data().name || '';
+    // Admin check function
+    function isAdmin(user) {
+      return user && user.email === 'admin@parish.org';  // Replace with actual admin email logic
+    }
+
+    // Load Sunday schedule (6x2 table)
+    function loadSundaySchedule() {
+      db.collection("sundaySchedule").get().then(snapshot => {
+        snapshot.forEach(doc => {
+          const row = document.createElement('tr');
+          const data = doc.data();
+
+          for (let i = 0; i < 7; i++) {
+            const td = document.createElement('td');
+            td.innerHTML = data[`server${i + 1}`] || '';
+            if (!isAdmin(auth.currentUser)) td.setAttribute('readonly', true);  // Non-admin cannot edit
+            row.appendChild(td);
           }
+
+          document.querySelector("#sundaySchedule tbody").appendChild(row);
         });
       });
     }
+
+    // Load Weekday schedule (6x5 table)
+    function loadWeekdaySchedule() {
+      const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      weekdays.forEach((day, rowIndex) => {
+        const row = document.createElement("tr");
+        const tdDay = document.createElement("td");
+        tdDay.innerText = day;
+        row.appendChild(tdDay);
+
+        for (let i = 1; i <= 5; i++) {
+          const input = document.createElement("input");
+          input.type = "text";
+          input.placeholder = `Server ${i}`;
+          const td = document.createElement("td");
+          td.appendChild(input);
+
+          // Add event for editing and saving input
+          input.addEventListener("blur", function () {
+            if (input.value.trim() !== "") {
+              const confirmed = confirm("Are you sure? You cannot change this later.");
+              if (confirmed) {
+                const fieldKey = `server${i}`;
+                const update = { [fieldKey]: input.value.trim() };
+                db.collection("weekdaySchedule").doc(day).set(update, { merge: true });
+                input.setAttribute("readonly", true);
+              }
+            }
+          });
+
+          row.appendChild(td);
+        }
+
+        document.querySelector("#weekdaySchedule tbody").appendChild(row);
+      });
+    }
+
+    loadSundaySchedule();
+    loadWeekdaySchedule();
   </script>
+
 </body>
 </html>
