@@ -18,6 +18,17 @@
       color: #fff;
       padding: 20px;
       text-align: center;
+      position: relative;
+    }
+
+    header a {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ffcc00;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     nav {
@@ -87,6 +98,7 @@
 
   <header>
     <h1>San Gregorio Magno Altar Servers</h1>
+    <a href="#authControls">Sign In | Sign Up</a>
   </header>
 
   <nav>
@@ -258,3 +270,35 @@
       for (let i = 1; i <= serverCount; i++) {
         const input = document.createElement("input");
         input.type = "text";
+        input.placeholder = `Server ${i}`;
+        const fieldKey = `server${i}`;
+
+        db.collection("weekdaySchedule").doc(day).get().then(doc => {
+          if (doc.exists && doc.data()[fieldKey]) {
+            input.value = doc.data()[fieldKey];
+            input.readOnly = true;
+          }
+        });
+
+        input.addEventListener("blur", () => {
+          if (isAdmin && input.value.trim() !== "") {
+            const confirmed = confirm("Are you sure? You cannot change this later.");
+            if (confirmed) {
+              const update = {};
+              update[fieldKey] = input.value.trim();
+              db.collection("weekdaySchedule").doc(day).set(update, { merge: true });
+              input.readOnly = true;
+            } else {
+              input.value = "";
+            }
+          }
+        });
+
+        const td = document.createElement("td");
+        td.appendChild(input);
+        row.appendChild(td);
+      }
+    });
+  </script>
+</body>
+</html>
