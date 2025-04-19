@@ -2,87 +2,102 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | San Gregorio Magno Altar Servers</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+    * {
       margin: 0;
       padding: 0;
-      color: #333;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffcc00; /* Yellow background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #000;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background-color: #000; /* Black background for the container */
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      color: #fff; /* White text inside the container */
     }
 
     header {
       background-color: #333;
-      color: #fff;
+      color: #ffcc00; /* Yellow text */
       padding: 20px;
       text-align: center;
+      border-radius: 8px 8px 0 0;
     }
 
-    .container {
-      max-width: 400px;
-      margin: 50px auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    h1 {
+      margin: 0;
+      font-size: 24px;
     }
 
-    h2 {
-      text-align: center;
-      color: #333;
+    .login-form {
+      margin-top: 20px;
     }
 
-    input[type="email"],
-    input[type="password"] {
+    .login-form input[type="email"],
+    .login-form input[type="password"] {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
-      border: 1px solid #ccc;
+      border: 1px solid #ffcc00; /* Yellow border */
       border-radius: 4px;
-      box-sizing: border-box;
+      font-size: 16px;
+      color: #333;
     }
 
-    button {
+    .login-form button {
       width: 100%;
       padding: 10px;
-      background-color: #4CAF50;
-      color: #fff;
+      background-color: #ffcc00; /* Yellow button */
       border: none;
       border-radius: 4px;
-      font-size: 1em;
+      font-size: 16px;
+      color: #000;
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: #45a049;
+    .login-form button:hover {
+      background-color: #f1c40f; /* Darker yellow on hover */
     }
 
     .signup-link {
       text-align: center;
-      margin-top: 10px;
+      margin-top: 20px;
     }
 
     .signup-link a {
-      color: #007BFF;
+      color: #ffcc00; /* Yellow link */
       text-decoration: none;
     }
 
     .signup-link a:hover {
       text-decoration: underline;
     }
+
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Login to San Gregorio Magno Altar Servers</h1>
-  </header>
-
   <div class="container">
-    <h2>Login</h2>
-    <form id="loginForm">
+    <header>
+      <h1>Login to Altar Servers</h1>
+    </header>
+
+    <form id="loginForm" class="login-form">
       <div>
         <input type="email" id="email" placeholder="Email" required />
       </div>
@@ -115,23 +130,24 @@
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
     const auth = firebase.auth();
 
-    // Handle form submission
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-      event.preventDefault();
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
 
       auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          const user = userCredential.user;
-          window.location.href = "index.html"; // Redirect to homepage after login
+          // Redirect to the main page after successful login
+          window.location.href = "index.html";
         })
         .catch((error) => {
           const errorMessage = error.message;
-          alert("Error: " + errorMessage);
+          alert("Login failed: " + errorMessage);
         });
     });
   </script>
