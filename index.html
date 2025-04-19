@@ -1,251 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Altar Servers</title>
-    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
-    <style>
-        /* Global styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            margin: 0;
-            padding: 0;
-            color: #fff;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>San Gregorio Magno Altar Servers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffcc00;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
 
-        header {
-            background-color: #000;
-            color: yellow;
-            text-align: center;
-            padding: 20px;
-        }
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2em;
-        }
+    nav {
+      background-color: #222;
+      text-align: center;
+      padding: 15px;
+    }
 
-        nav {
-            background-color: #333;
-            padding: 10px;
-            text-align: center;
-        }
+    nav a {
+      color: #ffcc00;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-        nav a {
-            color: yellow;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.2em;
-        }
+    .content-box {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 1000px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
 
-        .container {
-            padding: 20px;
-        }
+    table, th, td {
+      border: 1px solid #000;
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
 
-        th,
-        td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
+    input[type="text"] {
+      width: 90%;
+      padding: 5px;
+      font-size: 1em;
+    }
 
-        th {
-            background-color: #111;
-            color: yellow;
-        }
+    input[readonly] {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
 
-        td {
-            background-color: #222;
-        }
-
-        input[type="text"] {
-            width: 80%;
-            padding: 5px;
-            margin: 5px;
-            background-color: #444;
-            border: none;
-            color: yellow;
-        }
-
-        input[type="text"]:disabled {
-            background-color: #333;
-            color: #666;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #4cae4c;
-        }
-
-        footer {
-            background-color: #333;
-            color: yellow;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
-
 <body>
 
-    <!-- Header with navigation links -->
-    <header>
-        <h1>Altar Servers Ministry</h1>
-    </header>
+  <header>
+    <h1>San Gregorio Magno Altar Servers</h1>
+  </header>
 
-    <nav>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Sign Up</a>
-    </nav>
+  <nav>
+    <a href="login.html">Login</a> | <a href="signup.html">Sign Up</a>
+  </nav>
 
-    <div class="container">
-        <!-- Sunday Schedule Section (6x3 table) -->
-        <section id="sundaySchedule">
-            <h2>Sunday Serving Schedule</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cross Server</th>
-                        <th>Candle Server</th>
-                        <th>Candle Server</th>
-                        <th>Bell Server</th>
-                        <th>Big Bell Server</th>
-                        <th>Big Bell Server</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="text" id="sunday1" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday2" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday3" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday4" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday5" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday6" placeholder="Enter Name"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="sunday1-2" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday2-2" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday3-2" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday4-2" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday5-2" placeholder="Enter Name"></td>
-                        <td><input type="text" id="sunday6-2" placeholder="Enter Name"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+  <div class="content-box">
+    <section id="about">
+      <h2>About Us</h2>
+      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+    </section>
+  </div>
 
-        <!-- Weekdays Schedule Section (5 servers) -->
-        <section id="weekdaySchedule">
-            <h2>Weekdays Serving Schedule</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Day</th>
-                        <th>Server 1</th>
-                        <th>Server 2</th>
-                        <th>Server 3</th>
-                        <th>Server 4</th>
-                        <th>Server 5</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Monday</td>
-                        <td><input type="text" id="monday1"></td>
-                        <td><input type="text" id="monday2"></td>
-                        <td><input type="text" id="monday3"></td>
-                        <td><input type="text" id="monday4"></td>
-                        <td><input type="text" id="monday5"></td>
-                    </tr>
-                    <tr>
-                        <td>Tuesday</td>
-                        <td><input type="text" id="tuesday1"></td>
-                        <td><input type="text" id="tuesday2"></td>
-                        <td><input type="text" id="tuesday3"></td>
-                        <td><input type="text" id="tuesday4"></td>
-                        <td><input type="text" id="tuesday5"></td>
-                    </tr>
-                    <!-- Repeat for all weekdays -->
-                </tbody>
-            </table>
-        </section>
-    </div>
+  <div class="content-box">
+    <section id="schedule">
+      <h2>Serving Schedule (Sunday)</h2>
+      <table id="sundaySchedule">
+        <thead>
+          <tr>
+            <th>Cross Server</th>
+            <th>Candle Server</th>
+            <th>Candle Server</th>
+            <th>Bell Server</th>
+            <th>Big Bell Server</th>
+            <th>Big Bell Server</th>
+            <th>Server</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Altar Servers Ministry</p>
-    </footer>
+      <h2>Serving Schedule (Monday to Saturday)</h2>
+      <table id="weekdaySchedule">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
+          <tr><td>Tuesday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
+          <tr><td>Wednesday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
+          <tr><td>Thursday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
+          <tr><td>Friday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
+          <tr><td>Saturday</td><td><input type="text" placeholder="Server 1" /></td><td><input type="text" placeholder="Server 2" /></td><td><input type="text" placeholder="Server 3" /></td><td><input type="text" placeholder="Server 4" /></td><td><input type="text" placeholder="Server 5" /></td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
 
-    <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
-            authDomain: "altar-servers-e3e2a.firebaseapp.com",
-            databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "altar-servers-e3e2a",
-            storageBucket: "altar-servers-e3e2a.firebasestorage.app",
-            messagingSenderId: "184021840775",
-            appId: "1:184021840775:web:1ac06fe4838046010a9922",
-            measurementId: "G-MQVV9NJ0SS"
-        };
+  <div class="content-box">
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
+    </section>
+  </div>
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+  <footer>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
+  </footer>
 
-        // Function to save Sunday data
-        function saveSundayData() {
-            const sundayData = {
-                sunday1: document.getElementById("sunday1").value,
-                sunday2: document.getElementById("sunday2").value,
-                sunday3: document.getElementById("sunday3").value,
-                sunday4: document.getElementById("sunday4").value,
-                sunday5: document.getElementById("sunday5").value,
-                sunday6: document.getElementById("sunday6").value
-            };
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
-            firebase.database().ref("sunday_schedule").set(sundayData);
-        }
+  <script>
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
+      authDomain: "altar-servers-e3e2a.firebaseapp.com",
+      projectId: "altar-servers-e3e2a",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
+      messagingSenderId: "184021840775",
+      appId: "1:184021840775:web:1ac06fe4838046010a9922",
+      measurementId: "G-MQVV9NJ0SS"
+    };
 
-        // Function to save weekday data
-        function saveWeekdayData() {
-            const weekdayData = {
-                monday1: document.getElementById("monday1").value,
-                monday2: document.getElementById("monday2").value,
-                monday3: document.getElementById("monday3").value,
-                monday4: document.getElementById("monday4").value,
-                monday5: document.getElementById("monday5").value
-            };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-            firebase.database().ref("weekday_schedule").set(weekdayData);
-        }
-    </script>
+    // Dynamic input generation for weekdays (Monday - Saturday)
+    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const serverCount = 5;
+
+    weekdays.forEach((day, rowIndex) => {
+      const row = document.querySelector(`#weekdaySchedule tbody`).children[rowIndex];
+      for (let i = 1; i <= serverCount; i++) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = `Server ${i}`;
+
+        const fieldKey = `server${i}`;
+
+        // Load from Firestore
+        db.collection("weekdaySchedule").doc(day).get().then(doc => {
+          if (doc.exists && doc.data()[fieldKey]) {
+            input.value = doc.data()[fieldKey];
+            input.readOnly = true;
+          }
+        });
+
+        // Save to Firestore on blur (when user clicks out of the input)
+        input.addEventListener("blur", () => {
+          if (input.value.trim() !== "") {
+            const confirmed = confirm("Are you sure? You cannot change this later.");
+            if (confirmed) {
+              const update = {};
+              update[fieldKey] = input.value.trim();
+              db.collection("weekdaySchedule").doc(day).set(update, { merge: true });
+              input.readOnly = true; // Make it readonly after submission
+            } else {
+              input.value = ""; // Clear the field if not confirmed
+            }
+          }
+        });
+
+        const td = document.createElement("td");
+        td.appendChild(input);
+        row.appendChild(td);
+      }
+    });
+  </script>
 
 </body>
-
 </html>
