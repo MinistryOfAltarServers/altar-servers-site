@@ -1,240 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Altar Servers</title>
-  <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-      color: #333;
-    }
-    header {
-      background-color: #333;
-      color: yellow;
-      padding: 15px;
-      text-align: center;
-    }
-    nav a {
-      color: yellow;
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 1.1em;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .container {
-      padding: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-      border: 1px solid #ddd;
-    }
-    th {
-      background-color: #333;
-      color: yellow;
-    }
-    td {
-      background-color: #f9f9f9;
-    }
-    input {
-      width: 80%;
-      padding: 5px;
-      margin-top: 5px;
-    }
-    button {
-      padding: 10px;
-      background-color: #5cb85c;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #4cae4c;
-    }
-    footer {
-      background-color: #333;
-      color: yellow;
-      text-align: center;
-      padding: 10px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altar Servers Ministry</title>
+    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js"></script>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #fff;
+        }
+
+        header {
+            background-color: #333;
+            color: yellow;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: yellow;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #333;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #111;
+            color: yellow;
+        }
+
+        td {
+            background-color: #222;
+        }
+
+        input {
+            width: 80%;
+            padding: 5px;
+            margin-top: 5px;
+            border: none;
+            background-color: #444;
+            color: yellow;
+        }
+
+        input:disabled {
+            background-color: #333;
+            color: #666;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        footer {
+            background-color: #333;
+            color: yellow;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        /* Responsive layout */
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- Header with navigation -->
-  <header>
-    <h1>Altar Servers Ministry</h1>
-    <nav>
-      <a href="login.html">Login</a>
-      <a href="signup.html">Sign Up</a>
-    </nav>
-  </header>
+    <!-- Header with navigation -->
+    <header>
+        <h1>Altar Servers Ministry</h1>
+        <nav>
+            <a href="login.html">Login</a>
+            <a href="signup.html">Sign Up</a>
+        </nav>
+    </header>
 
-  <div class="container">
-    <!-- Sunday Schedule Section (6x3 table) -->
-    <section id="sundaySchedule">
-      <h2>Sunday Serving Schedule</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Cross Server</th>
-            <th>Candle Server</th>
-            <th>Candle Server</th>
-            <th>Bell Server</th>
-            <th>Big Bell Server</th>
-            <th>Big Bell Server</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- 6 rows for Sunday -->
-          <tr>
-            <td><input type="text" id="sunday1" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday2" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday3" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday4" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday5" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday6" placeholder="Enter Name"></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="sunday1-2" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday2-2" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday3-2" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday4-2" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday5-2" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday6-2" placeholder="Enter Name"></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="sunday1-3" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday2-3" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday3-3" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday4-3" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday5-3" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday6-3" placeholder="Enter Name"></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="sunday1-4" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday2-4" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday3-4" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday4-4" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday5-4" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday6-4" placeholder="Enter Name"></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="sunday1-5" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday2-5" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday3-5" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday4-5" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday5-5" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday6-5" placeholder="Enter Name"></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="sunday1-6" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday2-6" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday3-6" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday4-6" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday5-6" placeholder="Enter Name"></td>
-            <td><input type="text" id="sunday6-6" placeholder="Enter Name"></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <div class="container">
 
-    <!-- Weekday Schedule Section (5 servers) -->
-    <section id="weekdaySchedule">
-      <h2>Weekdays Serving Schedule</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Day</th>
-            <th>Server 1</th>
-            <th>Server 2</th>
-            <th>Server 3</th>
-            <th>Server 4</th>
-            <th>Server 5</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Monday</td>
-            <td><input type="text" id="monday1"></td>
-            <td><input type="text" id="monday2"></td>
-            <td><input type="text" id="monday3"></td>
-            <td><input type="text" id="monday4"></td>
-            <td><input type="text" id="monday5"></td>
-          </tr>
-          <!-- Add more days and servers here -->
-        </tbody>
-      </table>
-    </section>
-  </div>
+        <!-- Sunday Schedule Section (6x3 table) -->
+        <section id="sundaySchedule">
+            <h2>Sunday Serving Schedule</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cross Server</th>
+                        <th>Candle Server</th>
+                        <th>Candle Server</th>
+                        <th>Bell Server</th>
+                        <th>Big Bell Server</th>
+                        <th>Big Bell Server</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 6 rows for Sunday -->
+                    <tr>
+                        <td><input type="text" id="sunday1" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday2" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday3" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday4" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday5" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday6" placeholder="Enter Name"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="sunday1-2" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday2-2" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday3-2" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday4-2" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday5-2" placeholder="Enter Name"></td>
+                        <td><input type="text" id="sunday6-2" placeholder="Enter Name"></td>
+                    </tr>
+                    <!-- Add more rows as required -->
+                </tbody>
+            </table>
+        </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 Altar Servers Ministry</p>
-  </footer>
+        <!-- Weekdays Schedule Section (5 servers) -->
+        <section id="weekdaySchedule">
+            <h2>Weekdays Serving Schedule</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Server 1</th>
+                        <th>Server 2</th>
+                        <th>Server 3</th>
+                        <th>Server 4</th>
+                        <th>Server 5</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td><input type="text" id="monday1"></td>
+                        <td><input type="text" id="monday2"></td>
+                        <td><input type="text" id="monday3"></td>
+                        <td><input type="text" id="monday4"></td>
+                        <td><input type="text" id="monday5"></td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td><input type="text" id="tuesday1"></td>
+                        <td><input type="text" id="tuesday2"></td>
+                        <td><input type="text" id="tuesday3"></td>
+                        <td><input type="text" id="tuesday4"></td>
+                        <td><input type="text" id="tuesday5"></td>
+                    </tr>
+                    <!-- Repeat for all weekdays -->
+                </tbody>
+            </table>
+        </section>
 
-  <script>
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
-      authDomain: "altar-servers-e3e2a.firebaseapp.com",
-      databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
-      messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922",
-      measurementId: "G-MQVV9NJ0SS"
-    };
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
+    </div>
 
-    // Function to save server data to Firebase for Sunday
-    function saveSundayData() {
-      const sundayData = {
-        sunday1: document.getElementById("sunday1").value,
-        sunday2: document.getElementById("sunday2").value,
-        sunday3: document.getElementById("sunday3").value,
-        sunday4: document.getElementById("sunday4").value,
-        sunday5: document.getElementById("sunday5").value,
-        sunday6: document.getElementById("sunday6").value
-      };
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Altar Servers Ministry</p>
+    </footer>
 
-      firebase.database().ref("sunday_schedule").set(sundayData);
-    }
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
+            authDomain: "altar-servers-e3e2a.firebaseapp.com",
+            databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "altar-servers-e3e2a",
+            storageBucket: "altar-servers-e3e2a.firebasestorage.app",
+            messagingSenderId: "184021840775",
+            appId: "1:184021840775:web:1ac06fe4838046010a9922",
+            measurementId: "G-MQVV9NJ0SS"
+        };
 
-    // Function to save weekday data to Firebase (similar for all days)
-    function saveWeekdayData() {
-      const weekdayData = {
-        monday1: document.getElementById("monday1").value,
-        monday2: document.getElementById("monday2").value,
-        monday3: document.getElementById("monday3").value,
-        monday4: document.getElementById("monday4").value,
-        monday5: document.getElementById("monday5").value
-      };
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-      firebase.database().ref("weekday_schedule").set(weekdayData);
-    }
+        // Function to save Sunday data
+        function saveSundayData() {
+            const sundayData = {
+                sunday1: document.getElementById("sunday1").value,
+                sunday2: document.getElementById("sunday2").value,
+                sunday3: document.getElementById("sunday3").value,
+                sunday4: document.getElementById("sunday4").value,
+                sunday5: document.getElementById("sunday5").value,
+                sunday6: document.getElementById("sunday6").value
+            };
 
-    // Attach event listeners for save buttons or automatically save
-    document.getElementById("saveSundayBtn").addEventListener("click", saveSundayData);
-    document.getElementById("saveWeekdayBtn").addEventListener("click", saveWeekdayData);
-  </script>
+            firebase.database().ref("sunday_schedule").set(sundayData);
+        }
+
+        // Function to save weekday data
+        function saveWeekdayData() {
+            const weekdayData = {
+                monday1: document.getElementById("monday1").value,
+                monday2: document.getElementById("monday2").value,
+                monday3: document.getElementById("monday3").value,
+                monday4: document.getElementById("monday4").value,
+                monday5: document.getElementById("monday5").value
+            };
+
+            firebase.database().ref("weekday_schedule").set(weekdayData);
+        }
+    </script>
 
 </body>
+
 </html>
