@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Altar Servers</title>
   <style>
-    /* Basic styling for layout */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -54,18 +53,16 @@
 </head>
 <body>
 
-  <!-- Header with Navigation -->
   <header>
-    <h1>San Gregorio Magno Altar Servers</h1>
+    <h1>Altar Servers Ministry</h1>
     <nav>
       <a href="login.html">Login</a>
       <a href="signup.html">Sign Up</a>
     </nav>
   </header>
 
-  <!-- Main Container for Content -->
   <div class="container">
-    <!-- Sunday Schedule Section -->
+    <!-- Sunday Schedule Section (Blank) -->
     <section id="sundaySchedule">
       <h2>Sunday Serving Schedule</h2>
       <table>
@@ -82,140 +79,90 @@
         </thead>
         <tbody>
           <tr>
-            <td><input type="text" id="crossServer" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="candleServer1" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="candleServer2" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="bellServer" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="bigBellServer1" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="bigBellServer2" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="server" placeholder="Server Name" readonly></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
+          <!-- Add more rows for future Sundays -->
         </tbody>
       </table>
     </section>
-    
-    <!-- Weekday Schedule Section -->
+
+    <!-- Weekday Schedule Section (Blank for 5 servers) -->
     <section id="weekdaySchedule">
       <h2>Weekdays Serving Schedule</h2>
       <table>
         <thead>
           <tr>
-            <th>Monday</th>
-            <th>Tuesday</th>
-            <th>Wednesday</th>
-            <th>Thursday</th>
-            <th>Friday</th>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><input type="text" id="monday" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="tuesday" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="wednesday" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="thursday" placeholder="Server Name" readonly></td>
-            <td><input type="text" id="friday" placeholder="Server Name" readonly></td>
+            <td>Monday</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Saturday</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
     </section>
-
-    <button id="submitBtn">Submit</button>
   </div>
 
-  <!-- Firebase Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js"></script>
+  <footer>
+    <p>&copy; 2025 Altar Servers Ministry</p>
+  </footer>
 
-  <script>
-    // Your Firebase configuration (use your updated keys here)
-    const firebaseConfig = {
-      apiKey: "YOUR_NEW_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID",
-      measurementId: "YOUR_MEASUREMENT_ID"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-
-    // Authentication state change listener
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        // Check if the user is an admin
-        const userRef = db.collection('users').doc(user.uid);
-        userRef.get().then(doc => {
-          if (doc.exists && doc.data().isAdmin) {
-            enableEditingForAdmin();
-          } else {
-            disableEditingForRegularUser();
-          }
-        });
-      } else {
-        window.location.href = 'login.html';
-      }
-    });
-
-    // Enable editing for admins
-    function enableEditingForAdmin() {
-      document.querySelectorAll('#sundaySchedule input').forEach(input => {
-        input.removeAttribute('readonly');
-      });
-      document.querySelectorAll('#weekdaySchedule input').forEach(input => {
-        input.removeAttribute('readonly');
-      });
-    }
-
-    // Disable editing for regular users
-    function disableEditingForRegularUser() {
-      document.querySelectorAll('#sundaySchedule input').forEach(input => {
-        input.setAttribute('readonly', true);
-      });
-      document.querySelectorAll('#weekdaySchedule input').forEach(input => {
-        input.setAttribute('readonly', true);
-      });
-    }
-
-    // Firebase Submit button to update the schedule
-    document.getElementById('submitBtn').addEventListener('click', function () {
-      const user = auth.currentUser;
-      if (user) {
-        // Submit form logic here
-        const scheduleData = {
-          sunday: {
-            crossServer: document.getElementById('crossServer').value,
-            candleServer1: document.getElementById('candleServer1').value,
-            candleServer2: document.getElementById('candleServer2').value,
-            bellServer: document.getElementById('bellServer').value,
-            bigBellServer1: document.getElementById('bigBellServer1').value,
-            bigBellServer2: document.getElementById('bigBellServer2').value,
-            server: document.getElementById('server').value,
-          },
-          weekdays: {
-            monday: document.getElementById('monday').value,
-            tuesday: document.getElementById('tuesday').value,
-            wednesday: document.getElementById('wednesday').value,
-            thursday: document.getElementById('thursday').value,
-            friday: document.getElementById('friday').value,
-          }
-        };
-
-        // Save data to Firebase
-        db.collection('schedules').doc(user.uid).set(scheduleData)
-          .then(() => {
-            alert('Schedule updated successfully!');
-          })
-          .catch((error) => {
-            console.error("Error writing document: ", error);
-          });
-      }
-    });
-  </script>
 </body>
 </html>
