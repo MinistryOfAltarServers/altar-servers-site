@@ -57,10 +57,11 @@
       text-align: center;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="email"], input[type="password"] {
       width: 90%;
       padding: 5px;
       font-size: 1em;
+      margin: 5px 0;
     }
 
     input[readonly] {
@@ -75,6 +76,11 @@
       padding: 15px;
       margin-top: 40px;
     }
+
+    #authControls {
+      text-align: center;
+      margin: 20px;
+    }
   </style>
 </head>
 <body>
@@ -88,6 +94,25 @@
     <a href="#schedule">Schedule</a>
     <a href="#contact">Contact</a>
   </nav>
+
+  <div id="authControls">
+    <div id="loginForm">
+      <h3>Login</h3>
+      <input type="email" id="adminEmail" placeholder="Email" />
+      <input type="password" id="adminPassword" placeholder="Password" />
+      <button onclick="login()">Login</button>
+
+      <h3>Register</h3>
+      <input type="email" id="registerEmail" placeholder="New Email" />
+      <input type="password" id="registerPassword" placeholder="New Password" />
+      <button onclick="register()">Register</button>
+    </div>
+
+    <div id="logoutSection" style="display: none;">
+      <p>Logged in as <span id="userEmail"></span> <span id="adminBadge" style="font-weight:bold;"></span></p>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
 
   <div class="content-box">
     <section id="about">
@@ -112,24 +137,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          <tr></tr>
+          <tr></tr>
         </tbody>
       </table>
 
@@ -171,9 +180,9 @@
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
 
   <script>
-    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -184,11 +193,63 @@
       measurementId: "G-MQVV9NJ0SS"
     };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const auth = firebase.auth();
 
-    // Dynamic input generation for weekdays (Monday - Saturday)
+    const adminEmails = ["youradmin@email.com", "anotheradmin@parish.org"]; // Replace with real admin emails
+    let isAdmin = false;
+
+    auth.onAuthStateChanged(user => {
+      const loginForm = document.getElementById("loginForm");
+      const logoutSection = document.getElementById("logoutSection");
+
+      if (user) {
+        const email = user.email;
+        isAdmin = adminEmails.includes(email);
+        document.getElementById("userEmail").textContent = email;
+        document.getElementById("adminBadge").textContent = isAdmin ? "(Admin)" : "";
+        loginForm.style.display = "none";
+        logoutSection.style.display = "block";
+        isAdmin ? enableInputs() : disableInputs();
+      } else {
+        isAdmin = false;
+        loginForm.style.display = "block";
+        logoutSection.style.display = "none";
+        disableInputs();
+      }
+    });
+
+    function login() {
+      const email = document.getElementById("adminEmail").value;
+      const password = document.getElementById("adminPassword").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .catch(error => alert("Login failed: " + error.message));
+    }
+
+    function register() {
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerPassword").value;
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(() => alert("Account created! You can now log in."))
+        .catch(error => alert("Registration failed: " + error.message));
+    }
+
+    function logout() {
+      auth.signOut();
+    }
+
+    function disableInputs() {
+      document.querySelectorAll("input[type='text']").forEach(input => input.readOnly = true);
+    }
+
+    function enableInputs() {
+      document.querySelectorAll("input[type='text']").forEach(input => {
+        if (!input.value) input.readOnly = false;
+      });
+    }
+
+    // Weekday Schedule Inputs
     const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const serverCount = 5;
 
@@ -197,39 +258,3 @@
       for (let i = 1; i <= serverCount; i++) {
         const input = document.createElement("input");
         input.type = "text";
-        input.placeholder = `Server ${i}`;
-
-        const fieldKey = `server${i}`;
-
-        // Load from Firestore
-        db.collection("weekdaySchedule").doc(day).get().then(doc => {
-          if (doc.exists && doc.data()[fieldKey]) {
-            input.value = doc.data()[fieldKey];
-            input.readOnly = true;
-          }
-        });
-
-        // Save to Firestore on blur (when user clicks out of the input)
-        input.addEventListener("blur", () => {
-          if (input.value.trim() !== "") {
-            const confirmed = confirm("Are you sure? You cannot change this later.");
-            if (confirmed) {
-              const update = {};
-              update[fieldKey] = input.value.trim();
-              db.collection("weekdaySchedule").doc(day).set(update, { merge: true });
-              input.readOnly = true; // Make it readonly after submission
-            } else {
-              input.value = ""; // Clear the field if not confirmed
-            }
-          }
-        });
-
-        const td = document.createElement("td");
-        td.appendChild(input);
-        row.appendChild(td);
-      }
-    });
-  </script>
-
-</body>
-</html>
