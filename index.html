@@ -33,6 +33,21 @@
       font-weight: bold;
     }
 
+    nav button {
+      background-color: #ffcc00;
+      border: none;
+      padding: 10px 20px;
+      color: #000;
+      font-size: 1em;
+      margin: 0 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    nav button:hover {
+      background-color: #e6b800;
+    }
+
     .content-box {
       background: #fff;
       margin: 20px auto;
@@ -89,6 +104,8 @@
     <a href="#about">About</a>
     <a href="#schedule">Schedule</a>
     <a href="#contact">Contact</a>
+    <!-- Logout Button will only be visible if the user is signed in -->
+    <button id="logoutButton" style="display: none;" onclick="logout()">Logout</button>
   </nav>
 
   <div class="content-box">
@@ -192,8 +209,28 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Logic for enabling input fields only for signed-in users and admins
-    // Implement your Firebase Authentication check and Firestore logic here
+    // Show the logout button when the user is logged in
+    const logoutButton = document.getElementById('logoutButton');
+
+    function checkUserStatus() {
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          logoutButton.style.display = 'inline-block'; // Show logout button
+        } else {
+          logoutButton.style.display = 'none'; // Hide logout button
+        }
+      });
+    }
+
+    function logout() {
+      firebase.auth().signOut().then(function() {
+        window.location.reload();
+      }).catch(function(error) {
+        console.error('Logout error: ', error);
+      });
+    }
+
+    checkUserStatus();
   </script>
 
 </body>
