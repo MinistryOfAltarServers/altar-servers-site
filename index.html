@@ -5,36 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
+    /* General Body Styles */
     body {
       font-family: Arial, sans-serif;
-      background-color: #ffcc00;
+      background-color: #ffcc00; /* Yellow background */
       margin: 0;
       padding: 0;
       color: #000;
     }
 
+    /* Header Styles */
     header {
-      background-color: #000;
-      color: #fff;
+      background-color: #000; /* Black background */
+      color: #ffcc00; /* Yellow text */
       padding: 20px;
       text-align: center;
     }
 
+    /* Navigation Styles */
     nav {
-      background-color: #222;
+      background-color: #222; /* Dark grey background */
       text-align: center;
       padding: 15px;
     }
 
     nav a {
-      color: #ffcc00;
+      color: #ffcc00; /* Yellow text */
       margin: 0 15px;
       text-decoration: none;
       font-weight: bold;
     }
 
+    /* Content Box Styles */
     .content-box {
-      background: #fff;
+      background: #fff; /* White background for content */
       margin: 20px auto;
       padding: 20px;
       max-width: 1000px;
@@ -42,6 +46,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
+    /* Table Styles */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -49,7 +54,7 @@
     }
 
     table, th, td {
-      border: 1px solid #000;
+      border: 1px solid #000; /* Black borders */
     }
 
     th, td {
@@ -57,10 +62,13 @@
       text-align: center;
     }
 
+    /* Input Styles */
     input[type="text"] {
       width: 90%;
       padding: 5px;
       font-size: 1em;
+      border: 1px solid #000;
+      border-radius: 5px;
     }
 
     input[readonly] {
@@ -68,12 +76,25 @@
       cursor: not-allowed;
     }
 
+    /* Footer Styles */
     footer {
-      background-color: #000;
-      color: #fff;
+      background-color: #000; /* Black background */
+      color: #ffcc00; /* Yellow text */
       text-align: center;
       padding: 15px;
       margin-top: 40px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav {
+        padding: 10px;
+      }
+
+      .content-box {
+        padding: 15px;
+        margin: 10px;
+      }
     }
   </style>
 </head>
