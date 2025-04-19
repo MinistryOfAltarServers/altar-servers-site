@@ -192,9 +192,10 @@
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
 
   <script>
-    // Your Firebase config
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -216,9 +217,33 @@
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           logoutButton.style.display = 'inline-block'; // Show logout button
+          loadUserData(user); // Load user data if signed in
         } else {
           logoutButton.style.display = 'none'; // Hide logout button
         }
+      });
+    }
+
+    function loadUserData(user) {
+      const userId = user.uid;
+
+      // Check if user is an admin
+      const userRef = db.collection('users').doc(userId);
+      userRef.get().then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          if (userData.role === 'admin') {
+            // Allow admin to edit Sunday schedule
+            enableSundayEditing();
+          }
+        }
+      });
+    }
+
+    function enableSundayEditing() {
+      // Remove the readonly attribute from Sunday schedule input fields
+      document.querySelectorAll('#sundaySchedule input').forEach(input => {
+        input.removeAttribute('readonly');
       });
     }
 
