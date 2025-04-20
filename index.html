@@ -84,6 +84,43 @@
       padding: 15px;
       margin-top: 40px;
     }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .modal-button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #ffcc00;
+      color: black;
+      border-radius: 5px;
+    }
+
+    .modal-button:hover {
+      background-color: #ffb300;
+    }
   </style>
 </head>
 <body>
@@ -181,6 +218,18 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
 
+  <!-- Modal -->
+  <div id="confirmationModal" class="modal">
+    <div class="modal-content">
+      <h3>Are you sure you want to save this change?</h3>
+      <input type="text" id="modal-input" disabled>
+      <div>
+        <button id="confirmButton" class="modal-button">Confirm</button>
+        <button id="cancelButton" class="modal-button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Firebase SDK & Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -200,6 +249,7 @@
     const db = getDatabase(app);
 
     const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    let currentInput = null;
 
     function loadInputs() {
       days.forEach(day => {
@@ -231,25 +281,38 @@
       });
     }
 
+    function showModal(input) {
+      currentInput = input;
+      document.getElementById('modal-input').value = input.value.trim();
+      document.getElementById('confirmationModal').style.display = 'flex';
+    }
+
     function setBlurEvents() {
       days.forEach(day => {
         for (let i = 1; i <= 5; i++) {
           const input = document.getElementById(`${day}-server-${i}`);
           input.addEventListener('blur', () => {
             if (!input.readOnly && input.value.trim() !== '' && input.dataset.originalValue !== input.value.trim()) {
-              const confirmSet = confirm("Are you sure? This cannot be changed.");
-              if (confirmSet) {
-                input.readOnly = true;
-                saveInput(day, i, input.value.trim());
-                input.dataset.originalValue = input.value.trim();
-              } else {
-                input.value = '';  // Clear the value if canceled
-              }
+              showModal(input);
             }
           });
         }
       });
     }
+
+    // Modal buttons
+    document.getElementById('confirmButton').addEventListener('click', () => {
+      const input = currentInput;
+      input.readOnly = true;
+      saveInput(input.id.split('-')[0], input.id.split('-')[2], input.value.trim());
+      input.dataset.originalValue = input.value.trim();
+      document.getElementById('confirmationModal').style.display = 'none';
+    });
+
+    document.getElementById('cancelButton').addEventListener('click', () => {
+      currentInput.value = '';
+      document.getElementById('confirmationModal').style.display = 'none';
+    });
 
     window.addEventListener('DOMContentLoaded', () => {
       loadInputs();
