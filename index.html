@@ -14,103 +14,217 @@
     header, footer {
       background-color: black;
       color: white;
-      text-align: center;
-      padding: 1em;
+      padding: 10px;
     }
-    nav {
-      background-color: black;
-      padding: 0.5em;
-      text-align: center;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+      padding: 0;
+      margin: 0;
     }
-    nav a {
+    nav ul li a {
       color: white;
-      margin: 0 10px;
       text-decoration: none;
-    }
-    main {
-      padding: 20px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
       background-color: white;
       color: black;
+      margin: 20px 0;
     }
     th, td {
       border: 1px solid black;
-      padding: 8px;
-      text-align: center;
+      padding: 10px;
+      text-align: left;
+    }
+    td[contenteditable="true"] {
+      background-color: #ffffcc;
+      outline: 2px solid #ffcc00;
     }
     #modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
       justify-content: center;
       align-items: center;
+      z-index: 1000;
     }
     #modal-content {
-      background: white;
+      background-color: white;
       padding: 20px;
       border-radius: 8px;
       text-align: center;
     }
-    button {
-      padding: 8px 12px;
-      margin: 5px;
+    #modal-content button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>San Gregorio Magno Altar Servers</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="sunday.html">Sunday Schedule</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="signup.html">Signup</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <nav>
-    <a href="index.html">Schedule</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="login.html">Login</a>
-    <a href="signup.html">Signup</a>
-  </nav>
+  <h2>Weekday Schedule</h2>
+  <table id="schedule-table">
+    <tr>
+      <th>Day</th>
+      <th>Server 1</th>
+      <th>Server 2</th>
+      <th>Server 3</th>
+      <th>Server 4</th>
+      <th>Server 5</th>
+    </tr>
+    ${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].map(day => `
+      <tr>
+        <td>${day}</td>
+        ${[1,2,3,4,5].map(i => `<td data-day="${day.toLowerCase()}" data-server="server${i}"></td>`).join('')}
+      </tr>
+    `).join('')}
+  </table>
 
-  <main>
-    <h2>Weekly Schedule</h2>
-    <table>
-      <tr>
-        <th>Day</th>
-        <th>Server 1</th>
-        <th>Server 2</th>
-        <th>Server 3</th>
-        <th>Server 4</th>
-        <th>Server 5</th>
-      </tr>
-      ${['monday','tuesday','wednesday','thursday','friday','saturday'].map(day => `
-      <tr>
-        <td>${day.charAt(0).toUpperCase() + day.slice(1)}</td>
-        ${[1,2,3,4,5].map(i => `
-          <td><input id="${day}-server-${i}" type="text" /></td>
-        `).join('')}
-      </tr>
-      `).join('')}
-      <tr>
-        <td>Sunday 7:30 AM</td>
-        <td colspan="5">Cross: ___, Candle: ___, Bell: ___</td>
-      </tr>
-      <tr>
-        <td>Sunday 9:00 AM</td>
-        <td colspan="5">Cross: ___, Candle: ___, Bell: ___</td>
-      </tr>
-      <tr>
-        <td>Sunday 5:00 PM</td>
-        <td colspan="5">Cross: ___, Candle: ___, Bell: ___</td>
-      </tr>
-    </table>
-  </main>
+  <div id="modal">
+    <div id="modal-content">
+      <p>Are you sure you want to save this change?</p>
+      <button id="confirm-save">Yes</button>
+      <button id="cancel-save">No</button>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
+      authDomain: "altar-servers-e3e2a.firebaseapp.com",
+      databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "altar-servers-e3e2a",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
+      messagingSenderId: "184021840775",
+      appId: "1:184021840775:web:1ac06fe4838046010a9922",
+      measurementId: "G-MQVV9NJ0SS"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    let currentTD = null;
+    let originalText = '';
+
+    function loadFromFirebase() {
+      database.ref('schedule').once('value').then(snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          for (let day in data) {
+            for (let server in data[day]) {
+              const cell = document.querySelector(`td[data-day="${day}"][data-server="${server}"]`);
+              if (cell) {
+                cell.textContent = data[day][server];
+                cell.setAttribute('contenteditable', false);
+              }
+            }
+          }
+          localStorage.setItem('schedule', JSON.stringify(data));
+        }
+      }).catch(err => {
+        console.error("Error loading Firebase:", err);
+        loadFromLocalStorage();
+      });
+    }
+
+    function loadFromLocalStorage() {
+      const data = JSON.parse(localStorage.getItem('schedule'));
+      if (data) {
+        for (let day in data) {
+          for (let server in data[day]) {
+            const cell = document.querySelector(`td[data-day="${day}"][data-server="${server}"]`);
+            if (cell) cell.textContent = data[day][server];
+          }
+        }
+      }
+    }
+
+    function saveToFirebase(day, server, value) {
+      const path = `schedule/${day}/${server}`;
+      database.ref(path).set(value).then(() => {
+        console.log("Saved to Firebase:", path);
+        updateLocalStorage(day, server, value);
+      }).catch(err => {
+        console.error("Save failed:", err);
+        updateLocalStorage(day, server, value);
+      });
+    }
+
+    function updateLocalStorage(day, server, value) {
+      let data = JSON.parse(localStorage.getItem('schedule')) || {};
+      data[day] = data[day] || {};
+      data[day][server] = value;
+      localStorage.setItem('schedule', JSON.stringify(data));
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadFromFirebase();
+
+      document.querySelectorAll('td[data-day]').forEach(cell => {
+        cell.addEventListener('click', () => {
+          if (!cell.isContentEditable) {
+            originalText = cell.textContent;
+            currentTD = cell;
+            cell.setAttribute('contenteditable', 'true');
+            cell.focus();
+          }
+        });
+
+        cell.addEventListener('blur', () => {
+          if (currentTD && currentTD.textContent !== originalText) {
+            document.getElementById('modal').style.display = 'flex';
+          }
+        });
+      });
+
+      document.getElementById('confirm-save').addEventListener('click', () => {
+        if (currentTD) {
+          const day = currentTD.getAttribute('data-day');
+          const server = currentTD.getAttribute('data-server');
+          const value = currentTD.textContent.trim();
+          currentTD.setAttribute('contenteditable', 'false');
+          saveToFirebase(day, server, value);
+          currentTD = null;
+          document.getElementById('modal').style.display = 'none';
+        }
+      });
+
+      document.getElementById('cancel-save').addEventListener('click', () => {
+        if (currentTD) {
+          currentTD.textContent = originalText;
+          currentTD.setAttribute('contenteditable', 'false');
+          currentTD = null;
+          document.getElementById('modal').style.display = 'none';
+        }
+      });
+    });
+  </script>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Parish</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers</p>
   </footer>
 </body>
 </html>
