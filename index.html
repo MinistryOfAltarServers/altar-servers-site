@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>San Gregorio Magno Altar Servers</title>
   <style>
     body {
@@ -14,44 +14,43 @@
     header, footer {
       background-color: black;
       color: white;
-      padding: 1em;
       text-align: center;
+      padding: 1em;
     }
     nav {
+      background-color: black;
+      color: white;
       display: flex;
       justify-content: space-around;
-      background-color: #222;
-      padding: 0.5em 0;
+      padding: 1em 0;
     }
     nav a {
       color: white;
       text-decoration: none;
-      font-size: 1.5em;
+      font-weight: bold;
     }
-    .tab {
-      display: none;
-      padding: 2em;
+    main {
+      padding: 20px;
     }
-    .tab.active {
-      display: block;
-    }
-    #schedule table {
+    table {
       width: 100%;
       background-color: white;
       color: black;
       border-collapse: collapse;
     }
-    #schedule th, #schedule td {
+    th, td {
       border: 1px solid black;
-      padding: 0.5em;
+      padding: 8px;
       text-align: center;
     }
     #modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
       justify-content: center;
       align-items: center;
     }
@@ -64,57 +63,37 @@
 </head>
 <body>
   <header>
-    <h1>San Gregorio Magno</h1>
+    <h1>San Gregorio Magno Altar Servers</h1>
   </header>
 
   <nav>
-    <a href="#" onclick="showTab('about')">About</a>
-    <a href="#" onclick="showTab('schedule')">Schedule</a>
-    <a href="#" onclick="showTab('contact')">Contact</a>
-    <a href="#">Login</a>
-    <a href="#">Signup</a>
+    <a href="#schedule">Schedule</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
   </nav>
 
-  <main>
-    <section id="about" class="tab active">
-      <h2>About</h2>
-      <p>This is the about section. (You can edit later)</p>
-    </section>
-
-    <section id="schedule" class="tab">
-      <h2>Weekly Schedule</h2>
-      <table>
-        <tr>
-          <th>Day</th>
-          <th>Server 1</th>
-          <th>Server 2</th>
-          <th>Server 3</th>
-          <th>Server 4</th>
-          <th>Server 5</th>
-        </tr>
-        <!-- Editable Days -->
-        ${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].map(day => `
-        <tr>
-          <td>${day}</td>
-          ${[1,2,3,4,5].map(i => `<td><input id="${day.toLowerCase()}-server-${i}" type="text"/></td>`).join('')}
-        </tr>`).join('')}
-        <!-- Static Sunday -->
-        <tr>
-          <td>Sunday</td>
-          <td colspan="5">Cross Candle: 1, Bell: 1, Big Bell: 2</td>
-        </tr>
-      </table>
-    </section>
-
-    <section id="contact" class="tab">
-      <h2>Contact</h2>
-      <p>This is the contact section. (You can edit later)</p>
-    </section>
+  <main id="schedule">
+    <h2>Weekly Schedule</h2>
+    <table>
+      <tr>
+        <th>Day</th>
+        <th>Server 1</th>
+        <th>Server 2</th>
+        <th>Server 3</th>
+        <th>Server 4</th>
+        <th>Server 5</th>
+      </tr>
+      <tr><td>Monday</td><td><input id="monday-server-1"></td><td><input id="monday-server-2"></td><td><input id="monday-server-3"></td><td><input id="monday-server-4"></td><td><input id="monday-server-5"></td></tr>
+      <tr><td>Tuesday</td><td><input id="tuesday-server-1"></td><td><input id="tuesday-server-2"></td><td><input id="tuesday-server-3"></td><td><input id="tuesday-server-4"></td><td><input id="tuesday-server-5"></td></tr>
+      <tr><td>Wednesday</td><td><input id="wednesday-server-1"></td><td><input id="wednesday-server-2"></td><td><input id="wednesday-server-3"></td><td><input id="wednesday-server-4"></td><td><input id="wednesday-server-5"></td></tr>
+      <tr><td>Thursday</td><td><input id="thursday-server-1"></td><td><input id="thursday-server-2"></td><td><input id="thursday-server-3"></td><td><input id="thursday-server-4"></td><td><input id="thursday-server-5"></td></tr>
+      <tr><td>Friday</td><td><input id="friday-server-1"></td><td><input id="friday-server-2"></td><td><input id="friday-server-3"></td><td><input id="friday-server-4"></td><td><input id="friday-server-5"></td></tr>
+      <tr><td>Saturday</td><td><input id="saturday-server-1"></td><td><input id="saturday-server-2"></td><td><input id="saturday-server-3"></td><td><input id="saturday-server-4"></td><td><input id="saturday-server-5"></td></tr>
+      <tr><td>Sunday</td><td colspan="5">Cross Candle: 1, Bell: 1, Big Bell: 2</td></tr>
+    </table>
   </main>
-
-  <footer>
-    <p>© 2025 San Gregorio Magno Altar Servers</p>
-  </footer>
 
   <div id="modal">
     <div id="modal-content">
@@ -124,10 +103,12 @@
     </div>
   </div>
 
-  <!-- Firebase Scripts -->
+  <footer>
+    <p>&copy; 2025 San Gregorio Magno Parish</p>
+  </footer>
+
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
-
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
@@ -145,37 +126,33 @@
 
     let currentField = null;
 
-    function showTab(tabName) {
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      document.getElementById(tabName).classList.add('active');
-    }
-
     function loadScheduleFromFirebase() {
       const scheduleRef = database.ref('schedule');
-      scheduleRef.once('value').then(snapshot => {
+      scheduleRef.once('value', snapshot => {
         const scheduleData = snapshot.val();
         if (scheduleData) {
           for (let day in scheduleData) {
             for (let server in scheduleData[day]) {
-              const inputElement = document.getElementById(`${day.toLowerCase()}-${server}`);
-              if (inputElement) inputElement.value = scheduleData[day][server];
+              const input = document.getElementById(`${day}-${server}`);
+              if (input) input.value = scheduleData[day][server];
             }
           }
           localStorage.setItem('schedule', JSON.stringify(scheduleData));
+        } else {
+          loadScheduleFromLocalStorage();
         }
-      }).catch(error => {
-        console.error("Firebase error:", error);
+      }).catch(() => {
         loadScheduleFromLocalStorage();
       });
     }
 
     function loadScheduleFromLocalStorage() {
-      const localData = JSON.parse(localStorage.getItem('schedule'));
-      if (localData) {
-        for (let day in localData) {
-          for (let server in localData[day]) {
-            const inputElement = document.getElementById(`${day.toLowerCase()}-${server}`);
-            if (inputElement) inputElement.value = localData[day][server];
+      const data = JSON.parse(localStorage.getItem('schedule'));
+      if (data) {
+        for (let day in data) {
+          for (let server in data[day]) {
+            const input = document.getElementById(`${day}-${server}`);
+            if (input) input.value = data[day][server];
           }
         }
       }
@@ -183,34 +160,30 @@
 
     function saveScheduleToFirebase() {
       const days = ['monday','tuesday','wednesday','thursday','friday','saturday'];
-      const scheduleData = {};
+      const data = {};
       days.forEach(day => {
-        scheduleData[day] = {};
+        data[day] = {};
         for (let i = 1; i <= 5; i++) {
           const input = document.getElementById(`${day}-server-${i}`);
-          if (input) scheduleData[day][`server${i}`] = input.value;
+          data[day][`server${i}`] = input ? input.value : '';
         }
       });
-      database.ref('schedule').set(scheduleData)
-        .then(() => {
-          localStorage.setItem('schedule', JSON.stringify(scheduleData));
-        })
-        .catch(error => {
-          console.error("Save failed:", error);
-          alert("Unable to save to Firebase. Changes saved locally.");
-        });
+      database.ref('schedule').set(data).then(() => {
+        localStorage.setItem('schedule', JSON.stringify(data));
+        alert('Saved!');
+      }).catch(() => {
+        alert('Error saving to Firebase. Changes stored locally.');
+      });
     }
 
-    function openModalOnBlur(event) {
-      currentField = event.target;
+    function openModalOnBlur(e) {
+      currentField = e.target;
       document.getElementById('modal').style.display = 'flex';
     }
 
     function confirmChanges() {
-      if (currentField) {
-        saveScheduleToFirebase();
-        document.getElementById('modal').style.display = 'none';
-      }
+      saveScheduleToFirebase();
+      document.getElementById('modal').style.display = 'none';
     }
 
     function cancelChanges() {
@@ -219,7 +192,6 @@
 
     document.getElementById('confirm-changes').addEventListener('click', confirmChanges);
     document.getElementById('cancel-changes').addEventListener('click', cancelChanges);
-
     document.querySelectorAll('input[type="text"]').forEach(input => {
       input.addEventListener('blur', openModalOnBlur);
     });
