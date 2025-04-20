@@ -212,6 +212,12 @@
           </tr>
         </tbody>
       </table>
+      <button onclick="saveSchedule('monday')">Save Monday Schedule</button>
+      <button onclick="saveSchedule('tuesday')">Save Tuesday Schedule</button>
+      <button onclick="saveSchedule('wednesday')">Save Wednesday Schedule</button>
+      <button onclick="saveSchedule('thursday')">Save Thursday Schedule</button>
+      <button onclick="saveSchedule('friday')">Save Friday Schedule</button>
+      <button onclick="saveSchedule('saturday')">Save Saturday Schedule</button>
     </section>
   </div>
 
@@ -225,6 +231,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
 
   <script>
+    // Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -236,10 +243,12 @@
       measurementId: "G-MQVV9NJ0SS"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const database = firebase.database();
 
+    // Handling Auth
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         document.getElementById('logoutLink').style.display = 'inline-block';
@@ -252,6 +261,7 @@
       }
     });
 
+    // Logout Function
     function logout() {
       firebase.auth().signOut().then(() => {
         window.location.reload();
@@ -260,7 +270,7 @@
       });
     }
 
-    // Save the weekday schedule to Firebase
+    // Save the schedule to Firebase
     function saveSchedule(day) {
       const servers = [];
       for (let i = 1; i <= 5; i++) {
@@ -268,6 +278,7 @@
         servers.push(server);
       }
 
+      // Save to Firebase
       firebase.database().ref('schedule/' + day).set({
         servers: servers
       }).then(() => {
@@ -277,6 +288,5 @@
       });
     }
   </script>
-
 </body>
 </html>
