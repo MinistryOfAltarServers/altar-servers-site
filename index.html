@@ -79,6 +79,38 @@
       padding: 15px;
       margin-top: 40px;
     }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-button {
+      background-color: #ffcc00;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .modal-button:hover {
+      background-color: #f8b800;
+    }
   </style>
 </head>
 <body>
@@ -231,6 +263,16 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
 
+  <!-- Modal -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <h2>Are you sure?</h2>
+      <p>Your changes might not be saved.</p>
+      <button class="modal-button" id="confirm-continue">Yes, Continue</button>
+      <button class="modal-button" id="confirm-cancel">No, Cancel</button>
+    </div>
+  </div>
+
   <!-- Firebase Scripts (Modular SDK) -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
@@ -311,11 +353,21 @@
       });
     }
 
-    // Prompt user to confirm before leaving page
+    // Show modal confirmation when attempting to leave
     window.addEventListener('beforeunload', (e) => {
-      if (confirm('Are you sure you want to leave without saving?')) {
-        saveScheduleData();
-      }
+      e.preventDefault();
+      document.getElementById('confirm-modal').style.display = 'flex';
+      return '';
+    });
+
+    // Modal actions
+    document.getElementById('confirm-continue').addEventListener('click', () => {
+      saveScheduleData();
+      window.location.reload();
+    });
+
+    document.getElementById('confirm-cancel').addEventListener('click', () => {
+      document.getElementById('confirm-modal').style.display = 'none';
     });
   </script>
 
