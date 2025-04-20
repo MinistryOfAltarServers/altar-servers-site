@@ -51,6 +51,20 @@
       color: #fff;
     }
 
+    #logoutBtn {
+      background: none;
+      border: none;
+      color: #ffcc00;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    #logoutBtn:hover {
+      color: #fff;
+    }
+
     .content-box {
       background: #fff;
       margin: 20px auto;
@@ -76,10 +90,10 @@
     }
 
     input[type="text"] {
-      width: 150px;
+      width: 100%;
       padding: 5px;
       font-size: 1em;
-      margin-right: 5px;
+      box-sizing: border-box;
     }
 
     input[readonly] {
@@ -93,20 +107,6 @@
       text-align: center;
       padding: 15px;
       margin-top: 40px;
-    }
-
-    #logoutBtn {
-      background: none;
-      border: none;
-      color: #ffcc00;
-      font-weight: bold;
-      font-size: 18px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
-    #logoutBtn:hover {
-      color: #fff;
     }
   </style>
 </head>
@@ -145,24 +145,85 @@
       <table>
         <thead>
           <tr>
-            <th>Cross</th>
-            <th>Candle</th>
-            <th>Bell</th>
-            <th>Big Bell</th>
-            <th>Server</th>
-            <th>Server</th>
+            <th>Role</th>
+            <th>Name</th>
+            <th>Time Slot</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td>
-          </tr>
+          <tr><td>Cross</td><td></td><td></td></tr>
+          <tr><td>Candle</td><td></td><td></td></tr>
+          <tr><td>Bell</td><td></td><td></td></tr>
+          <tr><td>Big Bell</td><td></td><td></td></tr>
+          <tr><td>Server</td><td></td><td></td></tr>
+          <tr><td>Server</td><td></td><td></td></tr>
         </tbody>
       </table>
 
-      <h2 style="margin-top: 40px;">Weekday Schedule (Mon - Sat)</h2>
+      <h2 style="margin-top: 40px;">Weekday Schedule (Monday - Saturday)</h2>
       <form id="weekdayForm">
-        <div id="weekdayInputs"></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Server 1</th>
+              <th>Server 2</th>
+              <th>Server 3</th>
+              <th>Server 4</th>
+              <th>Server 5</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+            </tr>
+            <tr>
+              <td>Tuesday</td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+            </tr>
+            <tr>
+              <td>Friday</td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+            </tr>
+            <tr>
+              <td>Saturday</td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+              <td><input type="text" required></td>
+            </tr>
+          </tbody>
+        </table>
         <button type="submit" style="margin-top: 15px;">Submit Schedule</button>
       </form>
     </section>
@@ -186,7 +247,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
   <script>
-    // Your Firebase config
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -202,9 +263,9 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Show/hide logout button based on auth state
+    // Show/hide logout button
+    const logoutBtn = document.getElementById('logoutBtn');
     auth.onAuthStateChanged((user) => {
-      const logoutBtn = document.getElementById('logoutBtn');
       if (user) {
         logoutBtn.style.display = "inline";
       } else {
@@ -212,47 +273,26 @@
       }
     });
 
-    // Logout button
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-      auth.signOut().then(() => {
-        alert("Logged out successfully!");
-        location.reload();
-      }).catch((error) => {
-        console.error(error.message);
-      });
+    // Logout
+    logoutBtn.addEventListener('click', function() {
+      auth.signOut()
+        .then(() => {
+          alert("Logged out successfully!");
+          location.reload();
+        })
+        .catch((error) => {
+          console.error(error.message);
+        });
     });
 
-    // Weekday Schedule Generation
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const weekdayInputsDiv = document.getElementById('weekdayInputs');
-
-    days.forEach(day => {
-      const wrapper = document.createElement('div');
-      wrapper.style.marginBottom = "15px";
-
-      const label = document.createElement('label');
-      label.textContent = `${day}: `;
-      wrapper.appendChild(label);
-
-      for (let i = 0; i < 5; i++) {
-        const input = document.createElement('input');
-        input.type = "text";
-        input.placeholder = `Server ${i + 1}`;
-        input.required = true;
-        wrapper.appendChild(input);
-      }
-
-      weekdayInputsDiv.appendChild(wrapper);
-    });
-
-    // Handle weekday schedule form submit
+    // Lock weekday inputs on submit
     document.getElementById('weekdayForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const confirmLock = confirm("Are you sure? This cannot be changed.");
       if (confirmLock) {
         const inputs = document.querySelectorAll('#weekdayForm input');
         inputs.forEach(input => input.readOnly = true);
-        alert("Schedule locked.");
+        alert("Weekday schedule locked.");
       }
     });
   </script>
