@@ -41,6 +41,7 @@
       width: 100%;
       border-collapse: collapse;
       margin-top: 15px;
+      background-color: white;
     }
 
     table, th, td {
@@ -52,12 +53,22 @@
       text-align: center;
     }
 
+    input {
+      width: 90%;
+      padding: 5px;
+      text-align: center;
+    }
+
     footer {
       background-color: #000;
       color: #fff;
       text-align: center;
       padding: 15px;
       margin-top: 40px;
+    }
+
+    .container {
+      padding: 20px;
     }
   </style>
 </head>
@@ -78,7 +89,7 @@
   </nav>
 
   <!-- About Us Section -->
-  <div class="content-box" id="about">
+  <div class="container" id="about">
     <section>
       <h2>About Us</h2>
       <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
@@ -86,7 +97,7 @@
   </div>
 
   <!-- Schedule Section -->
-  <div class="content-box" id="schedule">
+  <div class="container" id="schedule">
     <section>
       <h2>Sunday Schedule</h2>
       <table>
@@ -137,70 +148,71 @@
       </table>
     </section>
 
-    <h2>Weekday Schedule</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Server 1</th>
-          <th>Server 2</th>
-          <th>Server 3</th>
-          <th>Server 4</th>
-          <th>Server 5</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Monday to Saturday input fields for servers -->
-        <tr>
-          <td>Monday</td>
-          <td><input type="text" id="monday1" /></td>
-          <td><input type="text" id="monday2" /></td>
-          <td><input type="text" id="monday3" /></td>
-          <td><input type="text" id="monday4" /></td>
-          <td><input type="text" id="monday5" /></td>
-        </tr>
-        <tr>
-          <td>Tuesday</td>
-          <td><input type="text" id="tuesday1" /></td>
-          <td><input type="text" id="tuesday2" /></td>
-          <td><input type="text" id="tuesday3" /></td>
-          <td><input type="text" id="tuesday4" /></td>
-          <td><input type="text" id="tuesday5" /></td>
-        </tr>
-        <tr>
-          <td>Wednesday</td>
-          <td><input type="text" id="wednesday1" /></td>
-          <td><input type="text" id="wednesday2" /></td>
-          <td><input type="text" id="wednesday3" /></td>
-          <td><input type="text" id="wednesday4" /></td>
-          <td><input type="text" id="wednesday5" /></td>
-        </tr>
-        <tr>
-          <td>Thursday</td>
-          <td><input type="text" id="thursday1" /></td>
-          <td><input type="text" id="thursday2" /></td>
-          <td><input type="text" id="thursday3" /></td>
-          <td><input type="text" id="thursday4" /></td>
-          <td><input type="text" id="thursday5" /></td>
-        </tr>
-        <tr>
-          <td>Friday</td>
-          <td><input type="text" id="friday1" /></td>
-          <td><input type="text" id="friday2" /></td>
-          <td><input type="text" id="friday3" /></td>
-          <td><input type="text" id="friday4" /></td>
-          <td><input type="text" id="friday5" /></td>
-        </tr>
-        <tr>
-          <td>Saturday</td>
-          <td><input type="text" id="saturday1" /></td>
-          <td><input type="text" id="saturday2" /></td>
-          <td><input type="text" id="saturday3" /></td>
-          <td><input type="text" id="saturday4" /></td>
-          <td><input type="text" id="saturday5" /></td>
-        </tr>
-      </tbody>
-    </table>
+    <section>
+      <h2>Weekday Schedule (Monday to Saturday)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monday</td>
+            <td><input type="text" id="monday1" /></td>
+            <td><input type="text" id="monday2" /></td>
+            <td><input type="text" id="monday3" /></td>
+            <td><input type="text" id="monday4" /></td>
+            <td><input type="text" id="monday5" /></td>
+          </tr>
+          <tr>
+            <td>Tuesday</td>
+            <td><input type="text" id="tuesday1" /></td>
+            <td><input type="text" id="tuesday2" /></td>
+            <td><input type="text" id="tuesday3" /></td>
+            <td><input type="text" id="tuesday4" /></td>
+            <td><input type="text" id="tuesday5" /></td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td><input type="text" id="wednesday1" /></td>
+            <td><input type="text" id="wednesday2" /></td>
+            <td><input type="text" id="wednesday3" /></td>
+            <td><input type="text" id="wednesday4" /></td>
+            <td><input type="text" id="wednesday5" /></td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td><input type="text" id="thursday1" /></td>
+            <td><input type="text" id="thursday2" /></td>
+            <td><input type="text" id="thursday3" /></td>
+            <td><input type="text" id="thursday4" /></td>
+            <td><input type="text" id="thursday5" /></td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td><input type="text" id="friday1" /></td>
+            <td><input type="text" id="friday2" /></td>
+            <td><input type="text" id="friday3" /></td>
+            <td><input type="text" id="friday4" /></td>
+            <td><input type="text" id="friday5" /></td>
+          </tr>
+          <tr>
+            <td>Saturday</td>
+            <td><input type="text" id="saturday1" /></td>
+            <td><input type="text" id="saturday2" /></td>
+            <td><input type="text" id="saturday3" /></td>
+            <td><input type="text" id="saturday4" /></td>
+            <td><input type="text" id="saturday5" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 
   <footer>
@@ -213,7 +225,6 @@
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
 
   <script>
-    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -224,13 +235,11 @@
       appId: "1:184021840775:web:1ac06fe4838046010a9922",
       measurementId: "G-MQVV9NJ0SS"
     };
-    
-    // Initialize Firebase
+
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const database = firebase.database();
 
-    // Handle user authentication state
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         document.getElementById('logoutLink').style.display = 'inline-block';
@@ -243,7 +252,6 @@
       }
     });
 
-    // Logout function
     function logout() {
       firebase.auth().signOut().then(() => {
         window.location.reload();
@@ -268,7 +276,6 @@
         alert("Error saving schedule: " + error.message);
       });
     }
-
   </script>
 
 </body>
