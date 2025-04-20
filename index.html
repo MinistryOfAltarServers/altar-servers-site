@@ -267,6 +267,7 @@
               const input = document.getElementById(`${day}-server-${i}`);
               if (data[`server${i}`]) {
                 input.value = data[`server${i}`];
+                input.dataset.originalValue = input.value;
                 input.readOnly = true;
               }
             }
@@ -280,7 +281,7 @@
         for (let i = 1; i <= 5; i++) {
           const input = document.getElementById(`${day}-server-${i}`);
           input.addEventListener('blur', () => {
-            if (!input.readOnly && input.value.trim() !== '') {
+            if (!input.readOnly && input.value.trim() !== '' && input.dataset.originalValue !== input.value.trim()) {
               const confirmSet = confirm("Are you sure? This cannot be changed.");
               if (confirmSet) {
                 input.readOnly = true;
@@ -289,6 +290,7 @@
                   const data = snapshot.exists() ? snapshot.val() : {};
                   data[`server${i}`] = input.value.trim();
                   set(refPath, data);
+                  input.dataset.originalValue = input.value.trim();
                 });
               } else {
                 input.value = '';
