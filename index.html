@@ -224,5 +224,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Monday</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-            <tr><td>
+            <tr><td>Monday</td><td><input type="text" id="mon1"></td><td><input type="text" id="mon2"></td><td><input type="text" id="mon3"></td><td><input type="text" id="mon4"></td><td><input type="text" id="mon5"></td></tr>
+            <tr><td>Tuesday</td><td><input type="text" id="tue1"></td><td><input type="text" id="tue2"></td><td><input type="text" id="tue3"></td><td><input type="text" id="tue4"></td><td><input type="text" id="tue5"></td></tr>
+            <tr><td>Wednesday</td><td><input type="text" id="wed1"></td><td><input type="text" id="wed2"></td><td><input type="text" id="wed3"></td><td><input type="text" id="wed4"></td><td><input type="text" id="wed5"></td></tr>
+            <tr><td>Thursday</td><td><input type="text" id="thu1"></td><td><input type="text" id="thu2"></td><td><input type="text" id="thu3"></td><td><input type="text" id="thu4"></td><td><input type="text" id="thu5"></td></tr>
+            <tr><td>Friday</td><td><input type="text" id="fri1"></td><td><input type="text" id="fri2"></td><td><input type="text" id="fri3"></td><td><input type="text" id="fri4"></td><td><input type="text" id="fri5"></td></tr>
+            <tr><td>Saturday</td><td><input type="text" id="sat1"></td><td><input type="text" id="sat2"></td><td><input type="text" id="sat3"></td><td><input type="text" id="sat4"></td><td><input type="text" id="sat5"></td></tr>
+          </tbody>
+        </table>
+      </form>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Firebase and Logout handling (assuming Firebase is already set up in your project)
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Firebase auth state change listener (example)
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        document.getElementById("logoutBtn").style.display = "inline-block";
+      } else {
+        document.getElementById("logoutBtn").style.display = "none";
+      }
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      firebase.auth().signOut().then(() => {
+        alert("You have successfully logged out.");
+        window.location.href = "login.html"; // Redirect to login page after logout
+      });
+    });
+  </script>
+
+</body>
+</html>
