@@ -192,7 +192,7 @@
           </tr>
         </thead>
         <tbody id="weekday-schedule">
-          <!-- Weekdays schedule -->
+          <!-- Monday -->
           <tr>
             <td>Monday</td>
             <td><input type="text" id="monday-server-1" class="server-input"></td>
@@ -201,7 +201,7 @@
             <td><input type="text" id="monday-server-4" class="server-input"></td>
             <td><input type="text" id="monday-server-5" class="server-input"></td>
           </tr>
-          <!-- Repeat for other weekdays -->
+          <!-- Tuesday -->
           <tr>
             <td>Tuesday</td>
             <td><input type="text" id="tuesday-server-1" class="server-input"></td>
@@ -210,7 +210,33 @@
             <td><input type="text" id="tuesday-server-4" class="server-input"></td>
             <td><input type="text" id="tuesday-server-5" class="server-input"></td>
           </tr>
-          <!-- Continue for other weekdays as required -->
+          <!-- Wednesday -->
+          <tr>
+            <td>Wednesday</td>
+            <td><input type="text" id="wednesday-server-1" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-2" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-3" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-4" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-5" class="server-input"></td>
+          </tr>
+          <!-- Thursday -->
+          <tr>
+            <td>Thursday</td>
+            <td><input type="text" id="thursday-server-1" class="server-input"></td>
+            <td><input type="text" id="thursday-server-2" class="server-input"></td>
+            <td><input type="text" id="thursday-server-3" class="server-input"></td>
+            <td><input type="text" id="thursday-server-4" class="server-input"></td>
+            <td><input type="text" id="thursday-server-5" class="server-input"></td>
+          </tr>
+          <!-- Friday -->
+          <tr>
+            <td>Friday</td>
+            <td><input type="text" id="friday-server-1" class="server-input"></td>
+            <td><input type="text" id="friday-server-2" class="server-input"></td>
+            <td><input type="text" id="friday-server-3" class="server-input"></td>
+            <td><input type="text" id="friday-server-4" class="server-input"></td>
+            <td><input type="text" id="friday-server-5" class="server-input"></td>
+          </tr>
         </tbody>
       </table>
     </section>
@@ -293,13 +319,31 @@
           document.getElementById('monday-server-3').value = data.monday.server3 || '';
           document.getElementById('monday-server-4').value = data.monday.server4 || '';
           document.getElementById('monday-server-5').value = data.monday.server5 || '';
+          document.getElementById('tuesday-server-1').value = data.tuesday.server1 || '';
+          document.getElementById('tuesday-server-2').value = data.tuesday.server2 || '';
+          document.getElementById('tuesday-server-3').value = data.tuesday.server3 || '';
+          document.getElementById('tuesday-server-4').value = data.tuesday.server4 || '';
+          document.getElementById('tuesday-server-5').value = data.tuesday.server5 || '';
+          document.getElementById('wednesday-server-1').value = data.wednesday.server1 || '';
+          document.getElementById('wednesday-server-2').value = data.wednesday.server2 || '';
+          document.getElementById('wednesday-server-3').value = data.wednesday.server3 || '';
+          document.getElementById('wednesday-server-4').value = data.wednesday.server4 || '';
+          document.getElementById('wednesday-server-5').value = data.wednesday.server5 || '';
+          document.getElementById('thursday-server-1').value = data.thursday.server1 || '';
+          document.getElementById('thursday-server-2').value = data.thursday.server2 || '';
+          document.getElementById('thursday-server-3').value = data.thursday.server3 || '';
+          document.getElementById('thursday-server-4').value = data.thursday.server4 || '';
+          document.getElementById('thursday-server-5').value = data.thursday.server5 || '';
+          document.getElementById('friday-server-1').value = data.friday.server1 || '';
+          document.getElementById('friday-server-2').value = data.friday.server2 || '';
+          document.getElementById('friday-server-3').value = data.friday.server3 || '';
+          document.getElementById('friday-server-4').value = data.friday.server4 || '';
+          document.getElementById('friday-server-5').value = data.friday.server5 || '';
         }
       });
     }
 
-    loadSchedule(); // Load schedule when the page is loaded
-
+    window.onload = loadSchedule;
   </script>
-
 </body>
 </html>
