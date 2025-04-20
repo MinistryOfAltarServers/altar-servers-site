@@ -22,23 +22,25 @@
 
     nav {
       background-color: #222;
-      text-align: center;
-      padding: 15px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
-    nav a {
+    .nav-left a, .nav-right a {
       color: #ffcc00;
-      margin: 0 20px;
+      margin: 0 10px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
       transition: color 0.3s;
     }
 
-    nav a:hover {
+    .nav-left a:hover, .nav-right a:hover {
       color: #fff;
     }
 
@@ -72,6 +74,11 @@
       font-size: 1em;
     }
 
+    .readonly-input {
+      background-color: #eee;
+      color: #555;
+    }
+
     footer {
       background-color: #000;
       color: #fff;
@@ -79,17 +86,7 @@
       padding: 15px;
       margin-top: 40px;
     }
-
-    .readonly-input {
-      background-color: #f1f1f1;
-      border: 1px solid #ccc;
-      cursor: not-allowed;
-    }
   </style>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js"></script>
 </head>
 <body>
 
@@ -99,157 +96,126 @@
 
   <!-- Navigation Bar -->
   <nav>
-    <a href="about.html">About</a>
-    <a href="schedule.html">Schedule</a>
-    <a href="contact.html">Contact</a>
-    <a href="signup.html">Sign Up</a>
-    <a href="login.html">Login</a>
+    <div class="nav-left">
+      <a href="#about">About Us</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="signup.html">Sign Up</a>
+      <a href="login.html">Login</a>
+    </div>
   </nav>
 
-  <!-- Schedule Table -->
-  <div class="content-box" id="schedule">
-    <section>
-      <h2>Schedule</h2>
-      
-      <!-- Sunday Schedule - Static Text (no input fields) -->
-      <h3>Sunday Schedule</h3>
-      <table>
-        <tr>
-          <th>7:30 AM</th>
-          <th>9:00 AM</th>
-          <th>5:00 PM</th>
-        </tr>
-        <tr>
-          <td>Cross</td>
-          <td>Cross</td>
-          <td>Cross</td>
-        </tr>
-        <tr>
-          <td>Candle 1</td>
-          <td>Candle 1</td>
-          <td>Candle 1</td>
-        </tr>
-        <tr>
-          <td>Candle 2</td>
-          <td>Candle 2</td>
-          <td>Candle 2</td>
-        </tr>
-        <tr>
-          <td>Bigbell 1</td>
-          <td>Bigbell 1</td>
-          <td>Bigbell 1</td>
-        </tr>
-        <tr>
-          <td>Bigbell 2</td>
-          <td>Bigbell 2</td>
-          <td>Bigbell 2</td>
-        </tr>
-        <tr>
-          <td>Server 1</td>
-          <td>Server 1</td>
-          <td>Server 1</td>
-        </tr>
-        <tr>
-          <td>Server 2</td>
-          <td>Server 2</td>
-          <td>Server 2</td>
-        </tr>
-      </table>
-    </section>
+  <!-- About Section -->
+  <div class="content-box" id="about">
+    <h2>About Us</h2>
+    <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+  </div>
 
-    <!-- Weekday Schedule - Only input fields for Server 1, Server 2, Server 3, Server 4, Server 5 -->
-    <section>
-      <h3>Weekday Schedule</h3>
-      <table>
-        <tr>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-          <th>Saturday</th>
-        </tr>
-        <tr>
-          <td><input type="text" id="monday-server1" placeholder="Server 1" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="tuesday-server1" placeholder="Server 1" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="wednesday-server1" placeholder="Server 1" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="thursday-server1" placeholder="Server 1" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="friday-server1" placeholder="Server 1" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="saturday-server1" placeholder="Server 1" onchange="confirmAndMakeReadonly(this)" /></td>
-        </tr>
-        <tr>
-          <td><input type="text" id="monday-server2" placeholder="Server 2" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="tuesday-server2" placeholder="Server 2" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="wednesday-server2" placeholder="Server 2" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="thursday-server2" placeholder="Server 2" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="friday-server2" placeholder="Server 2" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="saturday-server2" placeholder="Server 2" onchange="confirmAndMakeReadonly(this)" /></td>
-        </tr>
-        <tr>
-          <td><input type="text" id="monday-server3" placeholder="Server 3" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="tuesday-server3" placeholder="Server 3" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="wednesday-server3" placeholder="Server 3" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="thursday-server3" placeholder="Server 3" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="friday-server3" placeholder="Server 3" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="saturday-server3" placeholder="Server 3" onchange="confirmAndMakeReadonly(this)" /></td>
-        </tr>
-        <tr>
-          <td><input type="text" id="monday-server4" placeholder="Server 4" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="tuesday-server4" placeholder="Server 4" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="wednesday-server4" placeholder="Server 4" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="thursday-server4" placeholder="Server 4" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="friday-server4" placeholder="Server 4" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="saturday-server4" placeholder="Server 4" onchange="confirmAndMakeReadonly(this)" /></td>
-        </tr>
-        <tr>
-          <td><input type="text" id="monday-server5" placeholder="Server 5" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="tuesday-server5" placeholder="Server 5" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="wednesday-server5" placeholder="Server 5" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="thursday-server5" placeholder="Server 5" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="friday-server5" placeholder="Server 5" onchange="confirmAndMakeReadonly(this)" /></td>
-          <td><input type="text" id="saturday-server5" placeholder="Server 5" onchange="confirmAndMakeReadonly(this)" /></td>
-        </tr>
-      </table>
-    </section>
+  <!-- Schedule Section -->
+  <div class="content-box" id="schedule">
+    <h2>Sunday Schedule</h2>
+    <table>
+      <tr>
+        <th>Time</th>
+        <th>Cross</th>
+        <th>Candle 1</th>
+        <th>Candle 2</th>
+        <th>Big Bell 1</th>
+        <th>Big Bell 2</th>
+        <th>Server 1</th>
+        <th>Server 2</th>
+      </tr>
+      <tr><td>7:30 AM</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>9:00 AM</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>5:00 PM</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </table>
+
+    <h2>Weekday Schedule</h2>
+    <table>
+      <tr>
+        <th>Day</th>
+        <th>Server 1</th>
+        <th>Server 2</th>
+        <th>Server 3</th>
+        <th>Server 4</th>
+        <th>Server 5</th>
+      </tr>
+      <script>
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        days.forEach(day => {
+          document.write(`<tr>
+            <td>${day}</td>
+            ${[1,2,3,4,5].map(i => `<td><input type="text" id="${day.toLowerCase()}-server${i}" placeholder="Server ${i}" onchange="confirmAndMakeReadonly(this)" /></td>`).join('')}
+          </tr>`);
+        });
+      </script>
+    </table>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="content-box" id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
   </div>
 
   <footer>
     <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
 
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
+
   <script>
-    // Firebase config and initialization
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
       databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
       messagingSenderId: "184021840775",
       appId: "1:184021840775:web:1ac06fe4838046010a9922",
       measurementId: "G-MQVV9NJ0SS"
     };
 
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database(app);
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-    // Function to confirm and set input fields to readonly
     function confirmAndMakeReadonly(inputElement) {
-      const isConfirmed = window.confirm("Are you sure this cannot be changed?");
-      if (isConfirmed) {
+      if (inputElement.readOnly) return;
+      const value = inputElement.value;
+      if (!value) return;
+
+      const confirmMsg = confirm("Are you sure this cannot be changed?");
+      if (confirmMsg) {
         inputElement.readOnly = true;
         inputElement.classList.add("readonly-input");
 
-        // Update Firebase with the input value
-        const day = inputElement.id.split('-')[0]; // Monday, Tuesday, etc.
-        const serverNum = inputElement.id.split('-')[1]; // server1, server2, etc.
-
-        const path = `schedule/${day}/${serverNum}`;
-        database.ref(path).set(inputElement.value);
+        db.ref("schedule/" + inputElement.id).set({
+          value: value,
+          readonly: true
+        });
       }
     }
-  </script>
 
+    window.onload = function () {
+      const inputs = document.querySelectorAll("input[type=text]");
+      inputs.forEach((input) => {
+        const id = input.id;
+        db.ref("schedule/" + id).once("value").then((snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            input.value = data.value;
+            if (data.readonly) {
+              input.readOnly = true;
+              input.classList.add("readonly-input");
+            }
+          }
+        });
+      });
+    };
+  </script>
 </body>
 </html>
