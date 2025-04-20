@@ -8,37 +8,6 @@
   <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
   <style>
-    body {
-      background-color: yellow;
-      color: black;
-    }
-    header, footer {
-      background-color: black;
-      color: white;
-      text-align: center;
-      padding: 1rem;
-    }
-    nav a {
-      color: white;
-      margin-right: 10px;
-      text-decoration: none;
-    }
-    table {
-      width: 100%;
-      background-color: white;
-      color: black;
-      border-collapse: collapse;
-    }
-    th, td {
-      padding: 0.5rem;
-      text-align: center;
-      border: 1px solid black;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 4px;
-      box-sizing: border-box;
-    }
     #confirmModal {
       display: none;
       position: fixed;
@@ -60,7 +29,7 @@
     }
   </style>
   <script defer>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', () => {
       const firebaseConfig = {
         apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
         authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -74,8 +43,9 @@
 
       firebase.initializeApp(firebaseConfig);
       const db = firebase.database();
+
+      const days = ['monday','tuesday','wednesday','thursday','friday','saturday'];
       let currentInput = null;
-      const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
       days.forEach(day => {
         for (let i = 1; i <= 5; i++) {
@@ -91,6 +61,10 @@
             }
           });
 
+          input.addEventListener('dblclick', () => {
+            input.removeAttribute('readonly');
+          });
+
           input.addEventListener('change', () => {
             currentInput = { id, input };
             document.getElementById('confirmModal').style.display = 'block';
@@ -99,55 +73,92 @@
       });
 
       document.getElementById('confirmYes').addEventListener('click', () => {
-        if (currentInput) {
-          const { id, input } = currentInput;
-          db.ref(`schedule/${id}`).set(input.value);
-          localStorage.setItem(id, input.value);
-          input.setAttribute('readonly', true);
-        }
+        const { id, input } = currentInput;
+        db.ref(`schedule/${id}`).set(input.value);
+        localStorage.setItem(id, input.value);
+        input.setAttribute('readonly', true);
         document.getElementById('confirmModal').style.display = 'none';
       });
 
       document.getElementById('confirmNo').addEventListener('click', () => {
-        if (currentInput) {
-          const { id, input } = currentInput;
-          input.value = localStorage.getItem(id) || '';
-        }
+        const { id, input } = currentInput;
+        input.value = localStorage.getItem(id) || '';
+        input.setAttribute('readonly', true);
         document.getElementById('confirmModal').style.display = 'none';
       });
     });
   </script>
 </head>
-<body>
-  <header>
+<body style="background-color: yellow; color: black;">
+  <header style="background-color: black; color: white; padding: 1rem; text-align: center;">
     <h1>San Gregorio Magno Altar Servers</h1>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="sunday.html">Sunday</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="login.html" style="float: right;">Login</a>
-      <a href="signup.html" style="float: right;">Signup</a>
+      <a href="index.html" style="color: white; margin-right: 10px;">Home</a>
+      <a href="sunday.html" style="color: white; margin-right: 10px;">Sunday</a>
+      <a href="about.html" style="color: white; margin-right: 10px;">About</a>
+      <a href="contact.html" style="color: white; margin-right: 10px;">Contact</a>
+      <a href="login.html" style="color: white; margin-right: 10px; float: right;">Login</a>
+      <a href="signup.html" style="color: white; float: right;">Signup</a>
     </nav>
   </header>
 
   <main style="padding: 2rem;">
     <h2>Weekday Schedule</h2>
-    <table>
-      <tr>
-        <th>Day</th>
-        <th>Server 1</th>
-        <th>Server 2</th>
-        <th>Server 3</th>
-        <th>Server 4</th>
-        <th>Server 5</th>
-      </tr>
-      <tr><td>Monday</td><td><input type="text" id="monday-server-1"></td><td><input type="text" id="monday-server-2"></td><td><input type="text" id="monday-server-3"></td><td><input type="text" id="monday-server-4"></td><td><input type="text" id="monday-server-5"></td></tr>
-      <tr><td>Tuesday</td><td><input type="text" id="tuesday-server-1"></td><td><input type="text" id="tuesday-server-2"></td><td><input type="text" id="tuesday-server-3"></td><td><input type="text" id="tuesday-server-4"></td><td><input type="text" id="tuesday-server-5"></td></tr>
-      <tr><td>Wednesday</td><td><input type="text" id="wednesday-server-1"></td><td><input type="text" id="wednesday-server-2"></td><td><input type="text" id="wednesday-server-3"></td><td><input type="text" id="wednesday-server-4"></td><td><input type="text" id="wednesday-server-5"></td></tr>
-      <tr><td>Thursday</td><td><input type="text" id="thursday-server-1"></td><td><input type="text" id="thursday-server-2"></td><td><input type="text" id="thursday-server-3"></td><td><input type="text" id="thursday-server-4"></td><td><input type="text" id="thursday-server-5"></td></tr>
-      <tr><td>Friday</td><td><input type="text" id="friday-server-1"></td><td><input type="text" id="friday-server-2"></td><td><input type="text" id="friday-server-3"></td><td><input type="text" id="friday-server-4"></td><td><input type="text" id="friday-server-5"></td></tr>
-      <tr><td>Saturday</td><td><input type="text" id="saturday-server-1"></td><td><input type="text" id="saturday-server-2"></td><td><input type="text" id="saturday-server-3"></td><td><input type="text" id="saturday-server-4"></td><td><input type="text" id="saturday-server-5"></td></tr>
+    <table style="width: 100%; background-color: white; color: black; border-collapse: collapse; border: 1px solid black;">
+      <thead>
+        <tr>
+          <th style="border: 1px solid black;">Day</th>
+          <th style="border: 1px solid black;">Server 1</th>
+          <th style="border: 1px solid black;">Server 2</th>
+          <th style="border: 1px solid black;">Server 3</th>
+          <th style="border: 1px solid black;">Server 4</th>
+          <th style="border: 1px solid black;">Server 5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="border: 1px solid black;">Monday</td>
+          <td><input type="text" id="monday-server-1" readonly></td>
+          <td><input type="text" id="monday-server-2" readonly></td>
+          <td><input type="text" id="monday-server-3" readonly></td>
+          <td><input type="text" id="monday-server-4" readonly></td>
+          <td><input type="text" id="monday-server-5" readonly></td>
+        </tr>
+        <tr><td style="border: 1px solid black;">Tuesday</td>
+          <td><input type="text" id="tuesday-server-1" readonly></td>
+          <td><input type="text" id="tuesday-server-2" readonly></td>
+          <td><input type="text" id="tuesday-server-3" readonly></td>
+          <td><input type="text" id="tuesday-server-4" readonly></td>
+          <td><input type="text" id="tuesday-server-5" readonly></td>
+        </tr>
+        <tr><td style="border: 1px solid black;">Wednesday</td>
+          <td><input type="text" id="wednesday-server-1" readonly></td>
+          <td><input type="text" id="wednesday-server-2" readonly></td>
+          <td><input type="text" id="wednesday-server-3" readonly></td>
+          <td><input type="text" id="wednesday-server-4" readonly></td>
+          <td><input type="text" id="wednesday-server-5" readonly></td>
+        </tr>
+        <tr><td style="border: 1px solid black;">Thursday</td>
+          <td><input type="text" id="thursday-server-1" readonly></td>
+          <td><input type="text" id="thursday-server-2" readonly></td>
+          <td><input type="text" id="thursday-server-3" readonly></td>
+          <td><input type="text" id="thursday-server-4" readonly></td>
+          <td><input type="text" id="thursday-server-5" readonly></td>
+        </tr>
+        <tr><td style="border: 1px solid black;">Friday</td>
+          <td><input type="text" id="friday-server-1" readonly></td>
+          <td><input type="text" id="friday-server-2" readonly></td>
+          <td><input type="text" id="friday-server-3" readonly></td>
+          <td><input type="text" id="friday-server-4" readonly></td>
+          <td><input type="text" id="friday-server-5" readonly></td>
+        </tr>
+        <tr><td style="border: 1px solid black;">Saturday</td>
+          <td><input type="text" id="saturday-server-1" readonly></td>
+          <td><input type="text" id="saturday-server-2" readonly></td>
+          <td><input type="text" id="saturday-server-3" readonly></td>
+          <td><input type="text" id="saturday-server-4" readonly></td>
+          <td><input type="text" id="saturday-server-5" readonly></td>
+        </tr>
+      </tbody>
     </table>
   </main>
 
@@ -159,7 +170,7 @@
     </div>
   </div>
 
-  <footer>
+  <footer style="background-color: black; color: white; text-align: center; padding: 1rem;">
     <p>&copy; 2025 San Gregorio Magno Altar Servers</p>
   </footer>
 </body>
