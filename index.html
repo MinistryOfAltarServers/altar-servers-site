@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>San Gregorio Magno Altar Servers</title>
   <style>
-    /* Add styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #ffcc00;
@@ -120,7 +119,15 @@
             <td><input type="text" id="mondayServer5" class="serverInput" /></td>
           </tr>
           <!-- Repeat for Tuesday to Saturday -->
-          <!-- Add the other days following similar structure to Monday -->
+          <tr>
+            <td>Tuesday</td>
+            <td><input type="text" id="tuesdayServer1" class="serverInput" /></td>
+            <td><input type="text" id="tuesdayServer2" class="serverInput" /></td>
+            <td><input type="text" id="tuesdayServer3" class="serverInput" /></td>
+            <td><input type="text" id="tuesdayServer4" class="serverInput" /></td>
+            <td><input type="text" id="tuesdayServer5" class="serverInput" /></td>
+          </tr>
+          <!-- Add other weekdays (Wednesday, Thursday, Friday, Saturday) here -->
         </tbody>
       </table>
     </section>
@@ -200,30 +207,28 @@
     const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    // Function to handle the input fields becoming readonly after a prompt
+    // Handle input changes
     function handleInputChange(event) {
       const inputField = event.target;
       const value = inputField.value;
 
-      // Show prompt
+      // Prompt the user
       if (confirm("Are you sure you want to save this and make it uneditable?")) {
-        // Turn the field to readonly
-        inputField.setAttribute("readonly", true);
-        // Save the value to Firebase
+        inputField.setAttribute("readonly", true); // Make readonly
         const day = inputField.id.split('Server')[0].toLowerCase();
         const serverId = inputField.id.split('Server')[1];
         const scheduleRef = database.ref('schedule/' + day + '/server' + serverId);
-        scheduleRef.set(value);
+        scheduleRef.set(value); // Save to Firebase
       }
     }
 
-    // Add event listeners for all inputs
+    // Attach event listeners to the input fields
     const inputs = document.querySelectorAll('.serverInput');
     inputs.forEach(input => {
       input.addEventListener('blur', handleInputChange);
     });
 
-    // Firebase authentication (if needed for user-specific login/logout)
+    // Firebase authentication logic (if needed)
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         document.getElementById("loginLink").style.display = "none";
