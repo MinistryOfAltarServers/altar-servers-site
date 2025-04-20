@@ -66,7 +66,7 @@
       text-align: center;
     }
 
-    input[type="text"], input[type="email"], input[type="password"] {
+    input[type="text"] {
       width: 90%;
       padding: 5px;
       font-size: 1em;
@@ -124,98 +124,86 @@
       <thead>
         <tr>
           <th>Time</th>
-          <th>Candle</th>
-          <th>Bigbell</th>
-          <th>Server</th>
+          <th>Server 1</th>
+          <th>Server 2</th>
+          <th>Server 3</th>
+          <th>Server 4</th>
+          <th>Server 5</th>
         </tr>
       </thead>
       <tbody>
         <!-- Monday -->
         <tr>
           <td>7:00 AM</td>
-          <td><input type="text" id="mondayCandle1" placeholder="Enter Name"></td>
-          <td><input type="text" id="mondayBigbell1" placeholder="Enter Name"></td>
-          <td><input type="text" id="mondayServer1" placeholder="Enter Name"></td>
+          <td><input type="text" id="server1Monday"></td>
+          <td><input type="text" id="server2Monday"></td>
+          <td><input type="text" id="server3Monday"></td>
+          <td><input type="text" id="server4Monday"></td>
+          <td><input type="text" id="server5Monday"></td>
         </tr>
-        <tr>
-          <td>9:00 AM</td>
-          <td><input type="text" id="mondayCandle2" placeholder="Enter Name"></td>
-          <td><input type="text" id="mondayBigbell2" placeholder="Enter Name"></td>
-          <td><input type="text" id="mondayServer2" placeholder="Enter Name"></td>
-        </tr>
-        <!-- Tuesday -->
-        <tr>
-          <td>7:00 AM</td>
-          <td><input type="text" id="tuesdayCandle1" placeholder="Enter Name"></td>
-          <td><input type="text" id="tuesdayBigbell1" placeholder="Enter Name"></td>
-          <td><input type="text" id="tuesdayServer1" placeholder="Enter Name"></td>
-        </tr>
-        <tr>
-          <td>9:00 AM</td>
-          <td><input type="text" id="tuesdayCandle2" placeholder="Enter Name"></td>
-          <td><input type="text" id="tuesdayBigbell2" placeholder="Enter Name"></td>
-          <td><input type="text" id="tuesdayServer2" placeholder="Enter Name"></td>
-        </tr>
-        <!-- Add Wednesday to Saturday with same structure (5 fields per day) -->
+        <!-- Repeat for other weekdays (Tuesday to Saturday) -->
       </tbody>
     </table>
   </div>
 
-  <!-- Sunday Schedule (Static with Cross, Candle, Bigbell, Server) -->
-  <div class="content-box">
+  <!-- Sunday Schedule (Static values) -->
+  <div class="content-box" id="sunday-schedule">
     <h2>Sunday Schedule</h2>
     <table>
       <thead>
         <tr>
           <th>Time</th>
-          <th>Cross</th>
-          <th>Candle</th>
-          <th>Bigbell</th>
-          <th>Server</th>
+          <th>Cross 1</th>
+          <th>Cross 2</th>
+          <th>Candle 1</th>
+          <th>Candle 2</th>
+          <th>Bigbell 1</th>
+          <th>Bigbell 2</th>
+          <th>Server 1</th>
+          <th>Server 2</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>7:30 AM</td>
-          <td>2</td> <!-- Static content for Cross -->
-          <td>2</td> <!-- Static content for Candle -->
-          <td>2</td> <!-- Static content for Bigbell -->
-          <td>2</td> <!-- Static content for Server -->
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
         </tr>
         <tr>
           <td>9:00 AM</td>
-          <td>2</td> <!-- Static content for Cross -->
-          <td>2</td> <!-- Static content for Candle -->
-          <td>2</td> <!-- Static content for Bigbell -->
-          <td>2</td> <!-- Static content for Server -->
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
         </tr>
         <tr>
           <td>5:00 PM</td>
-          <td>2</td> <!-- Static content for Cross -->
-          <td>2</td> <!-- Static content for Candle -->
-          <td>2</td> <!-- Static content for Bigbell -->
-          <td>2</td> <!-- Static content for Server -->
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
+          <td>2</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
-
-  <script>
-    // Weekday schedule confirmation
-    document.querySelectorAll("input[type='text']").forEach(input => {
-      input.addEventListener('change', function() {
-        const confirmChange = confirm("Are you sure this cannot be changed?");
-        if (confirmChange) {
-          this.setAttribute('readonly', true);
-          this.classList.add('readonly-input');
-        }
-      });
-    });
-  </script>
 
 </body>
 </html>
