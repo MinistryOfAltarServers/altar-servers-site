@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
     body {
@@ -72,44 +72,17 @@
       font-size: 1em;
     }
 
+    input[readonly] {
+      background-color: #f0f0f0;
+      color: #666;
+    }
+
     footer {
       background-color: #000;
       color: #fff;
       text-align: center;
       padding: 15px;
       margin-top: 40px;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .modal-button {
-      background-color: #ffcc00;
-      color: #000;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .modal-button:hover {
-      background-color: #f8b800;
     }
   </style>
 </head>
@@ -123,9 +96,8 @@
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
     <a href="#contact">Contact</a>
-    <a href="login.html" id="login-link">Login</a>
-    <a href="signup.html" id="signup-link">Sign Up</a>
-    <a href="#" id="logout-link" style="display: none;">Logout</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign Up</a>
   </nav>
 
   <div class="content-box" id="about">
@@ -139,6 +111,7 @@
     <section>
       <h2>Schedule</h2>
 
+      <!-- Sunday Schedule -->
       <table>
         <thead>
           <tr>
@@ -186,6 +159,7 @@
         </tbody>
       </table>
 
+      <!-- Weekdays Schedule -->
       <table>
         <thead>
           <tr>
@@ -198,54 +172,53 @@
           </tr>
         </thead>
         <tbody id="weekday-schedule">
-          <!-- Weekdays Schedule with input fields -->
           <tr>
             <td>Monday</td>
-            <td><input type="text" id="monday-server-1" class="server-input"></td>
-            <td><input type="text" id="monday-server-2" class="server-input"></td>
-            <td><input type="text" id="monday-server-3" class="server-input"></td>
-            <td><input type="text" id="monday-server-4" class="server-input"></td>
-            <td><input type="text" id="monday-server-5" class="server-input"></td>
+            <td><input type="text" id="monday-server-1"></td>
+            <td><input type="text" id="monday-server-2"></td>
+            <td><input type="text" id="monday-server-3"></td>
+            <td><input type="text" id="monday-server-4"></td>
+            <td><input type="text" id="monday-server-5"></td>
           </tr>
           <tr>
             <td>Tuesday</td>
-            <td><input type="text" id="tuesday-server-1" class="server-input"></td>
-            <td><input type="text" id="tuesday-server-2" class="server-input"></td>
-            <td><input type="text" id="tuesday-server-3" class="server-input"></td>
-            <td><input type="text" id="tuesday-server-4" class="server-input"></td>
-            <td><input type="text" id="tuesday-server-5" class="server-input"></td>
+            <td><input type="text" id="tuesday-server-1"></td>
+            <td><input type="text" id="tuesday-server-2"></td>
+            <td><input type="text" id="tuesday-server-3"></td>
+            <td><input type="text" id="tuesday-server-4"></td>
+            <td><input type="text" id="tuesday-server-5"></td>
           </tr>
           <tr>
             <td>Wednesday</td>
-            <td><input type="text" id="wednesday-server-1" class="server-input"></td>
-            <td><input type="text" id="wednesday-server-2" class="server-input"></td>
-            <td><input type="text" id="wednesday-server-3" class="server-input"></td>
-            <td><input type="text" id="wednesday-server-4" class="server-input"></td>
-            <td><input type="text" id="wednesday-server-5" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-1"></td>
+            <td><input type="text" id="wednesday-server-2"></td>
+            <td><input type="text" id="wednesday-server-3"></td>
+            <td><input type="text" id="wednesday-server-4"></td>
+            <td><input type="text" id="wednesday-server-5"></td>
           </tr>
           <tr>
             <td>Thursday</td>
-            <td><input type="text" id="thursday-server-1" class="server-input"></td>
-            <td><input type="text" id="thursday-server-2" class="server-input"></td>
-            <td><input type="text" id="thursday-server-3" class="server-input"></td>
-            <td><input type="text" id="thursday-server-4" class="server-input"></td>
-            <td><input type="text" id="thursday-server-5" class="server-input"></td>
+            <td><input type="text" id="thursday-server-1"></td>
+            <td><input type="text" id="thursday-server-2"></td>
+            <td><input type="text" id="thursday-server-3"></td>
+            <td><input type="text" id="thursday-server-4"></td>
+            <td><input type="text" id="thursday-server-5"></td>
           </tr>
           <tr>
             <td>Friday</td>
-            <td><input type="text" id="friday-server-1" class="server-input"></td>
-            <td><input type="text" id="friday-server-2" class="server-input"></td>
-            <td><input type="text" id="friday-server-3" class="server-input"></td>
-            <td><input type="text" id="friday-server-4" class="server-input"></td>
-            <td><input type="text" id="friday-server-5" class="server-input"></td>
+            <td><input type="text" id="friday-server-1"></td>
+            <td><input type="text" id="friday-server-2"></td>
+            <td><input type="text" id="friday-server-3"></td>
+            <td><input type="text" id="friday-server-4"></td>
+            <td><input type="text" id="friday-server-5"></td>
           </tr>
           <tr>
             <td>Saturday</td>
-            <td><input type="text" id="saturday-server-1" class="server-input"></td>
-            <td><input type="text" id="saturday-server-2" class="server-input"></td>
-            <td><input type="text" id="saturday-server-3" class="server-input"></td>
-            <td><input type="text" id="saturday-server-4" class="server-input"></td>
-            <td><input type="text" id="saturday-server-5" class="server-input"></td>
+            <td><input type="text" id="saturday-server-1"></td>
+            <td><input type="text" id="saturday-server-2"></td>
+            <td><input type="text" id="saturday-server-3"></td>
+            <td><input type="text" id="saturday-server-4"></td>
+            <td><input type="text" id="saturday-server-5"></td>
           </tr>
         </tbody>
       </table>
@@ -263,113 +236,73 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
 
-  <!-- Modal -->
-  <div id="confirm-modal" class="modal">
-    <div class="modal-content">
-      <h2>Are you sure?</h2>
-      <p>Your changes might not be saved.</p>
-      <button class="modal-button" id="confirm-continue">Yes, Continue</button>
-      <button class="modal-button" id="confirm-cancel">No, Cancel</button>
-    </div>
-  </div>
-
-  <!-- Firebase Scripts (Modular SDK) -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-
+  <!-- Firebase SDK & Script -->
   <script type="module">
-    // Firebase configuration
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
       databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
       messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922",
-      measurementId: "G-MQVV9NJ0SS"
+      appId: "1:184021840775:web:1ac06fe4838046010a9922"
     };
 
-    // Initialize Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const auth = getAuth(app);
 
-    // Handle login state
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        document.getElementById('logout-link').style.display = 'inline-block';
-        document.getElementById('login-link').style.display = 'none';
-        document.getElementById('signup-link').style.display = 'none';
-      } else {
-        document.getElementById('logout-link').style.display = 'none';
-        document.getElementById('login-link').style.display = 'inline-block';
-        document.getElementById('signup-link').style.display = 'inline-block';
-      }
-    });
+    const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
-    // Log out
-    document.getElementById('logout-link').addEventListener('click', () => {
-      signOut(auth).then(() => {
-        alert('You have been logged out.');
-        window.location.reload();
-      });
-    });
-
-    // Load schedule data from Firebase
-    function loadScheduleData() {
-      const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    function loadInputs() {
       days.forEach(day => {
-        const dayRef = ref(db, `schedule/${day}`);
-        get(dayRef).then(snapshot => {
+        const path = 'schedule/' + day;
+        const refPath = ref(db, path);
+        get(refPath).then(snapshot => {
           if (snapshot.exists()) {
             const data = snapshot.val();
             for (let i = 1; i <= 5; i++) {
-              document.getElementById(`${day}-server-${i}`).value = data[`server${i}`] || '';
+              const input = document.getElementById(`${day}-server-${i}`);
+              if (data[`server${i}`]) {
+                input.value = data[`server${i}`];
+                input.readOnly = true;
+              }
             }
           }
         });
       });
     }
 
-    window.onload = () => {
-      loadScheduleData();
-    };
-
-    // Save schedule data
-    function saveScheduleData() {
-      const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    function setBlurEvents() {
       days.forEach(day => {
-        const servers = {};
         for (let i = 1; i <= 5; i++) {
-          servers[`server${i}`] = document.getElementById(`${day}-server-${i}`).value;
+          const input = document.getElementById(`${day}-server-${i}`);
+          input.addEventListener('blur', () => {
+            if (!input.readOnly && input.value.trim() !== '') {
+              const confirmSet = confirm("Are you sure? This cannot be changed.");
+              if (confirmSet) {
+                input.readOnly = true;
+                const refPath = ref(db, 'schedule/' + day);
+                get(refPath).then(snapshot => {
+                  const data = snapshot.exists() ? snapshot.val() : {};
+                  data[`server${i}`] = input.value.trim();
+                  set(refPath, data);
+                });
+              } else {
+                input.value = '';
+              }
+            }
+          });
         }
-        set(ref(db, `schedule/${day}`), servers);
       });
     }
 
-    // Show modal confirmation when attempting to leave
-    window.addEventListener('beforeunload', (e) => {
-      e.preventDefault();
-      document.getElementById('confirm-modal').style.display = 'flex';
-      return '';
-    });
-
-    // Modal actions
-    document.getElementById('confirm-continue').addEventListener('click', () => {
-      saveScheduleData();
-      window.location.reload();
-    });
-
-    document.getElementById('confirm-cancel').addEventListener('click', () => {
-      document.getElementById('confirm-modal').style.display = 'none';
+    window.addEventListener('DOMContentLoaded', () => {
+      loadInputs();
+      setBlurEvents();
     });
   </script>
-
 </body>
 </html>
