@@ -111,54 +111,6 @@
     <section>
       <h2>Schedule</h2>
 
-      <!-- Sunday Schedule -->
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Cross</th>
-            <th>Candle 1</th>
-            <th>Candle 2</th>
-            <th>Bell</th>
-            <th>Big Bell</th>
-            <th>Server 1</th>
-            <th>Server 2</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>7:30 AM</td>
-            <td>Cross</td>
-            <td>Candle 1</td>
-            <td>Candle 2</td>
-            <td>Bell</td>
-            <td>Big Bell</td>
-            <td>Server 1</td>
-            <td>Server 2</td>
-          </tr>
-          <tr>
-            <td>9:00 AM</td>
-            <td>Cross</td>
-            <td>Candle 1</td>
-            <td>Candle 2</td>
-            <td>Bell</td>
-            <td>Big Bell</td>
-            <td>Server 1</td>
-            <td>Server 2</td>
-          </tr>
-          <tr>
-            <td>5:00 PM</td>
-            <td>Cross</td>
-            <td>Candle 1</td>
-            <td>Candle 2</td>
-            <td>Bell</td>
-            <td>Big Bell</td>
-            <td>Server 1</td>
-            <td>Server 2</td>
-          </tr>
-        </tbody>
-      </table>
-
       <!-- Weekdays Schedule -->
       <table>
         <thead>
@@ -225,13 +177,6 @@
     </section>
   </div>
 
-  <div class="content-box" id="contact">
-    <section>
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
-    </section>
-  </div>
-
   <footer>
     <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
@@ -276,6 +221,16 @@
       });
     }
 
+    function saveInput(day, serverNum, value) {
+      const path = 'schedule/' + day;
+      const refPath = ref(db, path);
+      get(refPath).then(snapshot => {
+        const data = snapshot.exists() ? snapshot.val() : {};
+        data[`server${serverNum}`] = value;
+        set(refPath, data);
+      });
+    }
+
     function setBlurEvents() {
       days.forEach(day => {
         for (let i = 1; i <= 5; i++) {
@@ -285,15 +240,10 @@
               const confirmSet = confirm("Are you sure? This cannot be changed.");
               if (confirmSet) {
                 input.readOnly = true;
-                const refPath = ref(db, 'schedule/' + day);
-                get(refPath).then(snapshot => {
-                  const data = snapshot.exists() ? snapshot.val() : {};
-                  data[`server${i}`] = input.value.trim();
-                  set(refPath, data);
-                  input.dataset.originalValue = input.value.trim();
-                });
+                saveInput(day, i, input.value.trim());
+                input.dataset.originalValue = input.value.trim();
               } else {
-                input.value = '';
+                input.value = '';  // Clear the value if canceled
               }
             }
           });
