@@ -20,7 +20,6 @@
       text-align: center;
     }
 
-    /* Navigation Bar Styling */
     nav {
       background-color: #222;
       text-align: center;
@@ -88,7 +87,6 @@
     <h1>San Gregorio Magno Altar Servers</h1>
   </header>
 
-  <!-- Navigation Bar -->
   <nav>
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
@@ -97,7 +95,6 @@
     <a href="signup.html">Sign Up</a>
   </nav>
 
-  <!-- About Us Section -->
   <div class="content-box" id="about">
     <section>
       <h2>About Us</h2>
@@ -105,12 +102,10 @@
     </section>
   </div>
 
-  <!-- Schedule Section -->
   <div class="content-box" id="schedule">
     <section>
       <h2>Schedule</h2>
 
-      <!-- Sunday Schedule -->
       <table>
         <thead>
           <tr>
@@ -158,7 +153,6 @@
         </tbody>
       </table>
 
-      <!-- Weekdays Schedule -->
       <table>
         <thead>
           <tr>
@@ -171,7 +165,6 @@
           </tr>
         </thead>
         <tbody id="weekday-schedule">
-          <!-- Server Schedule for Weekdays (Monday - Saturday) -->
           <tr>
             <td>Monday</td>
             <td><input type="text" id="monday-server-1" class="server-input"></td>
@@ -225,7 +218,6 @@
     </section>
   </div>
 
-  <!-- Contact Section -->
   <div class="content-box" id="contact">
     <section>
       <h2>Contact Us</h2>
@@ -237,11 +229,10 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
 
-  <!-- Firebase Config & Script -->
+  <!-- Firebase Script -->
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
   <script>
-    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -253,25 +244,71 @@
       measurementId: "G-MQVV9NJ0SS"
     };
 
-    // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    // Function to save input to Firebase (weekdays only)
-    function saveWeekdaySchedule(day, servers) {
-      database.ref('schedule/' + day).set(servers);
+    const mondayServer1Field = document.getElementById('monday-server-1');
+
+    // Load from Firebase on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      const mondayRef = database.ref('schedule/monday/server1');
+      mondayRef.once('value')
+        .then(snapshot => {
+          const savedName = snapshot.val();
+          if (savedName && savedName.trim() !== "") {
+            mondayServer1Field.value = savedName;
+            mondayServer1Field.readOnly = true;
+          }
+        })
+        .catch(error => {
+          console.error("Error loading monday-server-1:", error);
+        });
+    });
+
+    // Confirm and lock input on blur
+    mondayServer1Field.addEventListener('blur', function () {
+      if (!mondayServer1Field.readOnly && mondayServer1Field.value.trim() !== "") {
+        const confirmLock = confirm("Are you sure? This cannot be changed.");
+        if (confirmLock) {
+          const enteredName = mondayServer1Field.value.trim();
+          mondayServer1Field.readOnly = true;
+          database.ref('schedule/monday/server1').set(enteredName)
+            .then(() => console.log("Saved and locked."))
+            .catch(error => console.error("Save failed:", error));
+        } else {
+          mondayServer1Field.focus();
+        }
+      }
+    });
+
+    // Get values for weekday table rows
+    function getDayServers(day) {
+      return {
+        server1: document.getElementById(`${day}-server-1`).value,
+        server2: document.getElementById(`${day}-server-2`).value,
+        server3: document.getElementById(`${day}-server-3`).value,
+        server4: document.getElementById(`${day}-server-4`).value,
+        server5: document.getElementById(`${day}-server-5`).value
+      };
     }
 
-    // Example: Saving data for Monday
-    const mondayServers = {
-      server1: document.getElementById('monday-server-1').value,
-      server2: document.getElementById('monday-server-2').value,
-      server3: document.getElementById('monday-server-3').value,
-      server4: document.getElementById('monday-server-4').value,
-      server5: document.getElementById('monday-server-5').value
-    };
-    saveWeekdaySchedule('monday', mondayServers);
-  </script>
+    function saveAllWeekdaySchedules() {
+      const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+      days.forEach(day => {
+        const servers = getDayServers(day);
+        database.ref(`schedule/${day}`).set(servers)
+          .then(() => console.log(`Saved ${day}`))
+          .catch(err => console.error(`Failed to save ${day}:`, err));
+      });
+    }
 
+    // Confirm save on unload
+    window.addEventListener("beforeunload", function (e) {
+      const shouldSave = confirm("Would you like to save the weekday server schedule before leaving?");
+      if (shouldSave) {
+        saveAllWeekdaySchedules();
+      }
+    });
+  </script>
 </body>
 </html>
