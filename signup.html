@@ -3,18 +3,121 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sign Up - Altar Servers</title>
+  <title>Sign Up - San Gregorio Magno Altar Servers</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffcc00;
+      margin: 0;
+      padding: 0;
+      color: #000;
+    }
+
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      background-color: #222;
+      text-align: center;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav a {
+      color: #ffcc00;
+      margin: 0 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    .content-box {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 1000px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input[type="email"], input[type="password"], input[type="text"] {
+      width: 90%;
+      padding: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #000;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #ffcc00;
+      color: #000;
+    }
+
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-  <h2>Sign Up</h2>
-  <form id="signupForm">
-    <input type="email" id="signupEmail" placeholder="Email" required><br>
-    <input type="password" id="signupPassword" placeholder="Password" required><br>
-    <button type="submit">Sign Up</button>
-  </form>
-  <p>Already have an account? <a href="login.html">Login</a></p>
 
-  <!-- Firebase SDK -->
+  <header>
+    <h1>San Gregorio Magno Altar Servers</h1>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="contact.html">Contact</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign Up</a>
+  </nav>
+
+  <!-- Sign Up Form -->
+  <div class="content-box">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <label for="signupEmail">Email:</label>
+      <input type="email" id="signupEmail" placeholder="Enter your email" required><br><br>
+      
+      <label for="signupPassword">Password:</label>
+      <input type="password" id="signupPassword" placeholder="Enter your password" required><br><br>
+      
+      <label for="signupConfirmPassword">Confirm Password:</label>
+      <input type="password" id="signupConfirmPassword" placeholder="Confirm your password" required><br><br>
+      
+      <button type="submit">Sign Up</button>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
+  </footer>
+
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
 
@@ -23,22 +126,39 @@
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
       projectId: "altar-servers-e3e2a",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922"
+      storageBucket: "altar-servers-e3e2a.appspot.com",
+      messagingSenderId: "184021840775",
+      appId: "1:184021840775:web:1ac06fe4838046010a9922",
+      measurementId: "G-MQVV9NJ0SS"
     };
-    firebase.initializeApp(firebaseConfig);
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    document.getElementById("signupForm").addEventListener("submit", e => {
-      e.preventDefault();
-      const email = signupEmail.value;
-      const password = signupPassword.value;
+    // Sign Up Function
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('signupConfirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
       auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          alert("Account created successfully");
-          window.location.href = "index.html";
+        .then((userCredential) => {
+          alert("Sign Up Successful!");
+          // Redirect or update UI as needed
         })
-        .catch(error => alert(error.message));
+        .catch((error) => {
+          console.error(error.message);
+          alert(error.message);
+        });
     });
   </script>
+
 </body>
 </html>
