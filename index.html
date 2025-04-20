@@ -72,6 +72,11 @@
       font-size: 1em;
     }
 
+    input[readonly] {
+      background-color: #eee;
+      cursor: not-allowed;
+    }
+
     footer {
       background-color: #000;
       color: #fff;
@@ -102,7 +107,7 @@
     <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
   </div>
 
-  <!-- Sunday Schedule (NO INPUTS) -->
+  <!-- Sunday Schedule (No Inputs) -->
   <div class="content-box" id="schedule">
     <h2>Sunday Schedule</h2>
     <table>
@@ -123,7 +128,7 @@
     </table>
   </div>
 
-  <!-- Weekday Schedule (Mon - Sat) -->
+  <!-- Weekday Schedule (With Inputs) -->
   <div class="content-box">
     <h2>Weekday Schedule (Monday - Saturday)</h2>
     <table>
@@ -158,7 +163,7 @@
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Firebase SDKs -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 
@@ -176,26 +181,24 @@
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // Lock and save each input individually
     const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
     days.forEach(day => {
-      const inputs = document.querySelectorAll(`#${day} input`);
-      inputs.forEach(input => {
-        input.addEventListener('blur', function () {
+      for (let i = 1; i <= 5; i++) {
+        const input = document.getElementById(`${day}${i}`);
+        input.addEventListener("blur", function () {
           if (this.value && !this.hasAttribute("readonly")) {
             const confirmLock = confirm("Are you sure? This cannot be changed.");
             if (confirmLock) {
               this.setAttribute("readonly", true);
               const inputId = this.id;
               const value = this.value;
-              db.collection("schedules").doc(day).set({ [inputId]: value }, { merge: true });
+
+              db.collection("schedules").doc(day).update({
+                [inputId]: value
+              }).catch((error) => {
+                console.error("Error updating:", error);
+              });
             }
           }
-        });
-      });
-    });
-  </script>
-
-</body>
-</html>
+       
