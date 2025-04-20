@@ -20,6 +20,7 @@
       text-align: center;
     }
 
+    /* Navigation Bar Styling */
     nav {
       background-color: #222;
       text-align: center;
@@ -35,13 +36,26 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    .content-box {
+      background: #fff;
+      margin: 20px auto;
+      padding: 20px;
+      max-width: 1000px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 15px;
-      background-color: white;
     }
 
     table, th, td {
@@ -53,10 +67,10 @@
       text-align: center;
     }
 
-    input {
+    input[type="text"], input[type="email"], input[type="password"] {
       width: 90%;
       padding: 5px;
-      text-align: center;
+      font-size: 1em;
     }
 
     footer {
@@ -66,38 +80,85 @@
       padding: 15px;
       margin-top: 40px;
     }
-
-    .container {
-      padding: 20px;
-    }
-
-    .readonly {
-      background-color: #f0f0f0;
-    }
   </style>
-  
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js"></script>
 </head>
 <body>
-
   <header>
     <h1>San Gregorio Magno Altar Servers</h1>
   </header>
 
+  <!-- Navigation Bar -->
   <nav>
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
-    <a href="#contact">Contact</a>
-    <a href="login.html" id="loginLink" style="display: none;">Login</a>
-    <a href="signup.html" id="signupLink" style="display: none;">Sign Up</a>
-    <a href="javascript:void(0);" id="logoutLink" style="display: none;" onclick="logout()">Logout</a>
+    <a href="login.html" id="loginLink">Login</a>
+    <a href="signup.html" id="signupLink">Sign Up</a>
+    <a href="javascript:void(0)" id="logoutLink" onclick="logout()">Logout</a>
   </nav>
 
-  <div class="container" id="schedule">
+  <!-- About Us Section -->
+  <div class="content-box" id="about">
     <section>
-      <h2>Weekday Schedule (Monday to Saturday)</h2>
+      <h2>About Us</h2>
+      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+    </section>
+  </div>
+
+  <!-- Schedule Section -->
+  <div class="content-box" id="schedule">
+    <section>
+      <h2>Schedule</h2>
+      <!-- Sunday Schedule (static) -->
+      <h3>Sunday Schedule</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Cross</th>
+            <th>Candle 1</th>
+            <th>Candle 2</th>
+            <th>Bell</th>
+            <th>Big Bell</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>7:30 AM</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+          </tr>
+          <tr>
+            <td>9:00 AM</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+          </tr>
+          <tr>
+            <td>5:00 PM</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+            <td>---</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Weekday Schedule -->
+      <h3>Weekday Schedule</h3>
       <table>
         <thead>
           <tr>
@@ -109,91 +170,32 @@
             <th>Server 5</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="weekday-schedule">
           <tr>
             <td>Monday</td>
-            <td><input type="text" id="mondayServer1" class="serverInput" /></td>
-            <td><input type="text" id="mondayServer2" class="serverInput" /></td>
-            <td><input type="text" id="mondayServer3" class="serverInput" /></td>
-            <td><input type="text" id="mondayServer4" class="serverInput" /></td>
-            <td><input type="text" id="mondayServer5" class="serverInput" /></td>
+            <td><input type="text" id="server1-mon"></td>
+            <td><input type="text" id="server2-mon"></td>
+            <td><input type="text" id="server3-mon"></td>
+            <td><input type="text" id="server4-mon"></td>
+            <td><input type="text" id="server5-mon"></td>
           </tr>
-          <!-- Repeat for Tuesday to Saturday -->
-          <tr>
-            <td>Tuesday</td>
-            <td><input type="text" id="tuesdayServer1" class="serverInput" /></td>
-            <td><input type="text" id="tuesdayServer2" class="serverInput" /></td>
-            <td><input type="text" id="tuesdayServer3" class="serverInput" /></td>
-            <td><input type="text" id="tuesdayServer4" class="serverInput" /></td>
-            <td><input type="text" id="tuesdayServer5" class="serverInput" /></td>
-          </tr>
-          <!-- Add other weekdays (Wednesday, Thursday, Friday, Saturday) here -->
-        </tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>Sunday Schedule</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Cross</th>
-            <th>Candle 1</th>
-            <th>Candle 2</th>
-            <th>Bell</th>
-            <th>Bigbell 1</th>
-            <th>Bigbell 2</th>
-            <th>Server 1</th>
-            <th>Server 2</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>7:30 AM</td>
-            <td>Cross</td>
-            <td>Candle 1</td>
-            <td>Candle 2</td>
-            <td>Bell</td>
-            <td>Bigbell 1</td>
-            <td>Bigbell 2</td>
-            <td>Server 1</td>
-            <td>Server 2</td>
-          </tr>
-          <tr>
-            <td>9:00 AM</td>
-            <td>Cross</td>
-            <td>Candle 1</td>
-            <td>Candle 2</td>
-            <td>Bell</td>
-            <td>Bigbell 1</td>
-            <td>Bigbell 2</td>
-            <td>Server 1</td>
-            <td>Server 2</td>
-          </tr>
-          <tr>
-            <td>5:00 PM</td>
-            <td>Cross</td>
-            <td>Candle 1</td>
-            <td>Candle 2</td>
-            <td>Bell</td>
-            <td>Bigbell 1</td>
-            <td>Bigbell 2</td>
-            <td>Server 1</td>
-            <td>Server 2</td>
-          </tr>
+          <!-- Repeat similar rows for Tuesday-Saturday -->
         </tbody>
       </table>
     </section>
   </div>
 
   <footer>
-    <p>© 2025 San Gregorio Magno Altar Servers. All Rights Reserved.</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Firebase Configuration -->
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+
   <script>
-    // Firebase Configuration
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
@@ -204,32 +206,14 @@
       appId: "1:184021840775:web:1ac06fe4838046010a9922",
       measurementId: "G-MQVV9NJ0SS"
     };
-    const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
 
-    // Handle input changes
-    function handleInputChange(event) {
-      const inputField = event.target;
-      const value = inputField.value;
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
 
-      // Prompt the user
-      if (confirm("Are you sure you want to save this and make it uneditable?")) {
-        inputField.setAttribute("readonly", true); // Make readonly
-        const day = inputField.id.split('Server')[0].toLowerCase();
-        const serverId = inputField.id.split('Server')[1];
-        const scheduleRef = database.ref('schedule/' + day + '/server' + serverId);
-        scheduleRef.set(value); // Save to Firebase
-      }
-    }
-
-    // Attach event listeners to the input fields
-    const inputs = document.querySelectorAll('.serverInput');
-    inputs.forEach(input => {
-      input.addEventListener('blur', handleInputChange);
-    });
-
-    // Firebase authentication logic (if needed)
-    firebase.auth().onAuthStateChanged(user => {
+    // Handle login/logout state
+    firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         document.getElementById("loginLink").style.display = "none";
         document.getElementById("signupLink").style.display = "none";
@@ -244,6 +228,26 @@
     function logout() {
       firebase.auth().signOut();
     }
+
+    // Save weekday data to Firebase
+    function saveWeekdayData(day, server1, server2, server3, server4, server5) {
+      const scheduleRef = db.ref('schedule/' + day);
+      scheduleRef.set({
+        server1: server1,
+        server2: server2,
+        server3: server3,
+        server4: server4,
+        server5: server5
+      });
+    }
+
+    // Event listener to save the data
+    document.getElementById("server1-mon").addEventListener("change", function() {
+      const server1 = this.value;
+      saveWeekdayData('monday', server1, '', '', '', '');
+    });
+
+    // Repeat for other fields...
   </script>
 </body>
 </html>
