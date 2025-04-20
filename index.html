@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
     body {
@@ -49,7 +49,7 @@
       padding: 20px;
       max-width: 1000px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     table {
@@ -83,6 +83,7 @@
   </style>
 </head>
 <body>
+
   <header>
     <h1>San Gregorio Magno Altar Servers</h1>
   </header>
@@ -91,9 +92,9 @@
   <nav>
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
-    <a href="login.html" id="loginLink">Login</a>
-    <a href="signup.html" id="signupLink">Sign Up</a>
-    <a href="javascript:void(0)" id="logoutLink" onclick="logout()">Logout</a>
+    <a href="#contact">Contact</a>
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign Up</a>
   </nav>
 
   <!-- About Us Section -->
@@ -108,8 +109,8 @@
   <div class="content-box" id="schedule">
     <section>
       <h2>Schedule</h2>
-      <!-- Sunday Schedule (static) -->
-      <h3>Sunday Schedule</h3>
+
+      <!-- Sunday Schedule -->
       <table>
         <thead>
           <tr>
@@ -126,39 +127,38 @@
         <tbody>
           <tr>
             <td>7:30 AM</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
+            <td>Cross</td>
+            <td>Candle 1</td>
+            <td>Candle 2</td>
+            <td>Bell</td>
+            <td>Big Bell</td>
+            <td>Server 1</td>
+            <td>Server 2</td>
           </tr>
           <tr>
             <td>9:00 AM</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
+            <td>Cross</td>
+            <td>Candle 1</td>
+            <td>Candle 2</td>
+            <td>Bell</td>
+            <td>Big Bell</td>
+            <td>Server 1</td>
+            <td>Server 2</td>
           </tr>
           <tr>
             <td>5:00 PM</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
-            <td>---</td>
+            <td>Cross</td>
+            <td>Candle 1</td>
+            <td>Candle 2</td>
+            <td>Bell</td>
+            <td>Big Bell</td>
+            <td>Server 1</td>
+            <td>Server 2</td>
           </tr>
         </tbody>
       </table>
 
-      <!-- Weekday Schedule -->
-      <h3>Weekday Schedule</h3>
+      <!-- Weekdays Schedule -->
       <table>
         <thead>
           <tr>
@@ -171,83 +171,107 @@
           </tr>
         </thead>
         <tbody id="weekday-schedule">
+          <!-- Server Schedule for Weekdays (Monday - Saturday) -->
           <tr>
             <td>Monday</td>
-            <td><input type="text" id="server1-mon"></td>
-            <td><input type="text" id="server2-mon"></td>
-            <td><input type="text" id="server3-mon"></td>
-            <td><input type="text" id="server4-mon"></td>
-            <td><input type="text" id="server5-mon"></td>
+            <td><input type="text" id="monday-server-1" class="server-input"></td>
+            <td><input type="text" id="monday-server-2" class="server-input"></td>
+            <td><input type="text" id="monday-server-3" class="server-input"></td>
+            <td><input type="text" id="monday-server-4" class="server-input"></td>
+            <td><input type="text" id="monday-server-5" class="server-input"></td>
           </tr>
-          <!-- Repeat similar rows for Tuesday-Saturday -->
+          <tr>
+            <td>Tuesday</td>
+            <td><input type="text" id="tuesday-server-1" class="server-input"></td>
+            <td><input type="text" id="tuesday-server-2" class="server-input"></td>
+            <td><input type="text" id="tuesday-server-3" class="server-input"></td>
+            <td><input type="text" id="tuesday-server-4" class="server-input"></td>
+            <td><input type="text" id="tuesday-server-5" class="server-input"></td>
+          </tr>
+          <tr>
+            <td>Wednesday</td>
+            <td><input type="text" id="wednesday-server-1" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-2" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-3" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-4" class="server-input"></td>
+            <td><input type="text" id="wednesday-server-5" class="server-input"></td>
+          </tr>
+          <tr>
+            <td>Thursday</td>
+            <td><input type="text" id="thursday-server-1" class="server-input"></td>
+            <td><input type="text" id="thursday-server-2" class="server-input"></td>
+            <td><input type="text" id="thursday-server-3" class="server-input"></td>
+            <td><input type="text" id="thursday-server-4" class="server-input"></td>
+            <td><input type="text" id="thursday-server-5" class="server-input"></td>
+          </tr>
+          <tr>
+            <td>Friday</td>
+            <td><input type="text" id="friday-server-1" class="server-input"></td>
+            <td><input type="text" id="friday-server-2" class="server-input"></td>
+            <td><input type="text" id="friday-server-3" class="server-input"></td>
+            <td><input type="text" id="friday-server-4" class="server-input"></td>
+            <td><input type="text" id="friday-server-5" class="server-input"></td>
+          </tr>
+          <tr>
+            <td>Saturday</td>
+            <td><input type="text" id="saturday-server-1" class="server-input"></td>
+            <td><input type="text" id="saturday-server-2" class="server-input"></td>
+            <td><input type="text" id="saturday-server-3" class="server-input"></td>
+            <td><input type="text" id="saturday-server-4" class="server-input"></td>
+            <td><input type="text" id="saturday-server-5" class="server-input"></td>
+          </tr>
         </tbody>
       </table>
     </section>
   </div>
 
+  <!-- Contact Section -->
+  <div class="content-box" id="contact">
+    <section>
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
+    </section>
+  </div>
+
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
   </footer>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
-
+  <!-- Firebase Config & Script -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
   <script>
-    // Firebase config
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
       databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
+      storageBucket: "altar-servers-e3e2a.appspot.com",
       messagingSenderId: "184021840775",
       appId: "1:184021840775:web:1ac06fe4838046010a9922",
       measurementId: "G-MQVV9NJ0SS"
     };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
 
-    // Handle login/logout state
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        document.getElementById("loginLink").style.display = "none";
-        document.getElementById("signupLink").style.display = "none";
-        document.getElementById("logoutLink").style.display = "inline";
-      } else {
-        document.getElementById("loginLink").style.display = "inline";
-        document.getElementById("signupLink").style.display = "inline";
-        document.getElementById("logoutLink").style.display = "none";
-      }
-    });
-
-    function logout() {
-      firebase.auth().signOut();
+    // Function to save input to Firebase (weekdays only)
+    function saveWeekdaySchedule(day, servers) {
+      database.ref('schedule/' + day).set(servers);
     }
 
-    // Save weekday data to Firebase
-    function saveWeekdayData(day, server1, server2, server3, server4, server5) {
-      const scheduleRef = db.ref('schedule/' + day);
-      scheduleRef.set({
-        server1: server1,
-        server2: server2,
-        server3: server3,
-        server4: server4,
-        server5: server5
-      });
-    }
-
-    // Event listener to save the data
-    document.getElementById("server1-mon").addEventListener("change", function() {
-      const server1 = this.value;
-      saveWeekdayData('monday', server1, '', '', '', '');
-    });
-
-    // Repeat for other fields...
+    // Example: Saving data for Monday
+    const mondayServers = {
+      server1: document.getElementById('monday-server-1').value,
+      server2: document.getElementById('monday-server-2').value,
+      server3: document.getElementById('monday-server-3').value,
+      server4: document.getElementById('monday-server-4').value,
+      server5: document.getElementById('monday-server-5').value
+    };
+    saveWeekdaySchedule('monday', mondayServers);
   </script>
+
 </body>
 </html>
