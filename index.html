@@ -90,7 +90,6 @@
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js"></script>
-  
 </head>
 <body>
 
@@ -109,7 +108,7 @@
     <section>
       <h2>Schedule</h2>
       
-      <!-- Sunday Schedule - Static Text -->
+      <!-- Sunday Schedule - Static Text (no input fields) -->
       <h3>Sunday Schedule</h3>
       <table>
         <tr>
@@ -118,29 +117,44 @@
           <th>5:00 PM</th>
         </tr>
         <tr>
-          <td><span>Cross</span></td>
-          <td><span>Cross</span></td>
-          <td><span>Cross</span></td>
+          <td>Cross</td>
+          <td>Cross</td>
+          <td>Cross</td>
         </tr>
         <tr>
-          <td><span>Candle 1</span></td>
-          <td><span>Candle 2</span></td>
-          <td><span>Candle 2</span></td>
+          <td>Candle 1</td>
+          <td>Candle 1</td>
+          <td>Candle 1</td>
         </tr>
         <tr>
-          <td><span>Bigbell 1</span></td>
-          <td><span>Bigbell 2</span></td>
-          <td><span>Bigbell 2</span></td>
+          <td>Candle 2</td>
+          <td>Candle 2</td>
+          <td>Candle 2</td>
         </tr>
         <tr>
-          <td><span>Server 1</span></td>
-          <td><span>Server 2</span></td>
-          <td><span>Server 1</span></td>
+          <td>Bigbell 1</td>
+          <td>Bigbell 1</td>
+          <td>Bigbell 1</td>
+        </tr>
+        <tr>
+          <td>Bigbell 2</td>
+          <td>Bigbell 2</td>
+          <td>Bigbell 2</td>
+        </tr>
+        <tr>
+          <td>Server 1</td>
+          <td>Server 1</td>
+          <td>Server 1</td>
+        </tr>
+        <tr>
+          <td>Server 2</td>
+          <td>Server 2</td>
+          <td>Server 2</td>
         </tr>
       </table>
     </section>
 
-    <!-- Weekday Schedule -->
+    <!-- Weekday Schedule - Only input fields for Server 1, Server 2, Server 3, Server 4, Server 5 -->
     <section>
       <h3>Weekday Schedule</h3>
       <table>
@@ -193,7 +207,6 @@
           <td><input type="text" id="saturday-server5" placeholder="Server 5" /></td>
         </tr>
       </table>
-      <button onclick="saveData()">Save Weekday Data</button>
     </section>
   </div>
 
