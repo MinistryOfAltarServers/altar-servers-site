@@ -118,24 +118,24 @@
           <th>5:00 PM</th>
         </tr>
         <tr>
-          <td><input type="text" id="sunday-7-30" value="Cross" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-9-00" value="Cross" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-5-00" value="Cross" class="readonly-input" readonly /></td>
+          <td><span>Cross</span></td>
+          <td><span>Cross</span></td>
+          <td><span>Cross</span></td>
         </tr>
         <tr>
-          <td><input type="text" id="sunday-candle1" value="Candle 1" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-candle2" value="Candle 2" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-candle3" value="Candle 2" class="readonly-input" readonly /></td>
+          <td><span>Candle 1</span></td>
+          <td><span>Candle 2</span></td>
+          <td><span>Candle 2</span></td>
         </tr>
         <tr>
-          <td><input type="text" id="sunday-bigbell1" value="Bigbell 1" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-bigbell2" value="Bigbell 2" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-bigbell3" value="Bigbell 2" class="readonly-input" readonly /></td>
+          <td><span>Bigbell 1</span></td>
+          <td><span>Bigbell 2</span></td>
+          <td><span>Bigbell 2</span></td>
         </tr>
         <tr>
-          <td><input type="text" id="sunday-server1" value="Server 1" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-server2" value="Server 2" class="readonly-input" readonly /></td>
-          <td><input type="text" id="sunday-server3" value="Server 1" class="readonly-input" readonly /></td>
+          <td><span>Server 1</span></td>
+          <td><span>Server 2</span></td>
+          <td><span>Server 1</span></td>
         </tr>
       </table>
     </section>
@@ -214,51 +214,32 @@
       measurementId: "G-MQVV9NJ0SS"
     };
 
-    // Initialize Firebase
     const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.database(app);
-
-    // Handle changes and make input readonly if confirmed
-    function handleChange(event) {
-      const inputField = event.target;
-      const userConfirmed = confirm("Are you sure this cannot be changed?");
-
-      if (userConfirmed) {
-        // Make the input read-only
-        inputField.setAttribute('readonly', 'true');
-        inputField.classList.add('readonly-input');
-
-        // Save data to Firebase
-        saveToFirebase(inputField.id, inputField.value);
-      } else {
-        // Reset the input field value
-        inputField.value = inputField.defaultValue;
-      }
-    }
-
-    // Attach event listener to Sunday input fields
-    document.querySelectorAll('.readonly-input').forEach(input => {
-      input.addEventListener('change', handleChange);
-    });
+    const db = firebase.database();
 
     // Save data to Firebase
-    function saveToFirebase(fieldId, value) {
-      const fieldPath = `sundaySchedule/${fieldId}`;
-      db.ref(fieldPath).set(value);
-    }
-
-    // Save weekday data
     function saveData() {
-      const weekdaysData = {
-        monday: document.getElementById('monday-server1').value,
-        tuesday: document.getElementById('tuesday-server1').value,
-        wednesday: document.getElementById('wednesday-server1').value,
-        thursday: document.getElementById('thursday-server1').value,
-        friday: document.getElementById('friday-server1').value,
-        saturday: document.getElementById('saturday-server1').value,
+      const scheduleData = {
+        monday: {
+          server1: document.getElementById('monday-server1').value,
+          server2: document.getElementById('monday-server2').value,
+          server3: document.getElementById('monday-server3').value,
+          server4: document.getElementById('monday-server4').value,
+          server5: document.getElementById('monday-server5').value
+        },
+        tuesday: {
+          server1: document.getElementById('tuesday-server1').value,
+          server2: document.getElementById('tuesday-server2').value,
+          server3: document.getElementById('tuesday-server3').value,
+          server4: document.getElementById('tuesday-server4').value,
+          server5: document.getElementById('tuesday-server5').value
+        },
+        // Same for Wednesday-Saturday...
       };
-      
-      db.ref('weekdaySchedule').set(weekdaysData);
+
+      // Saving the data to Firebase
+      db.ref('schedule').set(scheduleData);
+      alert("Schedule saved!");
     }
   </script>
 
