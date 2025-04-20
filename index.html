@@ -1,76 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>San Gregorio Magno Altar Servers</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>San Gregorio Magno Altar Severs</title>
   <style>
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9fafb;
-      margin: 0;
-      padding: 20px;
+      background-color: #000000;
+      color: #FFD700;
+      font-family: Arial, sans-serif;
     }
-
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
-      background-color: #fff;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     }
-
     th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
+      border: 1px solid #FFD700;
+      padding: 8px;
       text-align: center;
     }
-
     th {
-      background-color: #3498db;
-      color: white;
+      background-color: #333300;
     }
-
+    td {
+      background-color: #222200;
+    }
     input[type="text"] {
-      width: 95%;
-      padding: 6px;
-      font-size: 14px;
+      background-color: #111100;
+      color: #FFD700;
+      border: 1px solid #FFD700;
     }
-
     #modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
       justify-content: center;
       align-items: center;
-      z-index: 9999;
     }
-
     #modal-content {
-      background-color: white;
+      background-color: #222200;
       padding: 20px;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border-radius: 5px;
+      color: #FFD700;
+      border: 2px solid #FFD700;
     }
-
-    #modal-content button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 14px;
+    button {
+      background-color: #FFD700;
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      margin: 5px;
       cursor: pointer;
+      font-weight: bold;
+    }
+    h1 {
+      color: #FFD700;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>San Gregorio Magno Altar Servers</h1>
+  <h1>San Gregorio Magno Altar Severs</h1>
 
   <table>
     <tr>
@@ -81,15 +75,54 @@
       <th>Server 4</th>
       <th>Server 5</th>
     </tr>
-    <script>
-      const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-      document.write(days.map(day => `
-        <tr>
-          <td>${day}</td>
-          ${[1,2,3,4,5].map(i => `<td><input id="${day.toLowerCase()}-server-${i}" type="text" /></td>`).join('')}
-        </tr>
-      `).join(''));
-    </script>
+    <tr>
+      <td>Monday</td>
+      <td><input id="monday-server-1" type="text" /></td>
+      <td><input id="monday-server-2" type="text" /></td>
+      <td><input id="monday-server-3" type="text" /></td>
+      <td><input id="monday-server-4" type="text" /></td>
+      <td><input id="monday-server-5" type="text" /></td>
+    </tr>
+    <tr>
+      <td>Tuesday</td>
+      <td><input id="tuesday-server-1" type="text" /></td>
+      <td><input id="tuesday-server-2" type="text" /></td>
+      <td><input id="tuesday-server-3" type="text" /></td>
+      <td><input id="tuesday-server-4" type="text" /></td>
+      <td><input id="tuesday-server-5" type="text" /></td>
+    </tr>
+    <tr>
+      <td>Wednesday</td>
+      <td><input id="wednesday-server-1" type="text" /></td>
+      <td><input id="wednesday-server-2" type="text" /></td>
+      <td><input id="wednesday-server-3" type="text" /></td>
+      <td><input id="wednesday-server-4" type="text" /></td>
+      <td><input id="wednesday-server-5" type="text" /></td>
+    </tr>
+    <tr>
+      <td>Thursday</td>
+      <td><input id="thursday-server-1" type="text" /></td>
+      <td><input id="thursday-server-2" type="text" /></td>
+      <td><input id="thursday-server-3" type="text" /></td>
+      <td><input id="thursday-server-4" type="text" /></td>
+      <td><input id="thursday-server-5" type="text" /></td>
+    </tr>
+    <tr>
+      <td>Friday</td>
+      <td><input id="friday-server-1" type="text" /></td>
+      <td><input id="friday-server-2" type="text" /></td>
+      <td><input id="friday-server-3" type="text" /></td>
+      <td><input id="friday-server-4" type="text" /></td>
+      <td><input id="friday-server-5" type="text" /></td>
+    </tr>
+    <tr>
+      <td>Saturday</td>
+      <td><input id="saturday-server-1" type="text" /></td>
+      <td><input id="saturday-server-2" type="text" /></td>
+      <td><input id="saturday-server-3" type="text" /></td>
+      <td><input id="saturday-server-4" type="text" /></td>
+      <td><input id="saturday-server-5" type="text" /></td>
+    </tr>
     <tr>
       <td>Sunday</td>
       <td colspan="5">Cross Candle: 1, Bell: 1, Big Bell: 2</td>
@@ -99,13 +132,13 @@
   <!-- Modal -->
   <div id="modal">
     <div id="modal-content">
-      <p>Are you sure you want to save changes?</p>
+      <p>Are you sure you want to make changes to this schedule?</p>
       <button id="confirm-changes">Yes</button>
       <button id="cancel-changes">No</button>
     </div>
   </div>
 
-  <!-- Firebase -->
+  <!-- Firebase Setup -->
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
@@ -117,7 +150,8 @@
       projectId: "altar-servers-e3e2a",
       storageBucket: "altar-servers-e3e2a.appspot.com",
       messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922"
+      appId: "1:184021840775:web:1ac06fe4838046010a9922",
+      measurementId: "G-MQVV9NJ0SS"
     };
 
     const app = firebase.initializeApp(firebaseConfig);
@@ -129,42 +163,47 @@
       const scheduleRef = database.ref('schedule');
       scheduleRef.once('value')
         .then(snapshot => {
-          const scheduleData = snapshot.val();
-          if (scheduleData) {
-            populateSchedule(scheduleData);
-            localStorage.setItem('schedule', JSON.stringify(scheduleData));
-            console.log('Loaded from Firebase and backed up to localStorage');
+          const data = snapshot.val();
+          if (data) {
+            for (let day in data) {
+              for (let server in data[day]) {
+                const inputElement = document.getElementById(`${day.toLowerCase()}-${server}`);
+                if (inputElement) {
+                  inputElement.value = data[day][server];
+                }
+              }
+            }
+            localStorage.setItem('schedule', JSON.stringify(data));
+          } else {
+            console.warn('No data in Firebase, checking local storage');
+            loadScheduleFromLocalStorage();
           }
         })
-        .catch(error => {
-          console.error("Firebase load failed, loading from localStorage...", error);
+        .catch((error) => {
+          console.error("Firebase load error:", error);
           loadScheduleFromLocalStorage();
         });
     }
 
     function loadScheduleFromLocalStorage() {
-      const data = localStorage.getItem('schedule');
+      const data = JSON.parse(localStorage.getItem('schedule'));
       if (data) {
-        const scheduleData = JSON.parse(data);
-        populateSchedule(scheduleData);
-        console.log('Loaded from localStorage');
-      } else {
-        console.warn('No localStorage backup found.');
-      }
-    }
-
-    function populateSchedule(data) {
-      for (let day in data) {
-        for (let server in data[day]) {
-          const el = document.getElementById(`${day.toLowerCase()}-${server}`);
-          if (el) el.value = data[day][server];
+        for (let day in data) {
+          for (let server in data[day]) {
+            const inputElement = document.getElementById(`${day.toLowerCase()}-${server}`);
+            if (inputElement) {
+              inputElement.value = data[day][server];
+            }
+          }
         }
+      } else {
+        console.warn('No local schedule data found.');
       }
     }
 
     function saveScheduleToFirebase() {
-      const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
       const scheduleData = {};
+      const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
       days.forEach(day => {
         scheduleData[day] = {};
         for (let i = 1; i <= 5; i++) {
@@ -177,39 +216,39 @@
 
       database.ref('schedule').set(scheduleData)
         .then(() => {
-          alert('Schedule saved to Firebase.');
+          console.log("Saved to Firebase.");
           localStorage.setItem('schedule', JSON.stringify(scheduleData));
         })
-        .catch(error => {
-          console.error("Failed to save to Firebase", error);
-          alert('Could not save to Firebase. Data stored locally.');
-          localStorage.setItem('schedule', JSON.stringify(scheduleData));
+        .catch((error) => {
+          console.error("Firebase save error:", error);
         });
     }
 
-    function openModalOnBlur(e) {
-      currentField = e.target;
+    function openModalOnBlur(event) {
+      currentField = event.target;
       document.getElementById('modal').style.display = 'flex';
     }
 
     function confirmChanges() {
-      document.getElementById('modal').style.display = 'none';
-      saveScheduleToFirebase();
+      if (currentField) {
+        saveScheduleToFirebase();
+        document.getElementById('modal').style.display = 'none';
+      }
     }
 
     function cancelChanges() {
       document.getElementById('modal').style.display = 'none';
     }
 
+    document.getElementById('confirm-changes').addEventListener('click', confirmChanges);
+    document.getElementById('cancel-changes').addEventListener('click', cancelChanges);
+
     document.querySelectorAll('input[type="text"]').forEach(input => {
       input.addEventListener('blur', openModalOnBlur);
     });
 
-    document.getElementById('confirm-changes').addEventListener('click', confirmChanges);
-    document.getElementById('cancel-changes').addEventListener('click', cancelChanges);
-
     window.onload = loadScheduleFromFirebase;
-    setInterval(saveScheduleToFirebase, 30000); // 30s backup
+    setInterval(saveScheduleToFirebase, 30000);
   </script>
 </body>
 </html>
