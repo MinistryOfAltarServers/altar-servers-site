@@ -194,6 +194,7 @@
               const inputId = this.id;
               const value = this.value;
 
+              // Save to Firestore
               db.collection("schedules").doc(day).update({
                 [inputId]: value
               }).catch((error) => {
@@ -201,4 +202,9 @@
               });
             }
           }
-       
+        });
+      }
+    });
+  </script>
+</body>
+</html>
