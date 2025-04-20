@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>San Gregorio Magno Altar Servers</title>
   <style>
+    /* Add styles */
     body {
       font-family: Arial, sans-serif;
       background-color: #ffcc00;
@@ -70,7 +71,15 @@
     .container {
       padding: 20px;
     }
+
+    .readonly {
+      background-color: #f0f0f0;
+    }
   </style>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js"></script>
 </head>
 <body>
 
@@ -78,7 +87,6 @@
     <h1>San Gregorio Magno Altar Servers</h1>
   </header>
 
-  <!-- Navigation Bar -->
   <nav>
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
@@ -88,66 +96,7 @@
     <a href="javascript:void(0);" id="logoutLink" style="display: none;" onclick="logout()">Logout</a>
   </nav>
 
-  <!-- About Us Section -->
-  <div class="container" id="about">
-    <section>
-      <h2>About Us</h2>
-      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
-    </section>
-  </div>
-
-  <!-- Schedule Section -->
   <div class="container" id="schedule">
-    <section>
-      <h2>Sunday Schedule</h2>
-      <table>
-        <tr>
-          <th>Time</th>
-          <th>Cross</th>
-          <th>Candle 1</th>
-          <th>Candle 2</th>
-          <th>Bell</th>
-          <th>Big Bell 1</th>
-          <th>Big Bell 2</th>
-          <th>Server 1</th>
-          <th>Server 2</th>
-        </tr>
-        <tr>
-          <td>7:30 AM</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-        </tr>
-        <tr>
-          <td>9:00 AM</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-        </tr>
-        <tr>
-          <td>5:00 PM</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-          <td>---</td>
-        </tr>
-      </table>
-    </section>
-
     <section>
       <h2>Weekday Schedule (Monday to Saturday)</h2>
       <table>
@@ -164,72 +113,78 @@
         <tbody>
           <tr>
             <td>Monday</td>
-            <td><input type="text" id="monday1" /></td>
-            <td><input type="text" id="monday2" /></td>
-            <td><input type="text" id="monday3" /></td>
-            <td><input type="text" id="monday4" /></td>
-            <td><input type="text" id="monday5" /></td>
+            <td><input type="text" id="mondayServer1" class="serverInput" /></td>
+            <td><input type="text" id="mondayServer2" class="serverInput" /></td>
+            <td><input type="text" id="mondayServer3" class="serverInput" /></td>
+            <td><input type="text" id="mondayServer4" class="serverInput" /></td>
+            <td><input type="text" id="mondayServer5" class="serverInput" /></td>
+          </tr>
+          <!-- Repeat for Tuesday to Saturday -->
+          <!-- Add the other days following similar structure to Monday -->
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Sunday Schedule</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Cross</th>
+            <th>Candle 1</th>
+            <th>Candle 2</th>
+            <th>Bell</th>
+            <th>Bigbell 1</th>
+            <th>Bigbell 2</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>7:30 AM</td>
+            <td>Cross</td>
+            <td>Candle 1</td>
+            <td>Candle 2</td>
+            <td>Bell</td>
+            <td>Bigbell 1</td>
+            <td>Bigbell 2</td>
+            <td>Server 1</td>
+            <td>Server 2</td>
           </tr>
           <tr>
-            <td>Tuesday</td>
-            <td><input type="text" id="tuesday1" /></td>
-            <td><input type="text" id="tuesday2" /></td>
-            <td><input type="text" id="tuesday3" /></td>
-            <td><input type="text" id="tuesday4" /></td>
-            <td><input type="text" id="tuesday5" /></td>
+            <td>9:00 AM</td>
+            <td>Cross</td>
+            <td>Candle 1</td>
+            <td>Candle 2</td>
+            <td>Bell</td>
+            <td>Bigbell 1</td>
+            <td>Bigbell 2</td>
+            <td>Server 1</td>
+            <td>Server 2</td>
           </tr>
           <tr>
-            <td>Wednesday</td>
-            <td><input type="text" id="wednesday1" /></td>
-            <td><input type="text" id="wednesday2" /></td>
-            <td><input type="text" id="wednesday3" /></td>
-            <td><input type="text" id="wednesday4" /></td>
-            <td><input type="text" id="wednesday5" /></td>
-          </tr>
-          <tr>
-            <td>Thursday</td>
-            <td><input type="text" id="thursday1" /></td>
-            <td><input type="text" id="thursday2" /></td>
-            <td><input type="text" id="thursday3" /></td>
-            <td><input type="text" id="thursday4" /></td>
-            <td><input type="text" id="thursday5" /></td>
-          </tr>
-          <tr>
-            <td>Friday</td>
-            <td><input type="text" id="friday1" /></td>
-            <td><input type="text" id="friday2" /></td>
-            <td><input type="text" id="friday3" /></td>
-            <td><input type="text" id="friday4" /></td>
-            <td><input type="text" id="friday5" /></td>
-          </tr>
-          <tr>
-            <td>Saturday</td>
-            <td><input type="text" id="saturday1" /></td>
-            <td><input type="text" id="saturday2" /></td>
-            <td><input type="text" id="saturday3" /></td>
-            <td><input type="text" id="saturday4" /></td>
-            <td><input type="text" id="saturday5" /></td>
+            <td>5:00 PM</td>
+            <td>Cross</td>
+            <td>Candle 1</td>
+            <td>Candle 2</td>
+            <td>Bell</td>
+            <td>Bigbell 1</td>
+            <td>Bigbell 2</td>
+            <td>Server 1</td>
+            <td>Server 2</td>
           </tr>
         </tbody>
       </table>
-      <button onclick="saveSchedule('monday')">Save Monday Schedule</button>
-      <button onclick="saveSchedule('tuesday')">Save Tuesday Schedule</button>
-      <button onclick="saveSchedule('wednesday')">Save Wednesday Schedule</button>
-      <button onclick="saveSchedule('thursday')">Save Thursday Schedule</button>
-      <button onclick="saveSchedule('friday')">Save Friday Schedule</button>
-      <button onclick="saveSchedule('saturday')">Save Saturday Schedule</button>
     </section>
   </div>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers</p>
+    <p>© 2025 San Gregorio Magno Altar Servers. All Rights Reserved.</p>
   </footer>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
-
+  <!-- Firebase Configuration -->
   <script>
     // Firebase Configuration
     const firebaseConfig = {
@@ -237,55 +192,52 @@
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
       databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.appspot.com",
+      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
       messagingSenderId: "184021840775",
       appId: "1:184021840775:web:1ac06fe4838046010a9922",
       measurementId: "G-MQVV9NJ0SS"
     };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
-    // Handling Auth
-    firebase.auth().onAuthStateChanged(function(user) {
+    // Function to handle the input fields becoming readonly after a prompt
+    function handleInputChange(event) {
+      const inputField = event.target;
+      const value = inputField.value;
+
+      // Show prompt
+      if (confirm("Are you sure you want to save this and make it uneditable?")) {
+        // Turn the field to readonly
+        inputField.setAttribute("readonly", true);
+        // Save the value to Firebase
+        const day = inputField.id.split('Server')[0].toLowerCase();
+        const serverId = inputField.id.split('Server')[1];
+        const scheduleRef = database.ref('schedule/' + day + '/server' + serverId);
+        scheduleRef.set(value);
+      }
+    }
+
+    // Add event listeners for all inputs
+    const inputs = document.querySelectorAll('.serverInput');
+    inputs.forEach(input => {
+      input.addEventListener('blur', handleInputChange);
+    });
+
+    // Firebase authentication (if needed for user-specific login/logout)
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        document.getElementById('logoutLink').style.display = 'inline-block';
-        document.getElementById('loginLink').style.display = 'none';
-        document.getElementById('signupLink').style.display = 'none';
+        document.getElementById("loginLink").style.display = "none";
+        document.getElementById("signupLink").style.display = "none";
+        document.getElementById("logoutLink").style.display = "inline";
       } else {
-        document.getElementById('logoutLink').style.display = 'none';
-        document.getElementById('loginLink').style.display = 'inline-block';
-        document.getElementById('signupLink').style.display = 'inline-block';
+        document.getElementById("loginLink").style.display = "inline";
+        document.getElementById("signupLink").style.display = "inline";
+        document.getElementById("logoutLink").style.display = "none";
       }
     });
 
-    // Logout Function
     function logout() {
-      firebase.auth().signOut().then(() => {
-        window.location.reload();
-      }).catch((error) => {
-        console.log(error);
-      });
-    }
-
-    // Save the schedule to Firebase
-    function saveSchedule(day) {
-      const servers = [];
-      for (let i = 1; i <= 5; i++) {
-        const server = document.getElementById(`${day}${i}`).value;
-        servers.push(server);
-      }
-
-      // Save to Firebase
-      firebase.database().ref('schedule/' + day).set({
-        servers: servers
-      }).then(() => {
-        alert("Schedule saved successfully!");
-      }).catch((error) => {
-        alert("Error saving schedule: " + error.message);
-      });
+      firebase.auth().signOut();
     }
   </script>
 </body>
