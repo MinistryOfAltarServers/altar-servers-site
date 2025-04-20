@@ -93,8 +93,8 @@
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
     <a href="#contact">Contact</a>
-    <a href="#login">Login</a> <!-- Link to the Login form -->
-    <a href="#signup">Sign Up</a> <!-- Link to the Sign-Up form -->
+    <a href="#login" onclick="showLoginForm()">Login</a> 
+    <a href="#signup" onclick="showSignupForm()">Sign Up</a>
   </nav>
 
   <!-- About Us Section -->
@@ -158,30 +158,26 @@
           <td><input type="text" id="monday4"></td>
           <td><input type="text" id="monday5"></td>
         </tr>
-        <tr>
-          <td>Tuesday</td>
-          <td><input type="text" id="tuesday1"></td>
-          <td><input type="text" id="tuesday2"></td>
-          <td><input type="text" id="tuesday3"></td>
-          <td><input type="text" id="tuesday4"></td>
-          <td><input type="text" id="tuesday5"></td>
-        </tr>
         <!-- Repeat for other weekdays -->
       </table>
     </section>
   </div>
 
-  <!-- Contact Section -->
-  <div class="content-box" id="contact">
-    <section>
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
-    </section>
+  <!-- Login Form -->
+  <div id="loginForm" class="content-box" style="display: none;">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email" required>
+    <input type="password" id="loginPassword" placeholder="Password" required>
+    <button onclick="login()">Login</button>
   </div>
 
-  <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
-  </footer>
+  <!-- Sign Up Form -->
+  <div id="signupForm" class="content-box" style="display: none;">
+    <h2>Sign Up</h2>
+    <input type="email" id="signupEmail" placeholder="Email" required>
+    <input type="password" id="signupPassword" placeholder="Password" required>
+    <button onclick="signUp()">Sign Up</button>
+  </div>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
@@ -203,30 +199,48 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    const db = firebase.firestore();
 
-    // Function to prompt before making fields readonly
-    function setReadOnly(fieldId) {
-      const userConfirmed = confirm("Are you sure this cannot be changed?");
-      if (userConfirmed) {
-        document.getElementById(fieldId).readOnly = true;
-        const value = document.getElementById(fieldId).value;
-        // Update Firebase with the value
-        const day = fieldId.split('1')[0]; // Get the day from fieldId
-        db.collection("schedule").doc(day).set({
-          [fieldId]: value
-        }, { merge: true });
-      }
+    // Function to display login form
+    function showLoginForm() {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('signupForm').style.display = 'none';
     }
 
-    // Example of setting read-only for weekday servers
-    document.getElementById("monday1").addEventListener("blur", function () {
-      setReadOnly("monday1");
-    });
+    // Function to display sign up form
+    function showSignupForm() {
+      document.getElementById('signupForm').style.display = 'block';
+      document.getElementById('loginForm').style.display = 'none';
+    }
 
-    document.getElementById("monday2").addEventListener("blur", function () {
-      setReadOnly("monday2");
-    });
+    // Sign up function
+    function signUp() {
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert('Sign Up Successful!');
+          // Redirect or display user dashboard
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
+
+    // Login function
+    function login() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          alert('Login Successful!');
+          // Redirect or display user dashboard
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    }
   </script>
 </body>
 </html>
