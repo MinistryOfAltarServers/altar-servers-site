@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <style>
-    /* General Styling */
     body {
       font-family: Arial, sans-serif;
       background-color: #ffcc00;
@@ -111,9 +110,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>7:30 AM</td><td><input type="text" id="sunday730_candle" readonly></td><td><input type="text" id="sunday730_bell" readonly></td><td><input type="text" id="sunday730_bigbell" readonly></td><td><input type="text" id="sunday730_server" readonly></td></tr>
-        <tr><td>9:00 AM</td><td><input type="text" id="sunday900_candle" readonly></td><td><input type="text" id="sunday900_bell" readonly></td><td><input type="text" id="sunday900_bigbell" readonly></td><td><input type="text" id="sunday900_server" readonly></td></tr>
-        <tr><td>5:00 PM</td><td><input type="text" id="sunday1700_candle" readonly></td><td><input type="text" id="sunday1700_bell" readonly></td><td><input type="text" id="sunday1700_bigbell" readonly></td><td><input type="text" id="sunday1700_server" readonly></td></tr>
+        <tr><td>7:30 AM</td><td><input type="text" id="sunday730_candle"></td><td><input type="text" id="sunday730_bell"></td><td><input type="text" id="sunday730_bigbell"></td><td><input type="text" id="sunday730_server"></td></tr>
+        <tr><td>9:00 AM</td><td><input type="text" id="sunday900_candle"></td><td><input type="text" id="sunday900_bell"></td><td><input type="text" id="sunday900_bigbell"></td><td><input type="text" id="sunday900_server"></td></tr>
+        <tr><td>5:00 PM</td><td><input type="text" id="sunday1700_candle"></td><td><input type="text" id="sunday1700_bell"></td><td><input type="text" id="sunday1700_bigbell"></td><td><input type="text" id="sunday1700_server"></td></tr>
       </tbody>
     </table>
   </div>
@@ -181,7 +180,7 @@
       db.collection('schedules').doc(day).set(data)
         .then(() => {
           alert(`${day} schedule locked and saved!`);
-          makeReadonly(day); // Lock inputs
+          lockSpecificInputs(day); // Lock specific inputs for the day
         })
         .catch((error) => {
           console.error("Error saving schedule:", error);
@@ -189,8 +188,8 @@
         });
     }
 
-    // Make input fields readonly
-    function makeReadonly(day) {
+    // Lock specific input fields
+    function lockSpecificInputs(day) {
       const inputs = document.querySelectorAll(`#${day} input[type="text"]`);
       inputs.forEach(input => {
         input.setAttribute("readonly", "true");
@@ -204,17 +203,4 @@
       const dayInputs = document.querySelectorAll(`#${day} input[type="text"]`);
       dayInputs.forEach(input => {
         input.addEventListener('blur', function() {
-          const inputs = Array.from(document.querySelectorAll(`#${day} input[type="text"]`)).map(input => input.value);
-          if (inputs.every(input => input !== "")) {
-            const confirmAction = confirm(`Are you sure you want to lock the schedule for ${day.charAt(0).toUpperCase() + day.slice(1)}? This cannot be changed.`);
-            if (confirmAction) {
-              saveSchedule(day, { servers: inputs });
-            }
-          }
-        });
-      });
-    });
-  </script>
-
-</body>
-</html>
+          const inputs = Array.from(document.querySelectorAll(`#${day} input[type="text"]`)).
