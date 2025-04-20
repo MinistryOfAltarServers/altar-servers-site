@@ -6,178 +6,116 @@
   <title>San Gregorio Magno Altar Servers</title>
   <style>
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
       background-color: yellow;
       color: black;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
     }
-
     header, footer {
       background-color: black;
       color: white;
-      padding: 10px;
+      padding: 1em;
       text-align: center;
     }
-
-    .navbar {
-      background-color: black;
+    nav {
+      display: flex;
+      justify-content: space-around;
+      background-color: #222;
+      padding: 0.5em 0;
+    }
+    nav a {
       color: white;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      text-decoration: none;
+      font-size: 1.5em;
     }
-
-    .navbar h2 {
-      margin: 0;
+    .tab {
+      display: none;
+      padding: 2em;
     }
-
-    .auth-buttons {
-      display: flex;
-      gap: 10px;
+    .tab.active {
+      display: block;
     }
-
-    .auth-buttons button {
-      background-color: white;
-      color: black;
-      border: 1px solid black;
-      padding: 6px 12px;
-      cursor: pointer;
-    }
-
-    .auth-buttons button:hover {
-      background-color: #ddd;
-    }
-
-    table {
+    #schedule table {
       width: 100%;
-      border-collapse: collapse;
-      margin: 20px auto;
       background-color: white;
       color: black;
+      border-collapse: collapse;
     }
-
-    th, td {
+    #schedule th, #schedule td {
       border: 1px solid black;
-      padding: 10px;
+      padding: 0.5em;
       text-align: center;
     }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 5px;
-      box-sizing: border-box;
-    }
-
     #modal {
       display: none;
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
       justify-content: center;
       align-items: center;
     }
-
     #modal-content {
       background-color: white;
       padding: 20px;
       border-radius: 5px;
-      color: black;
-    }
-
-    button {
-      margin: 5px;
-      padding: 10px 15px;
-      background-color: black;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #444;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="navbar">
-      <h2>San Gregorio Magno Altar Servers</h2>
-      <div class="auth-buttons">
-        <button id="login">Login</button>
-        <button id="signup">Sign Up</button>
-      </div>
-    </div>
+    <h1>San Gregorio Magno</h1>
   </header>
 
-  <table>
-    <tr>
-      <th>Day</th>
-      <th>Server 1</th>
-      <th>Server 2</th>
-      <th>Server 3</th>
-      <th>Server 4</th>
-      <th>Server 5</th>
-    </tr>
-    <tr>
-      <td>Monday</td>
-      <td><input id="monday-server-1" type="text" /></td>
-      <td><input id="monday-server-2" type="text" /></td>
-      <td><input id="monday-server-3" type="text" /></td>
-      <td><input id="monday-server-4" type="text" /></td>
-      <td><input id="monday-server-5" type="text" /></td>
-    </tr>
-    <tr>
-      <td>Tuesday</td>
-      <td><input id="tuesday-server-1" type="text" /></td>
-      <td><input id="tuesday-server-2" type="text" /></td>
-      <td><input id="tuesday-server-3" type="text" /></td>
-      <td><input id="tuesday-server-4" type="text" /></td>
-      <td><input id="tuesday-server-5" type="text" /></td>
-    </tr>
-    <tr>
-      <td>Wednesday</td>
-      <td><input id="wednesday-server-1" type="text" /></td>
-      <td><input id="wednesday-server-2" type="text" /></td>
-      <td><input id="wednesday-server-3" type="text" /></td>
-      <td><input id="wednesday-server-4" type="text" /></td>
-      <td><input id="wednesday-server-5" type="text" /></td>
-    </tr>
-    <tr>
-      <td>Thursday</td>
-      <td><input id="thursday-server-1" type="text" /></td>
-      <td><input id="thursday-server-2" type="text" /></td>
-      <td><input id="thursday-server-3" type="text" /></td>
-      <td><input id="thursday-server-4" type="text" /></td>
-      <td><input id="thursday-server-5" type="text" /></td>
-    </tr>
-    <tr>
-      <td>Friday</td>
-      <td><input id="friday-server-1" type="text" /></td>
-      <td><input id="friday-server-2" type="text" /></td>
-      <td><input id="friday-server-3" type="text" /></td>
-      <td><input id="friday-server-4" type="text" /></td>
-      <td><input id="friday-server-5" type="text" /></td>
-    </tr>
-    <tr>
-      <td>Saturday</td>
-      <td><input id="saturday-server-1" type="text" /></td>
-      <td><input id="saturday-server-2" type="text" /></td>
-      <td><input id="saturday-server-3" type="text" /></td>
-      <td><input id="saturday-server-4" type="text" /></td>
-      <td><input id="saturday-server-5" type="text" /></td>
-    </tr>
-    <tr>
-      <td>Sunday</td>
-      <td colspan="5">Cross Candle: 1, Bell: 1, Big Bell: 2</td>
-    </tr>
-  </table>
+  <nav>
+    <a href="#" onclick="showTab('about')">About</a>
+    <a href="#" onclick="showTab('schedule')">Schedule</a>
+    <a href="#" onclick="showTab('contact')">Contact</a>
+    <a href="#">Login</a>
+    <a href="#">Signup</a>
+  </nav>
 
-  <!-- Modal -->
+  <main>
+    <section id="about" class="tab active">
+      <h2>About</h2>
+      <p>This is the about section. (You can edit later)</p>
+    </section>
+
+    <section id="schedule" class="tab">
+      <h2>Weekly Schedule</h2>
+      <table>
+        <tr>
+          <th>Day</th>
+          <th>Server 1</th>
+          <th>Server 2</th>
+          <th>Server 3</th>
+          <th>Server 4</th>
+          <th>Server 5</th>
+        </tr>
+        <!-- Editable Days -->
+        ${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].map(day => `
+        <tr>
+          <td>${day}</td>
+          ${[1,2,3,4,5].map(i => `<td><input id="${day.toLowerCase()}-server-${i}" type="text"/></td>`).join('')}
+        </tr>`).join('')}
+        <!-- Static Sunday -->
+        <tr>
+          <td>Sunday</td>
+          <td colspan="5">Cross Candle: 1, Bell: 1, Big Bell: 2</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="contact" class="tab">
+      <h2>Contact</h2>
+      <p>This is the contact section. (You can edit later)</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 San Gregorio Magno Altar Servers</p>
+  </footer>
+
   <div id="modal">
     <div id="modal-content">
       <p>Are you sure you want to make changes to this schedule?</p>
@@ -186,7 +124,7 @@
     </div>
   </div>
 
-  <!-- Firebase Setup -->
+  <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
 
@@ -204,36 +142,41 @@
 
     const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
+
     let currentField = null;
+
+    function showTab(tabName) {
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+    }
 
     function loadScheduleFromFirebase() {
       const scheduleRef = database.ref('schedule');
       scheduleRef.once('value').then(snapshot => {
-        const data = snapshot.val();
-        if (data) {
-          localStorage.setItem('schedule', JSON.stringify(data));
-          populateFields(data);
-        } else {
-          loadScheduleFromLocalStorage();
+        const scheduleData = snapshot.val();
+        if (scheduleData) {
+          for (let day in scheduleData) {
+            for (let server in scheduleData[day]) {
+              const inputElement = document.getElementById(`${day.toLowerCase()}-${server}`);
+              if (inputElement) inputElement.value = scheduleData[day][server];
+            }
+          }
+          localStorage.setItem('schedule', JSON.stringify(scheduleData));
         }
-      }).catch(err => {
-        console.warn("Firebase down, loading from local storage.");
+      }).catch(error => {
+        console.error("Firebase error:", error);
         loadScheduleFromLocalStorage();
       });
     }
 
     function loadScheduleFromLocalStorage() {
-      const data = JSON.parse(localStorage.getItem('schedule'));
-      if (data) {
-        populateFields(data);
-      }
-    }
-
-    function populateFields(data) {
-      for (let day in data) {
-        for (let server in data[day]) {
-          const field = document.getElementById(`${day.toLowerCase()}-${server}`);
-          if (field) field.value = data[day][server];
+      const localData = JSON.parse(localStorage.getItem('schedule'));
+      if (localData) {
+        for (let day in localData) {
+          for (let server in localData[day]) {
+            const inputElement = document.getElementById(`${day.toLowerCase()}-${server}`);
+            if (inputElement) inputElement.value = localData[day][server];
+          }
         }
       }
     }
@@ -241,7 +184,6 @@
     function saveScheduleToFirebase() {
       const days = ['monday','tuesday','wednesday','thursday','friday','saturday'];
       const scheduleData = {};
-
       days.forEach(day => {
         scheduleData[day] = {};
         for (let i = 1; i <= 5; i++) {
@@ -249,20 +191,18 @@
           if (input) scheduleData[day][`server${i}`] = input.value;
         }
       });
-
       database.ref('schedule').set(scheduleData)
         .then(() => {
           localStorage.setItem('schedule', JSON.stringify(scheduleData));
-          alert('Schedule saved to Firebase!');
         })
-        .catch(err => {
-          console.error("Save failed:", err);
-          alert('Failed to save to Firebase, stored locally.');
+        .catch(error => {
+          console.error("Save failed:", error);
+          alert("Unable to save to Firebase. Changes saved locally.");
         });
     }
 
-    function openModalOnBlur(e) {
-      currentField = e.target;
+    function openModalOnBlur(event) {
+      currentField = event.target;
       document.getElementById('modal').style.display = 'flex';
     }
 
@@ -287,9 +227,5 @@
     window.onload = loadScheduleFromFirebase;
     setInterval(saveScheduleToFirebase, 30000);
   </script>
-
-  <footer>
-    &copy; 2025 San Gregorio Magno Parish
-  </footer>
 </body>
 </html>
