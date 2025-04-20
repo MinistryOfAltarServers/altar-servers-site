@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>San Gregorio Magno Altar Servers</title>
   <style>
     body {
@@ -20,7 +20,6 @@
       text-align: center;
     }
 
-    /* Navigation Bar Styling */
     nav {
       background-color: #222;
       text-align: center;
@@ -36,20 +35,6 @@
       text-decoration: none;
       font-weight: bold;
       font-size: 18px;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #fff;
-    }
-
-    .content-box {
-      background: #fff;
-      margin: 20px auto;
-      padding: 20px;
-      max-width: 1000px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     table {
@@ -65,12 +50,6 @@
     th, td {
       padding: 10px;
       text-align: center;
-    }
-
-    input[type="text"], input[type="email"], input[type="password"] {
-      width: 90%;
-      padding: 5px;
-      font-size: 1em;
     }
 
     footer {
@@ -93,8 +72,9 @@
     <a href="#about">About Us</a>
     <a href="#schedule">Schedule</a>
     <a href="#contact">Contact</a>
-    <a href="#login" onclick="showLoginForm()">Login</a> 
-    <a href="#signup" onclick="showSignupForm()">Sign Up</a>
+    <a href="login.html" id="loginLink" style="display: none;">Login</a>
+    <a href="signup.html" id="signupLink" style="display: none;">Sign Up</a>
+    <a href="javascript:void(0);" id="logoutLink" style="display: none;" onclick="logout()">Logout</a>
   </nav>
 
   <!-- About Us Section -->
@@ -105,7 +85,7 @@
     </section>
   </div>
 
-  <!-- Sunday Schedule Section -->
+  <!-- Schedule Section -->
   <div class="content-box" id="schedule">
     <section>
       <h2>Sunday Schedule</h2>
@@ -123,25 +103,43 @@
         </tr>
         <tr>
           <td>7:30 AM</td>
-          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
         </tr>
         <tr>
           <td>9:00 AM</td>
-          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
         </tr>
         <tr>
           <td>5:00 PM</td>
-          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
+          <td>---</td>
         </tr>
       </table>
     </section>
-  </div>
 
-  <!-- Weekday Schedule Section -->
-  <div class="content-box" id="schedule">
-    <section>
-      <h2>Weekday Schedule</h2>
-      <table>
+    <h2>Weekday Schedule</h2>
+    <table>
+      <thead>
         <tr>
           <th>Day</th>
           <th>Server 1</th>
@@ -150,97 +148,128 @@
           <th>Server 4</th>
           <th>Server 5</th>
         </tr>
+      </thead>
+      <tbody>
+        <!-- Monday to Saturday input fields for servers -->
         <tr>
           <td>Monday</td>
-          <td><input type="text" id="monday1"></td>
-          <td><input type="text" id="monday2"></td>
-          <td><input type="text" id="monday3"></td>
-          <td><input type="text" id="monday4"></td>
-          <td><input type="text" id="monday5"></td>
+          <td><input type="text" id="monday1" /></td>
+          <td><input type="text" id="monday2" /></td>
+          <td><input type="text" id="monday3" /></td>
+          <td><input type="text" id="monday4" /></td>
+          <td><input type="text" id="monday5" /></td>
         </tr>
-        <!-- Repeat for other weekdays -->
-      </table>
-    </section>
+        <tr>
+          <td>Tuesday</td>
+          <td><input type="text" id="tuesday1" /></td>
+          <td><input type="text" id="tuesday2" /></td>
+          <td><input type="text" id="tuesday3" /></td>
+          <td><input type="text" id="tuesday4" /></td>
+          <td><input type="text" id="tuesday5" /></td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td><input type="text" id="wednesday1" /></td>
+          <td><input type="text" id="wednesday2" /></td>
+          <td><input type="text" id="wednesday3" /></td>
+          <td><input type="text" id="wednesday4" /></td>
+          <td><input type="text" id="wednesday5" /></td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td><input type="text" id="thursday1" /></td>
+          <td><input type="text" id="thursday2" /></td>
+          <td><input type="text" id="thursday3" /></td>
+          <td><input type="text" id="thursday4" /></td>
+          <td><input type="text" id="thursday5" /></td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td><input type="text" id="friday1" /></td>
+          <td><input type="text" id="friday2" /></td>
+          <td><input type="text" id="friday3" /></td>
+          <td><input type="text" id="friday4" /></td>
+          <td><input type="text" id="friday5" /></td>
+        </tr>
+        <tr>
+          <td>Saturday</td>
+          <td><input type="text" id="saturday1" /></td>
+          <td><input type="text" id="saturday2" /></td>
+          <td><input type="text" id="saturday3" /></td>
+          <td><input type="text" id="saturday4" /></td>
+          <td><input type="text" id="saturday5" /></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <!-- Login Form -->
-  <div id="loginForm" class="content-box" style="display: none;">
-    <h2>Login</h2>
-    <input type="email" id="loginEmail" placeholder="Email" required>
-    <input type="password" id="loginPassword" placeholder="Password" required>
-    <button onclick="login()">Login</button>
-  </div>
-
-  <!-- Sign Up Form -->
-  <div id="signupForm" class="content-box" style="display: none;">
-    <h2>Sign Up</h2>
-    <input type="email" id="signupEmail" placeholder="Email" required>
-    <input type="password" id="signupPassword" placeholder="Password" required>
-    <button onclick="signUp()">Sign Up</button>
-  </div>
+  <footer>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers</p>
+  </footer>
 
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
 
   <script>
-    // Your Firebase config
+    // Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
+      databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "altar-servers-e3e2a",
       storageBucket: "altar-servers-e3e2a.appspot.com",
       messagingSenderId: "184021840775",
       appId: "1:184021840775:web:1ac06fe4838046010a9922",
       measurementId: "G-MQVV9NJ0SS"
     };
-
+    
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
+    const database = firebase.database();
 
-    // Function to display login form
-    function showLoginForm() {
-      document.getElementById('loginForm').style.display = 'block';
-      document.getElementById('signupForm').style.display = 'none';
+    // Handle user authentication state
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        document.getElementById('logoutLink').style.display = 'inline-block';
+        document.getElementById('loginLink').style.display = 'none';
+        document.getElementById('signupLink').style.display = 'none';
+      } else {
+        document.getElementById('logoutLink').style.display = 'none';
+        document.getElementById('loginLink').style.display = 'inline-block';
+        document.getElementById('signupLink').style.display = 'inline-block';
+      }
+    });
+
+    // Logout function
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.reload();
+      }).catch((error) => {
+        console.log(error);
+      });
     }
 
-    // Function to display sign up form
-    function showSignupForm() {
-      document.getElementById('signupForm').style.display = 'block';
-      document.getElementById('loginForm').style.display = 'none';
+    // Save the weekday schedule to Firebase
+    function saveSchedule(day) {
+      const servers = [];
+      for (let i = 1; i <= 5; i++) {
+        const server = document.getElementById(`${day}${i}`).value;
+        servers.push(server);
+      }
+
+      firebase.database().ref('schedule/' + day).set({
+        servers: servers
+      }).then(() => {
+        alert("Schedule saved successfully!");
+      }).catch((error) => {
+        alert("Error saving schedule: " + error.message);
+      });
     }
 
-    // Sign up function
-    function signUp() {
-      const email = document.getElementById('signupEmail').value;
-      const password = document.getElementById('signupPassword').value;
-
-      auth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          alert('Sign Up Successful!');
-          // Redirect or display user dashboard
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    }
-
-    // Login function
-    function login() {
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-
-      auth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          alert('Login Successful!');
-          // Redirect or display user dashboard
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    }
   </script>
+
 </body>
 </html>
