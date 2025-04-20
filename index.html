@@ -20,27 +20,26 @@
       text-align: center;
     }
 
+    /* Navigation Bar Styling */
     nav {
       background-color: #222;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
+      text-align: center;
+      padding: 15px 0;
       position: sticky;
       top: 0;
       z-index: 1000;
     }
 
-    .nav-left a, .nav-right a {
+    nav a {
       color: #ffcc00;
-      margin: 0 10px;
+      margin: 0 20px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 18px;
       transition: color 0.3s;
     }
 
-    .nav-left a:hover, .nav-right a:hover {
+    nav a:hover {
       color: #fff;
     }
 
@@ -68,15 +67,10 @@
       text-align: center;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="email"], input[type="password"] {
       width: 90%;
       padding: 5px;
       font-size: 1em;
-    }
-
-    .readonly-input {
-      background-color: #eee;
-      color: #555;
     }
 
     footer {
@@ -96,83 +90,109 @@
 
   <!-- Navigation Bar -->
   <nav>
-    <div class="nav-left">
-      <a href="#about">About Us</a>
-      <a href="#schedule">Schedule</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="nav-right">
-      <a href="signup.html">Sign Up</a>
-      <a href="login.html">Login</a>
-    </div>
+    <a href="#about">About Us</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#contact">Contact</a>
+    <a href="#login">Login</a> <!-- Link to the Login form -->
+    <a href="#signup">Sign Up</a> <!-- Link to the Sign-Up form -->
   </nav>
 
-  <!-- About Section -->
+  <!-- About Us Section -->
   <div class="content-box" id="about">
-    <h2>About Us</h2>
-    <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+    <section>
+      <h2>About Us</h2>
+      <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+    </section>
   </div>
 
-  <!-- Schedule Section -->
+  <!-- Sunday Schedule Section -->
   <div class="content-box" id="schedule">
-    <h2>Sunday Schedule</h2>
-    <table>
-      <tr>
-        <th>Time</th>
-        <th>Cross</th>
-        <th>Candle 1</th>
-        <th>Candle 2</th>
-        <th>Big Bell 1</th>
-        <th>Big Bell 2</th>
-        <th>Server 1</th>
-        <th>Server 2</th>
-      </tr>
-      <tr><td>7:30 AM</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>9:00 AM</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-      <tr><td>5:00 PM</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    </table>
+    <section>
+      <h2>Sunday Schedule</h2>
+      <table>
+        <tr>
+          <th>Time</th>
+          <th>Cross</th>
+          <th>Candle 1</th>
+          <th>Candle 2</th>
+          <th>Bell</th>
+          <th>Big Bell 1</th>
+          <th>Big Bell 2</th>
+          <th>Server 1</th>
+          <th>Server 2</th>
+        </tr>
+        <tr>
+          <td>7:30 AM</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>9:00 AM</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>5:00 PM</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+        </tr>
+      </table>
+    </section>
+  </div>
 
-    <h2>Weekday Schedule</h2>
-    <table>
-      <tr>
-        <th>Day</th>
-        <th>Server 1</th>
-        <th>Server 2</th>
-        <th>Server 3</th>
-        <th>Server 4</th>
-        <th>Server 5</th>
-      </tr>
-      <script>
-        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        days.forEach(day => {
-          document.write(`<tr>
-            <td>${day}</td>
-            ${[1,2,3,4,5].map(i => `<td><input type="text" id="${day.toLowerCase()}-server${i}" placeholder="Server ${i}" onchange="confirmAndMakeReadonly(this)" /></td>`).join('')}
-          </tr>`);
-        });
-      </script>
-    </table>
+  <!-- Weekday Schedule Section -->
+  <div class="content-box" id="schedule">
+    <section>
+      <h2>Weekday Schedule</h2>
+      <table>
+        <tr>
+          <th>Day</th>
+          <th>Server 1</th>
+          <th>Server 2</th>
+          <th>Server 3</th>
+          <th>Server 4</th>
+          <th>Server 5</th>
+        </tr>
+        <tr>
+          <td>Monday</td>
+          <td><input type="text" id="monday1"></td>
+          <td><input type="text" id="monday2"></td>
+          <td><input type="text" id="monday3"></td>
+          <td><input type="text" id="monday4"></td>
+          <td><input type="text" id="monday5"></td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td><input type="text" id="tuesday1"></td>
+          <td><input type="text" id="tuesday2"></td>
+          <td><input type="text" id="tuesday3"></td>
+          <td><input type="text" id="tuesday4"></td>
+          <td><input type="text" id="tuesday5"></td>
+        </tr>
+        <!-- Repeat for other weekdays -->
+      </table>
+    </section>
   </div>
 
   <!-- Contact Section -->
   <div class="content-box" id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
+    <section>
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:altarservers@parish.org">altarservers@parish.org</a></p>
+    </section>
   </div>
 
   <footer>
-    <p>&copy; 2025 San Gregorio Magno Altar Servers. All rights reserved.</p>
+    <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
 
   <script>
+    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
       authDomain: "altar-servers-e3e2a.firebaseapp.com",
-      databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "altar-servers-e3e2a",
       storageBucket: "altar-servers-e3e2a.appspot.com",
       messagingSenderId: "184021840775",
@@ -180,42 +200,33 @@
       measurementId: "G-MQVV9NJ0SS"
     };
 
+    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
-    function confirmAndMakeReadonly(inputElement) {
-      if (inputElement.readOnly) return;
-      const value = inputElement.value;
-      if (!value) return;
-
-      const confirmMsg = confirm("Are you sure this cannot be changed?");
-      if (confirmMsg) {
-        inputElement.readOnly = true;
-        inputElement.classList.add("readonly-input");
-
-        db.ref("schedule/" + inputElement.id).set({
-          value: value,
-          readonly: true
-        });
+    // Function to prompt before making fields readonly
+    function setReadOnly(fieldId) {
+      const userConfirmed = confirm("Are you sure this cannot be changed?");
+      if (userConfirmed) {
+        document.getElementById(fieldId).readOnly = true;
+        const value = document.getElementById(fieldId).value;
+        // Update Firebase with the value
+        const day = fieldId.split('1')[0]; // Get the day from fieldId
+        db.collection("schedule").doc(day).set({
+          [fieldId]: value
+        }, { merge: true });
       }
     }
 
-    window.onload = function () {
-      const inputs = document.querySelectorAll("input[type=text]");
-      inputs.forEach((input) => {
-        const id = input.id;
-        db.ref("schedule/" + id).once("value").then((snapshot) => {
-          const data = snapshot.val();
-          if (data) {
-            input.value = data.value;
-            if (data.readonly) {
-              input.readOnly = true;
-              input.classList.add("readonly-input");
-            }
-          }
-        });
-      });
-    };
+    // Example of setting read-only for weekday servers
+    document.getElementById("monday1").addEventListener("blur", function () {
+      setReadOnly("monday1");
+    });
+
+    document.getElementById("monday2").addEventListener("blur", function () {
+      setReadOnly("monday2");
+    });
   </script>
 </body>
 </html>
