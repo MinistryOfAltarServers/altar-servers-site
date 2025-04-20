@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>San Gregorio Magno Altar Servers</title>
   <link rel="stylesheet" href="style.css" />
   <script defer src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
@@ -37,8 +37,7 @@
         projectId: "altar-servers-e3e2a",
         storageBucket: "altar-servers-e3e2a.appspot.com",
         messagingSenderId: "184021840775",
-        appId: "1:184021840775:web:1ac06fe4838046010a9922",
-        measurementId: "G-MQVV9NJ0SS"
+        appId: "1:184021840775:web:1ac06fe4838046010a9922"
       };
 
       firebase.initializeApp(firebaseConfig);
@@ -51,8 +50,12 @@
         for (let i = 1; i <= 5; i++) {
           const id = `${day}-server-${i}`;
           const input = document.getElementById(id);
-          const local = localStorage.getItem(id);
-          if (local) input.value = local;
+          if (!input) continue;
+
+          input.setAttribute('readonly', true);
+
+          const localVal = localStorage.getItem(id);
+          if (localVal) input.value = localVal;
 
           db.ref(`schedule/${id}`).once('value').then(snapshot => {
             if (snapshot.exists()) {
@@ -63,27 +66,36 @@
 
           input.addEventListener('dblclick', () => {
             input.removeAttribute('readonly');
+            input.focus();
           });
 
-          input.addEventListener('change', () => {
-            currentInput = { id, input };
-            document.getElementById('confirmModal').style.display = 'block';
+          input.addEventListener('blur', () => {
+            if (!input.hasAttribute('readonly')) {
+              currentInput = { id, input };
+              document.getElementById('confirmModal').style.display = 'block';
+            }
           });
         }
       });
 
       document.getElementById('confirmYes').addEventListener('click', () => {
-        const { id, input } = currentInput;
-        db.ref(`schedule/${id}`).set(input.value);
-        localStorage.setItem(id, input.value);
-        input.setAttribute('readonly', true);
+        if (currentInput) {
+          const { id, input } = currentInput;
+          db.ref(`schedule/${id}`).set(input.value);
+          localStorage.setItem(id, input.value);
+          input.setAttribute('readonly', true);
+          currentInput = null;
+        }
         document.getElementById('confirmModal').style.display = 'none';
       });
 
       document.getElementById('confirmNo').addEventListener('click', () => {
-        const { id, input } = currentInput;
-        input.value = localStorage.getItem(id) || '';
-        input.setAttribute('readonly', true);
+        if (currentInput) {
+          const { id, input } = currentInput;
+          input.value = localStorage.getItem(id) || '';
+          input.setAttribute('readonly', true);
+          currentInput = null;
+        }
         document.getElementById('confirmModal').style.display = 'none';
       });
     });
@@ -104,61 +116,21 @@
 
   <main style="padding: 2rem;">
     <h2>Weekday Schedule</h2>
-    <table style="width: 100%; background-color: white; color: black; border-collapse: collapse; border: 1px solid black;">
-      <thead>
-        <tr>
-          <th style="border: 1px solid black;">Day</th>
-          <th style="border: 1px solid black;">Server 1</th>
-          <th style="border: 1px solid black;">Server 2</th>
-          <th style="border: 1px solid black;">Server 3</th>
-          <th style="border: 1px solid black;">Server 4</th>
-          <th style="border: 1px solid black;">Server 5</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td style="border: 1px solid black;">Monday</td>
-          <td><input type="text" id="monday-server-1" readonly></td>
-          <td><input type="text" id="monday-server-2" readonly></td>
-          <td><input type="text" id="monday-server-3" readonly></td>
-          <td><input type="text" id="monday-server-4" readonly></td>
-          <td><input type="text" id="monday-server-5" readonly></td>
-        </tr>
-        <tr><td style="border: 1px solid black;">Tuesday</td>
-          <td><input type="text" id="tuesday-server-1" readonly></td>
-          <td><input type="text" id="tuesday-server-2" readonly></td>
-          <td><input type="text" id="tuesday-server-3" readonly></td>
-          <td><input type="text" id="tuesday-server-4" readonly></td>
-          <td><input type="text" id="tuesday-server-5" readonly></td>
-        </tr>
-        <tr><td style="border: 1px solid black;">Wednesday</td>
-          <td><input type="text" id="wednesday-server-1" readonly></td>
-          <td><input type="text" id="wednesday-server-2" readonly></td>
-          <td><input type="text" id="wednesday-server-3" readonly></td>
-          <td><input type="text" id="wednesday-server-4" readonly></td>
-          <td><input type="text" id="wednesday-server-5" readonly></td>
-        </tr>
-        <tr><td style="border: 1px solid black;">Thursday</td>
-          <td><input type="text" id="thursday-server-1" readonly></td>
-          <td><input type="text" id="thursday-server-2" readonly></td>
-          <td><input type="text" id="thursday-server-3" readonly></td>
-          <td><input type="text" id="thursday-server-4" readonly></td>
-          <td><input type="text" id="thursday-server-5" readonly></td>
-        </tr>
-        <tr><td style="border: 1px solid black;">Friday</td>
-          <td><input type="text" id="friday-server-1" readonly></td>
-          <td><input type="text" id="friday-server-2" readonly></td>
-          <td><input type="text" id="friday-server-3" readonly></td>
-          <td><input type="text" id="friday-server-4" readonly></td>
-          <td><input type="text" id="friday-server-5" readonly></td>
-        </tr>
-        <tr><td style="border: 1px solid black;">Saturday</td>
-          <td><input type="text" id="saturday-server-1" readonly></td>
-          <td><input type="text" id="saturday-server-2" readonly></td>
-          <td><input type="text" id="saturday-server-3" readonly></td>
-          <td><input type="text" id="saturday-server-4" readonly></td>
-          <td><input type="text" id="saturday-server-5" readonly></td>
-        </tr>
-      </tbody>
+    <table style="width: 100%; background-color: white; color: black; border-collapse: collapse;">
+      <tr>
+        <th>Day</th>
+        <th>Server 1</th>
+        <th>Server 2</th>
+        <th>Server 3</th>
+        <th>Server 4</th>
+        <th>Server 5</th>
+      </tr>
+      <tr><td>Monday</td><td><input type="text" id="monday-server-1"></td><td><input type="text" id="monday-server-2"></td><td><input type="text" id="monday-server-3"></td><td><input type="text" id="monday-server-4"></td><td><input type="text" id="monday-server-5"></td></tr>
+      <tr><td>Tuesday</td><td><input type="text" id="tuesday-server-1"></td><td><input type="text" id="tuesday-server-2"></td><td><input type="text" id="tuesday-server-3"></td><td><input type="text" id="tuesday-server-4"></td><td><input type="text" id="tuesday-server-5"></td></tr>
+      <tr><td>Wednesday</td><td><input type="text" id="wednesday-server-1"></td><td><input type="text" id="wednesday-server-2"></td><td><input type="text" id="wednesday-server-3"></td><td><input type="text" id="wednesday-server-4"></td><td><input type="text" id="wednesday-server-5"></td></tr>
+      <tr><td>Thursday</td><td><input type="text" id="thursday-server-1"></td><td><input type="text" id="thursday-server-2"></td><td><input type="text" id="thursday-server-3"></td><td><input type="text" id="thursday-server-4"></td><td><input type="text" id="thursday-server-5"></td></tr>
+      <tr><td>Friday</td><td><input type="text" id="friday-server-1"></td><td><input type="text" id="friday-server-2"></td><td><input type="text" id="friday-server-3"></td><td><input type="text" id="friday-server-4"></td><td><input type="text" id="friday-server-5"></td></tr>
+      <tr><td>Saturday</td><td><input type="text" id="saturday-server-1"></td><td><input type="text" id="saturday-server-2"></td><td><input type="text" id="saturday-server-3"></td><td><input type="text" id="saturday-server-4"></td><td><input type="text" id="saturday-server-5"></td></tr>
     </table>
   </main>
 
