@@ -48,7 +48,7 @@
       padding: 20px;
       max-width: 1000px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
     table {
@@ -66,15 +66,26 @@
       text-align: center;
     }
 
-    input[type="text"] {
+    input[type="text"], input[type="email"], input[type="password"] {
       width: 90%;
       padding: 5px;
       font-size: 1em;
     }
 
-    input[readonly] {
-      background-color: #eee;
-      cursor: not-allowed;
+    button {
+      background-color: #000;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #ffcc00;
+      color: #000;
     }
 
     footer {
@@ -83,6 +94,11 @@
       text-align: center;
       padding: 15px;
       margin-top: 40px;
+    }
+
+    .readonly-input {
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
     }
   </style>
 </head>
@@ -94,144 +110,96 @@
 
   <!-- Navigation Bar -->
   <nav>
-    <a href="#about">About Us</a>
-    <a href="#schedule">Schedule</a>
-    <a href="#contact">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="schedule.html">Schedule</a>
+    <a href="contact.html">Contact</a>
     <a href="login.html">Login</a>
     <a href="signup.html">Sign Up</a>
   </nav>
 
-  <!-- About Us Section -->
-  <div class="content-box" id="about">
-    <h2>About Us</h2>
-    <p>The San Gregorio Magno Altar Servers are a group of dedicated young individuals who serve during liturgical celebrations.</p>
+  <!-- Weekday Schedule (Monday to Saturday) -->
+  <div class="content-box" id="schedule">
+    <h2>Weekday Schedule (Monday to Saturday)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Candle</th>
+          <th>Bigbell</th>
+          <th>Server</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Repeat for each day -->
+        <!-- Monday -->
+        <tr>
+          <td>7:00 AM</td>
+          <td><input type="text" id="mondayCandle1" placeholder="Enter Name"></td>
+          <td><input type="text" id="mondayBigbell1" placeholder="Enter Name"></td>
+          <td><input type="text" id="mondayServer1" placeholder="Enter Name"></td>
+        </tr>
+        <tr>
+          <td>9:00 AM</td>
+          <td><input type="text" id="mondayCandle2" placeholder="Enter Name"></td>
+          <td><input type="text" id="mondayBigbell2" placeholder="Enter Name"></td>
+          <td><input type="text" id="mondayServer2" placeholder="Enter Name"></td>
+        </tr>
+        <!-- Add Tuesday to Saturday with same structure (5 fields per day) -->
+        <!-- Repeat for other weekdays... -->
+      </tbody>
+    </table>
   </div>
 
-  <!-- Sunday Schedule (Static, No Input Fields) -->
-  <div class="content-box" id="schedule">
+  <!-- Sunday Schedule (Static) -->
+  <div class="content-box">
     <h2>Sunday Schedule</h2>
     <table>
       <thead>
         <tr>
           <th>Time</th>
-          <th>Cross</th>
           <th>Candle</th>
-          <th>Big Bell</th>
+          <th>Bigbell</th>
           <th>Server</th>
         </tr>
       </thead>
       <tbody>
-        <!-- 7:30 AM Schedule -->
         <tr>
           <td>7:30 AM</td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
+          <td>2</td> <!-- Static content -->
+          <td>2</td> <!-- Static content -->
+          <td>2</td> <!-- Static content -->
         </tr>
-        <!-- 9:00 AM Schedule -->
         <tr>
           <td>9:00 AM</td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
+          <td>2</td> <!-- Static content -->
+          <td>2</td> <!-- Static content -->
+          <td>2</td> <!-- Static content -->
         </tr>
-        <!-- 5:00 PM Schedule -->
         <tr>
           <td>5:00 PM</td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
-          <td><input type="text" value="2" readonly /></td>
+          <td>2</td> <!-- Static content -->
+          <td>2</td> <!-- Static content -->
+          <td>2</td> <!-- Static content -->
         </tr>
       </tbody>
     </table>
-  </div>
-
-  <!-- Weekdays Schedule (Monday to Saturday) -->
-  <div class="content-box" id="weekdays">
-    <h2>Weekdays Schedule</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Day</th>
-          <th>Cross</th>
-          <th>Candle</th>
-          <th>Big Bell</th>
-          <th>Server</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Monday -->
-        <tr>
-          <td>Monday</td>
-          <td><input type="text" id="monCross" /></td>
-          <td><input type="text" id="monCandle" /></td>
-          <td><input type="text" id="monBigBell" /></td>
-          <td><input type="text" id="monServer" /></td>
-        </tr>
-        <!-- Tuesday -->
-        <tr>
-          <td>Tuesday</td>
-          <td><input type="text" id="tueCross" /></td>
-          <td><input type="text" id="tueCandle" /></td>
-          <td><input type="text" id="tueBigBell" /></td>
-          <td><input type="text" id="tueServer" /></td>
-        </tr>
-        <!-- Repeat similar rows for Wednesday to Saturday -->
-      </tbody>
-    </table>
-    <button onclick="saveWeekdaySchedule()">Save Weekday Schedule</button>
   </div>
 
   <footer>
     <p>&copy; 2025 San Gregorio Magno Altar Servers | San Gregorio Magno</p>
   </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
-
   <script>
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyDnDFr6TxeQC4x7COUHR_zLTynlpUDqkNA",
-      authDomain: "altar-servers-e3e2a.firebaseapp.com",
-      databaseURL: "https://altar-servers-e3e2a-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "altar-servers-e3e2a",
-      storageBucket: "altar-servers-e3e2a.firebasestorage.app",
-      messagingSenderId: "184021840775",
-      appId: "1:184021840775:web:1ac06fe4838046010a9922",
-      measurementId: "G-MQVV9NJ0SS"
-    };
-
-    // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // Function to save weekday schedule
-    function saveWeekdaySchedule() {
-      // Loop through Monday to Saturday, get values and save
-      const schedule = {
-        monday: {
-          cross: document.getElementById('monCross').value,
-          candle: document.getElementById('monCandle').value,
-          bigBell: document.getElementById('monBigBell').value,
-          server: document.getElementById('monServer').value
-        },
-        // Add similar data for Tuesday to Saturday here
-      };
-      
-      // Save the schedule to Firebase
-      db.collection("schedules").doc("weekdays").set(schedule)
-        .then(() => {
-          alert("Schedule saved successfully!");
-        })
-        .catch((error) => {
-          console.error("Error saving schedule: ", error);
-        });
-    }
+    // Weekday schedule confirmation
+    document.querySelectorAll("input[type='text']").forEach(input => {
+      input.addEventListener('change', function() {
+        const confirmChange = confirm("Are you sure this cannot be changed?");
+        if (confirmChange) {
+          this.setAttribute('readonly', true);
+          this.classList.add('readonly-input');
+        }
+      });
+    });
   </script>
 
 </body>
