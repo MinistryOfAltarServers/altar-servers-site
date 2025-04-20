@@ -149,8 +149,8 @@
     <section>
       <h2>Schedule</h2>
 
-      <!-- Weekdays Schedule -->
-      <table>
+      <!-- Sunday Schedule (Static) -->
+      <table id="sunday-schedule">
         <thead>
           <tr>
             <th>Day</th>
@@ -161,13 +161,27 @@
             <th>Server 5</th>
           </tr>
         </thead>
-        <tbody id="weekday-schedule">
-          <!-- Sunday - Static Text -->
+        <tbody>
           <tr>
             <td>Sunday</td>
             <td colspan="5">John Doe, Jane Doe, and others (Static)</td>
           </tr>
-          <!-- Editable weekdays -->
+        </tbody>
+      </table>
+
+      <!-- Weekdays Schedule -->
+      <table id="weekday-schedule">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Server 1</th>
+            <th>Server 2</th>
+            <th>Server 3</th>
+            <th>Server 4</th>
+            <th>Server 5</th>
+          </tr>
+        </thead>
+        <tbody>
           <tr>
             <td>Monday</td>
             <td><input type="text" id="monday-server-1"></td>
